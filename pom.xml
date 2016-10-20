@@ -553,7 +553,7 @@
 	</dependencies>
 	
 	<build>
-		<finalName>eTir</finalName>
+		<finalName>etir</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
