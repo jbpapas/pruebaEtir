@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-nov-2010 11:56:35 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.ConveniosDTO" table="GA_CONVENIOS">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.ConveniosDTOId">
+            <key-property name="coProvincia" type="string">
+                <column name="CO_PROVINCIA" length="2" />
+            </key-property>
+            <key-property name="coMunicipio" type="string">
+                <column name="CO_MUNICIPIO" length="3" />
+            </key-property>
+            <key-property name="ejercicio" type="short">
+                <column name="EJERCICIO" precision="4" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="tipoOrdenanza" type="string">
+            <column name="TIPO_ORDENANZA" length="1" />
+        </property>
+        <property name="boExclusionPpp" type="boolean">
+            <column name="BO_EXCLUSION_PPP" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="imMaxCompensacion" type="big_decimal">
+            <column name="IM_MAX_COMPENSACION" precision="15" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <set name="conveniosConceptoDTOs" inverse="true" lazy="true" table="GA_CONVENIOS_CONCEPTO" fetch="select">
+            <key>
+                <column name="CO_PROVINCIA" length="2" not-null="true" />
+                <column name="CO_MUNICIPIO" length="3" not-null="true" />
+                <column name="EJERCICIO" precision="4" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ConveniosConceptoDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

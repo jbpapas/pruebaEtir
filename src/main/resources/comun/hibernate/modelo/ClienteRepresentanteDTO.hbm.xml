@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-may-2012 9:28:29 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.ClienteRepresentanteDTO" table="GA_CLIENTE_REPRESENTANTE">
+        <id name="coClienteRepresentante" type="java.lang.Long">
+            <column name="CO_CLIENTE_REPRESENTANTE" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_CLIENTE_REPRESENTANTE</param>
+            </generator>
+        </id>
+        <many-to-one name="clienteDTO" class="es.dipucadiz.etir.comun.dto.ClienteDTO" fetch="select">
+            <column name="CO_CLIENTE" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="representanteDTO" class="es.dipucadiz.etir.comun.dto.ClienteDTO" fetch="select">
+            <column name="CO_REPRESENTANTE" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="circuitoDTO" class="es.dipucadiz.etir.comun.dto.CircuitoDTO" fetch="select">
+            <column name="CO_CIRCUITO" length="10" not-null="true" />
+        </many-to-one>
+        <property name="fxDesde" type="date">
+            <column name="FX_DESDE" length="7" />
+        </property>
+        <property name="fxHasta" type="date">
+            <column name="FX_HASTA" length="7" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <!--<property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>-->
+    </class>
+</hibernate-mapping>

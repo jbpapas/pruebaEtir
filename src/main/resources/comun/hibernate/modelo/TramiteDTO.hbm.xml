@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 07-abr-2010 9:08:08 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.TramiteDTO" table="GA_TRAMITE">
+        <id name="coTramite" type="java.lang.Long">
+            <column name="CO_TRAMITE" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_TRAMITE</param>
+            </generator>
+        </id>
+        <many-to-one name="incidenciaSituacionDTO" class="es.dipucadiz.etir.comun.dto.IncidenciaSituacionDTO" fetch="select">
+            <column name="CO_INCIDENCIA_SITUACION" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="procesoDTO" class="es.dipucadiz.etir.comun.dto.ProcesoDTO" fetch="select">
+            <column name="CO_PROCESO" length="20" />
+        </many-to-one>
+        <many-to-one name="circuitoRutaDTO" class="es.dipucadiz.etir.comun.dto.CircuitoRutaDTO" fetch="select">
+            <column name="CO_CIRCUITO" length="10" />
+            <column name="CO_PROVINCIA" length="2" />
+            <column name="CO_MUNICIPIO" length="3" />
+        </many-to-one>
+        <property name="etiqueta" type="string">
+            <column name="ETIQUETA" length="10" />
+        </property>
+        <property name="pregunta" type="string">
+            <column name="PREGUNTA" length="200" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="50" />
+        </property>
+        <property name="tipoTramite" type="string">
+            <column name="TIPO_TRAMITE" length="2" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" />
+        </property>
+        <property name="tipoEjecucion" type="string">
+            <column name="TIPO_EJECUCION" length="1" />
+        </property>
+        <property name="tipoCaptura" type="string">
+            <column name="TIPO_CAPTURA" length="1" />
+        </property>
+        <property name="boSello" type="java.lang.Boolean">
+            <column name="BO_SELLO" precision="1" scale="0" />
+        </property>
+        <property name="boObservaciones" type="java.lang.Boolean">
+            <column name="BO_OBSERVACIONES" precision="1" scale="0" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="boActuacionUsuario" type="java.lang.Boolean">
+            <column name="BO_ACTUACION_USUARIO" precision="1" scale="0" />
+        </property>
+        <property name="boAsociarDocumento" type="java.lang.Boolean">
+            <column name="BO_ASOCIAR_DOCUMENTO" precision="1" scale="0" />
+        </property>
+        <property name="boAdjuntarDocumentacion" type="java.lang.Boolean">
+            <column name="BO_ADJUNTAR_DOCUMENTACION" precision="1" scale="0" />
+        </property>
+        <property name="boDocumentoIndividual" type="java.lang.Boolean">
+            <column name="BO_DOCUMENTO_INDIVIDUAL" precision="1" scale="0" />
+        </property>
+        <many-to-one name="procesoInterrupcionDTO" class="es.dipucadiz.etir.comun.dto.ProcesoDTO" fetch="select">
+            <column name="CO_PROCESO_INTERRUPCION" length="20" />
+        </many-to-one>
+        <set name="tramiteTransicionDTOsForCoTramiteDestino" inverse="true" lazy="true" table="GA_TRAMITE_TRANSICION" fetch="select">
+            <key>
+                <column name="CO_TRAMITE_DESTINO" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.TramiteTransicionDTO" />
+        </set>
+        <set name="tramiteTransicionDTOsForCoTramiteOrigen" inverse="true" lazy="true" table="GA_TRAMITE_TRANSICION" fetch="select">
+            <key>
+                <column name="CO_TRAMITE_ORIGEN" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.TramiteTransicionDTO" />
+        </set>
+        <set name="tramitePlantillaDTOs" inverse="true" lazy="true" table="GA_TRAMITE_PLANTILLA" fetch="select">
+            <key>
+                <column name="CO_TRAMITE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.TramitePlantillaDTO" />
+        </set>
+        <set name="tramiteCircDependienteDTOs" inverse="true" lazy="true" table="GA_TRAMITE_CIRC_DEPENDIENTE" fetch="select">
+            <key>
+                <column name="CO_TRAMITE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.TramiteCircDependienteDTO" />
+        </set>
+        <set name="tramiteCircDerivadoDTOs" inverse="true" lazy="true" table="GA_TRAMITE_CIRC_DERIVADO" fetch="select">
+            <key>
+                <column name="CO_TRAMITE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.TramiteCircDerivadoDTO" />
+        </set>
+        <set name="expedienteDTOs" inverse="true" lazy="true" table="GA_EXPEDIENTE" fetch="select">
+            <key>
+                <column name="CO_TRAMITE_ORIGEN" precision="10" scale="0" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ExpedienteDTO" />
+        </set>
+        <set name="tramiteUnidadAdminDTOs" inverse="true" lazy="true" table="GA_TRAMITE_UNIDAD_ADMIN" fetch="select">
+            <key>
+                <column name="CO_TRAMITE_ORIGEN" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.TramiteUnidadAdminDTO" />
+        </set>
+        <set name="tramiteCondicionDTOs" inverse="true" lazy="true" table="GA_TRAMITE_CONDICION" fetch="select">
+            <key>
+                <column name="CO_TRAMITE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.TramiteCondicionDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+        <property name="dias" type="java.lang.Short">
+            <column name="DIAS" precision="4" scale="0" />
+        </property>
+        <property name="hora" type="java.lang.Short">
+            <column name="HORA" precision="4" scale="0" />
+        </property>
+        <many-to-one name="tramiteRemitenteDTO" class="es.dipucadiz.etir.comun.dto.TramiteDTO" fetch="select">
+            <column name="CO_TRAMITE_REMITENTE" precision="10" scale="0" />
+        </many-to-one>
+        <property name="tipoRemitente" type="string">
+            <column name="TIPO_REMITENTE" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

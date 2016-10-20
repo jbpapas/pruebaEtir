@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 16-mar-2011 9:09:57 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.MovimientoContableDTO" table="GA_MOVIMIENTO_CONTABLE">
+        <id name="coMovimientoContable" type="java.lang.Long">
+            <column name="CO_MOVIMIENTO_CONTABLE" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_MOVIMIENTO_CONTABLE</param>
+            </generator>
+        </id>
+        <many-to-one name="diputacionCuentaDTO" class="es.dipucadiz.etir.comun.dto.DiputacionCuentaDTO" fetch="select">
+            <column name="CO_BANCO" length="4" />
+            <column name="CO_BANCO_SUCURSAL" length="4" />
+            <column name="DC" length="2" />
+            <column name="CUENTA" length="10" />
+        </many-to-one>
+        <many-to-one name="documentoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoDTO" fetch="select">
+            <column name="CO_MODELO_ORIGEN" length="3" />
+            <column name="CO_VERSION_ORIGEN" length="1" />
+            <column name="CO_DOCUMENTO_ORIGEN" length="9" />
+        </many-to-one>
+        <many-to-one name="movimientoContableDTO" class="es.dipucadiz.etir.comun.dto.MovimientoContableDTO" fetch="select">
+            <column name="CO_MOVIMIENTO_CONTABLE_HABER" precision="10" scale="0" />
+        </many-to-one>
+        <property name="boHaber" type="boolean">
+            <column name="BO_HABER" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="boAplicado" type="boolean">
+            <column name="BO_APLICADO" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="importe" type="big_decimal">
+            <column name="IMPORTE" precision="15" />
+        </property>
+        <property name="fxValor" type="date">
+            <column name="FX_VALOR" length="7" />
+        </property>
+        <property name="nuIntervencion" type="java.lang.Long">
+            <column name="NU_INTERVENCION" precision="10" scale="0" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <set name="movimientoContableDTOs" inverse="true" lazy="true" table="GA_MOVIMIENTO_CONTABLE" fetch="select">
+            <key>
+                <column name="CO_MOVIMIENTO_CONTABLE_HABER" precision="10" scale="0" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.MovimientoContableDTO" />
+        </set>
+        <set name="movimContableClienteDTOs" inverse="true" lazy="true" table="GA_MOVIM_CONTABLE_CLIENTE" fetch="select">
+            <key>
+                <column name="CO_MOVIMIENTO_CONTABLE" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.MovimContableClienteDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+         <many-to-one name="documentoSeguimientoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoSeguimientoDTO" fetch="select">
+            <column name="CO_DOCUMENTO_SEGUIMIENTO" length="10" />
+        </many-to-one>
+         <many-to-one name="depositoDTO" class="es.dipucadiz.etir.comun.dto.DepositoDTO" fetch="select">
+            <column name="CO_DEPOSITO" length="10" />
+        </many-to-one>    
+            <property name="conceptoComplementario" type="string">
+            <column name="CONCEPTO_COMPLEMENTARIO" length="4000" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-nov-2010 11:56:35 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.PppCondsDTO" table="GA_PPP_CONDS">
+        <id name="coPppConds" type="java.lang.Long">
+            <column name="CO_PPP_CONDS" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_PPP_CONDS</param>
+            </generator>
+        </id>
+        <property name="ejercicio" type="java.lang.Short">
+            <column name="EJERCICIO" precision="4" scale="0" />
+        </property>
+        <property name="fxLimiteConcesion" type="date">
+            <column name="FX_LIMITE_CONCESION" length="7" />
+        </property>
+        <property name="imMinTotal" type="big_decimal">
+            <column name="IM_MIN_TOTAL" precision="17" />
+        </property>
+        <property name="imMinPlazo" type="big_decimal">
+            <column name="IM_MIN_PLAZO" precision="17" />
+        </property>
+        <property name="imDispensaGarantias" type="big_decimal">
+            <column name="IM_DISPENSA_GARANTIAS" precision="17" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="imNotificacion" type="big_decimal">
+            <column name="IM_NOTIFICACION" precision="17" />
+        </property>
+        <set name="pppCondsPlazosDTOs" inverse="true" lazy="true" table="GA_PPP_CONDS_PLAZOS" fetch="select">
+            <key>
+                <column name="CO_PPP_CONDS" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PppCondsPlazosDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

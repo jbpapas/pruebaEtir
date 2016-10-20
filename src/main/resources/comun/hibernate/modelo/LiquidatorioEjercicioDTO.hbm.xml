@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.LiquidatorioEjercicioDTO" table="GA_LIQUIDATORIO_EJERCICIO">
+        <id name="coLiquidatorioEjercicio" type="java.lang.Long">
+            <column name="CO_LIQUIDATORIO_EJERCICIO" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_LIQUIDATORIO_EJERCICIO</param>
+            </generator>
+        </id>
+        <many-to-one name="municipioDTO" class="es.dipucadiz.etir.comun.dto.MunicipioDTO" fetch="select">
+            <column name="CO_PROVINCIA" length="2" not-null="true" />
+            <column name="CO_MUNICIPIO" length="3" not-null="true" />
+        </many-to-one>
+        <many-to-one name="conceptoDTO" class="es.dipucadiz.etir.comun.dto.ConceptoDTO" fetch="select">
+            <column name="CO_CONCEPTO" length="4" not-null="true" />
+        </many-to-one>
+        <many-to-one name="modeloDTO" class="es.dipucadiz.etir.comun.dto.ModeloDTO" fetch="select">
+            <column name="CO_MODELO" length="3" not-null="true" />
+        </many-to-one>
+        <property name="ejercicioDesde" type="short">
+            <column name="EJERCICIO_DESDE" precision="4" scale="0" not-null="true" />
+        </property>
+        <property name="ejercicioHasta" type="short">
+            <column name="EJERCICIO_HASTA" precision="4" scale="0" not-null="true" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <set name="liquidatorioPeriodoDTOs" inverse="true" lazy="true" table="GA_LIQUIDATORIO_PERIODO" fetch="select">
+            <key>
+                <column name="CO_LIQUIDATORIO_EJERCICIO" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.LiquidatorioPeriodoDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

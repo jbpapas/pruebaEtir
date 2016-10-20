@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.CargaExternaDTO" table="GA_CARGA_EXTERNA">
+        <id name="coCargaExterna" type="java.lang.Long">
+            <column name="CO_CARGA_EXTERNA" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_CARGA_EXTERNA</param>
+            </generator>
+        </id>
+        <many-to-one name="municipioDTO" class="es.dipucadiz.etir.comun.dto.MunicipioDTO" fetch="select">
+            <column name="CO_PROVINCIA" length="2" />
+            <column name="CO_MUNICIPIO" length="3" />
+        </many-to-one>
+        <many-to-one name="codigoTerritorialDTO" class="es.dipucadiz.etir.comun.dto.CodigoTerritorialDTO" fetch="select">
+            <column name="CO_CODIGO_TERRITORIAL" length="6" />
+        </many-to-one>
+        <many-to-one name="gestorTareasDTO" class="es.dipucadiz.etir.comun.dto.GestorTareasDTO" fetch="select">
+            <column name="NU_TAREA" length="10" />
+        </many-to-one>
+        <property name="procedencia" type="string">
+            <column name="PROCEDENCIA" length="4" />
+        </property>
+        <property name="ejercicio" type="java.lang.Integer">
+            <column name="EJERCICIO" length="4" />
+        </property>
+        <property name="periodo" type="string">
+            <column name="PERIODO" length="2" />
+        </property>
+        <property name="fichero" type="string">
+            <column name="FICHERO" length="300" />
+        </property>
+        <property name="fxPeticion" type="date">
+            <column name="FX_PETICION" length="7" />
+        </property>       
+        <property name="subtipo" type="string">
+            <column name="CO_SUBTIPO" length="1" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>  
+         <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="nuRecibos" type="java.lang.Integer">
+            <column name="NU_RECIBOS" length="10" />
+        </property>
+        <property name="imTotal" type="big_decimal">
+            <column name="IM_TOTAL" length="17" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>              
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.ProcesoDTO" table="GA_PROCESO">
+        <id name="coProceso" type="string">
+            <column name="CO_PROCESO" length="20" />
+            <generator class="assigned" />
+        </id>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="200" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" />
+        </property>
+        <property name="url" type="string">
+            <column name="URL" length="200" />
+        </property>
+        <property name="prioridad" type="java.lang.Short">
+            <column name="PRIORIDAD" precision="1" scale="0" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="coPlsql" type="string">
+            <column name="CO_PLSQL" length="61" />
+        </property>
+        <set name="tramiteDTOs" inverse="true" lazy="true" table="GA_TRAMITE" fetch="select">
+            <key>
+                <column name="CO_PROCESO" length="20" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.TramiteDTO" />
+        </set>
+        <set name="ejecucionDTOs" inverse="true" lazy="true" table="GA_EJECUCION" fetch="select">
+            <key>
+                <column name="CO_PROCESO" length="20" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.EjecucionDTO" />
+        </set>
+        <set name="planificacionDTOs" inverse="true" lazy="true" table="GA_PLANIFICACION" fetch="select">
+            <key>
+                <column name="CO_PROCESO" length="20" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlanificacionDTO" />
+        </set>
+        <set name="acmProcesoBotonDTOs" inverse="true" lazy="true" table="GA_ACM_PROCESO_BOTON" fetch="select">
+            <key>
+                <column name="CO_PROCESO" length="20" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.AcmProcesoBotonDTO" />
+        </set>
+        <set name="acmMenuDTOs" inverse="true" lazy="true" table="GA_ACM_MENU" fetch="select">
+            <key>
+                <column name="CO_PROCESO" length="20" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.AcmMenuDTO" />
+        </set>
+        <set name="procesoParametroDTOs" inverse="true" lazy="true" table="GA_PROCESO_PARAMETRO" fetch="select">
+            <key>
+                <column name="CO_PROCESO" length="20" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ProcesoParametroDTO" />
+        </set>
+        <set name="procesoAccionDTOs" inverse="true" lazy="true" table="GA_PROCESO_ACCION" fetch="select">
+            <key>
+                <column name="CO_PROCESO" length="20" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ProcesoAccionDTO" />
+        </set>
+        <set name="incidSitCargoDTOs" inverse="true" lazy="true" table="GA_INCID_SIT_CARGO" fetch="select">
+            <key>
+                <column name="CO_PROCESO" length="20" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.IncidSitCargoDTO" />
+        </set>
+        <set name="incidenciaSituacionDTOs" inverse="true" lazy="true" table="GA_INCIDENCIA_SITUACION" fetch="select">
+            <key>
+                <column name="CO_PROCESO" length="20" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.IncidenciaSituacionDTO" />
+        </set>
+        <set name="acmBotonDTOs" inverse="true" lazy="true" table="GA_ACM_BOTON" fetch="select">
+            <key>
+                <column name="CO_PROCESO" length="20" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.AcmBotonDTO" />
+        </set>
+        <set name="ayudaCampoDTOs" inverse="true" lazy="true" table="GA_AYUDA_CAMPO" fetch="select">
+            <key>
+                <column name="CO_PROCESO" length="20" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.AyudaCampoDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

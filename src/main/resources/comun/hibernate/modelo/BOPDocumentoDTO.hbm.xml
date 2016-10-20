@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.BOPDocumentoDTO" table="GA_BOP_DOCUMENTO">
+        <id name="coBOPDocumento" type="java.lang.Long">
+            <column name="CO_BOP_DOCUMENTO" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_BOP_DOCUMENTO</param>
+            </generator>
+        </id>
+        <many-to-one name="documentoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoDTO" fetch="select">
+            <column name="CO_MODELO" length="3" />
+            <column name="CO_VERSION" length="1" />
+            <column name="CO_DOCUMENTO" length="9" />
+        </many-to-one>
+        <many-to-one name="bopDTO" class="es.dipucadiz.etir.comun.dto.BOPDTO" fetch="select">
+            <column name="CO_MODELO_BOP" length="3" />
+            <column name="CO_VERSION_BOP" length="1" />
+            <column name="CO_DOCUMENTO_BOP" length="9" />
+        </many-to-one>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>             
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

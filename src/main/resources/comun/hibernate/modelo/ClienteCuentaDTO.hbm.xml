@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 04-nov-2010 8:41:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.ClienteCuentaDTO" table="GA_CLIENTE_CUENTA">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.ClienteCuentaDTOId">
+            <key-property name="coBanco" type="string">
+                <column name="CO_BANCO" length="4" />
+            </key-property>
+            <key-property name="coBancoSucursal" type="string">
+                <column name="CO_BANCO_SUCURSAL" length="4" />
+            </key-property>
+            <key-property name="dc" type="string">
+                <column name="DC" length="2" />
+            </key-property>
+            <key-property name="cuenta" type="string">
+                <column name="CUENTA" length="10" />
+            </key-property>
+            <key-property name="coCliente" type="long">
+                <column name="CO_CLIENTE" precision="10" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="cuentaDTO" class="es.dipucadiz.etir.comun.dto.CuentaDTO" update="false" insert="false" fetch="select">
+            <column name="CO_BANCO" length="4" not-null="true" />
+            <column name="CO_BANCO_SUCURSAL" length="4" not-null="true" />
+            <column name="DC" length="2" not-null="true" />
+            <column name="CUENTA" length="10" not-null="true" />
+        </many-to-one>
+        <many-to-one name="clienteDTO" class="es.dipucadiz.etir.comun.dto.ClienteDTO" update="false" insert="false" fetch="select">
+            <column name="CO_CLIENTE" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="fxCaducidad" type="date">
+            <column name="FX_CADUCIDAD" length="7" />
+        </property>
+        <property name="origen" type="string">
+            <column name="ORIGEN" length="20" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <set name="domiciliacionDTOs" inverse="true" lazy="true" table="GA_DOMICILIACION" fetch="select">
+            <key>
+                <column name="CO_BANCO" length="4" />
+                <column name="CO_BANCO_SUCURSAL" length="4" />
+                <column name="DC" length="2" />
+                <column name="CUENTA" length="10" />
+                <column name="CO_CLIENTE" precision="10" scale="0" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DomiciliacionDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+        
+ 
+         <property name="boEmbargable" type="java.lang.Boolean">
+            <column name="BO_EMBARGABLE" precision="1" scale="0" />
+        </property>       
+        
+        <property name="fxCaducidadC63" type="date">
+            <column name="FX_CADUCIDAD_C63" length="7" />
+        </property>
+        
+        <property name="fxRecepcionC63" type="date">
+            <column name="FX_RECEPCION_C63" length="7" />
+        </property>                
+         
+        <property name="claveSeguridad63" type="string">
+            <column name="CLAVE_SEGURIDAD_C63" length="12" />
+        </property>      
+        
+        <many-to-one name="expedienteC63" class="es.dipucadiz.etir.comun.dto.ExpedienteDTO" update="false" insert="false" fetch="select">
+            <column name="CO_EXPEDIENTE_C63" precision="10" scale="0" not-null="true" />
+        </many-to-one>	 
+ 	
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-nov-2010 11:56:35 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.JuntaEnvioDTO" table="GA_JUNTA_ENVIO">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.JuntaEnvioDTOId">
+            <key-property name="nuEnvio" type="java.lang.Long">
+                 <column name="NU_ENVIO" precision="6" scale="0" />
+            </key-property>
+            <key-property name="coDelegacion" type="string">
+                <column name="CO_DELEGACION" length="2" />
+            </key-property>
+        </composite-id>  
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="200" />
+        </property>
+        <property name="fxDesde" type="date">
+            <column name="FX_DESDE" precision="1"/>
+        </property>
+        <property name="fxHasta" type="date">
+            <column name="FX_HASTA" precision="1"/>
+        </property>
+        <property name="fxEnvio" type="date">
+            <column name="FX_ENVIO" precision="1"/>
+        </property>
+        <property name="imIngresoAplicadoDeuda" type="big_decimal">
+			<column name="IM_INGRESO_APLICADO_DEUDA" precision="19" />
+		</property>
+		<property name="imInteresesCobrados" type="big_decimal">
+			<column name="IM_INTERESES_COBRADOS" precision="19" />
+		</property>
+       	<property name="imIngresadoEnte" type="big_decimal">
+			<column name="IM_INGRESADO_ENTE" precision="19" />
+		</property>
+   		<property name="nuRegistrosTipo1" type="java.lang.Long">
+			<column name="NU_REGISTROS_TIPO1" precision="8" />
+		</property>
+		<property name="nuRegistrosTipo2" type="java.lang.Long">
+			<column name="NU_REGISTROS_TIPO2" precision="8" />
+		</property>
+		<property name="nuRegistrosTipo3" type="java.lang.Long">
+			<column name="NU_REGISTROS_TIPO3" precision="8" />
+		</property>
+		<property name="nuRegistrosFichero" type="java.lang.Long">
+			<column name="NU_REGISTROS_FICHERO" precision="8" />
+		</property>
+		<property name="imCosteServicio" type="big_decimal">
+			<column name="IM_COSTE_SERVICIO" precision="19" />
+		</property>
+		<property name="coEstado" type="string">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="coResultado" type="string">
+            <column name="RESULTADO" length="2" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+    </class>
+</hibernate-mapping>

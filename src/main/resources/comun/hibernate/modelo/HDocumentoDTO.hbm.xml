@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-mar-2010 12:05:18 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.HDocumentoDTO" table="GA_H_DOCUMENTO">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_H_DOCUMENTO</param>
+            </generator>
+        </id>
+        <property name="coModelo" type="string">
+            <column name="CO_MODELO" length="3" />
+        </property>
+        <property name="coVersion" type="string">
+            <column name="CO_VERSION" length="1" />
+        </property>
+        <property name="coDocumento" type="string">
+            <column name="CO_DOCUMENTO" length="9" />
+        </property>
+        <property name="coCliente" type="java.lang.Long">
+            <column name="CO_CLIENTE" precision="10" scale="0" />
+        </property>
+        <property name="coDomicilio" type="java.lang.Long">
+            <column name="CO_DOMICILIO" precision="10" scale="0" />
+        </property>
+        <property name="coProvincia" type="string">
+            <column name="CO_PROVINCIA" length="2" not-null="true" />
+        </property>
+        <property name="coMunicipio" type="string">
+            <column name="CO_MUNICIPIO" length="3" not-null="true" />
+        </property>
+        <property name="coConcepto" type="string">
+            <column name="CO_CONCEPTO" length="4" />
+        </property>
+        <property name="ejercicio" type="java.lang.Short">
+            <column name="EJERCICIO" precision="4" scale="0" />
+        </property>
+        <property name="periodo" type="string">
+            <column name="PERIODO" length="2" />
+        </property>
+        <property name="refObjTributario1" type="string">
+            <column name="REF_OBJ_TRIBUTARIO" length="30" />
+        </property>
+        <property name="refObjTributario2" type="string">
+            <column name="REF_OBJ_TRIBUTARIO1" length="30" />
+        </property>
+        <property name="refObjTributario3" type="string">
+            <column name="REF_OBJ_TRIBUTARIO2" length="30" />
+        </property>
+        <property name="coUnidadAdministrativa" type="string">
+            <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" />
+        </property>
+        <property name="coCodigoTerritorial" type="string">
+            <column name="CO_CODIGO_TERRITORIAL" length="6" />
+        </property>
+        <property name="fxPresentacion" type="date">
+            <column name="FX_PRESENTACION" length="7" />
+        </property>
+        <property name="fxDevengo" type="date">
+            <column name="FX_DEVENGO" length="7" />
+        </property>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="procedencia" type="string">
+            <column name="PROCEDENCIA" length="4" />
+        </property>
+        <property name="coCargaControlRecepcion" type="java.lang.Long">
+            <column name="CO_CARGA_CONTROL_RECEPCION" precision="10" scale="0" />
+        </property>
+        <property name="coDocumentoOrigen" type="string">
+            <column name="CO_DOCUMENTO_ORIGEN" length="9" />
+        </property>
+        <property name="coModeloOrigen" type="string">
+            <column name="CO_MODELO_ORIGEN" length="3" />
+        </property>
+        <property name="coVersionOrigen" type="string">
+            <column name="CO_VERSION_ORIGEN" length="1" />
+        </property>
+        <property name="coDocumentoResumen" type="string">
+            <column name="CO_DOCUMENTO_RESUMEN" length="9" />
+        </property>
+        <property name="coModeloResumen" type="string">
+            <column name="CO_MODELO_RESUMEN" length="3" />
+        </property>
+        <property name="coVersionResumen" type="string">
+            <column name="CO_VERSION_RESUMEN" length="1" />
+        </property>
+        <property name="coSituacion" type="string">
+            <column name="CO_SITUACION" length="2" />
+        </property>
+        <property name="boIndividual" type="java.lang.Boolean">
+            <column name="BO_INDIVIDUAL" precision="1" scale="0" />
+        </property>
+        <property name="refCatastral" type="string">
+            <column name="REF_CATASTRAL" length="20" />
+        </property>
+        <property name="coDomiciliacion" type="java.lang.Integer">
+            <column name="CO_DOMICILIACION" precision="8" scale="0" />
+        </property>
+        <property name="refDomiciliacion" type="java.lang.Long">
+            <column name="REF_DOMICILIACION" precision="12" scale="0" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="coDomicilioFiscal" type="java.lang.Long">
+            <column name="CO_DOMICILIO_FISCAL" precision="10" scale="0" />
+        </property>
+        <property name="HTipoMovimiento" type="string">
+            <column name="H_TIPO_MOVIMIENTO" length="1" />
+        </property>
+        <property name="coProceso" type="string">
+            <column name="CO_PROCESO" length="20" />
+        </property>
+        <property name="coEjecucion" type="java.lang.Long">
+            <column name="CO_EJECUCION" precision="10" scale="0" />
+        </property>
+        <property name="coIncidenciaSituacion" type="java.lang.Long">
+            <column name="CO_INCIDENCIA_SITUACION" precision="10" scale="0" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

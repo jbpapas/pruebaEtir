@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.UnidadAdministrativaDTO" table="GA_UNIDAD_ADMINISTRATIVA">
+        <id name="coUnidadAdministrativa" type="string">
+            <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="unidadUrbanaDTO" class="es.dipucadiz.etir.comun.dto.UnidadUrbanaDTO" fetch="select">
+            <column name="CO_UNIDAD_URBANA" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="acmUsuarioDTO" class="es.dipucadiz.etir.comun.dto.AcmUsuarioDTO" fetch="select">
+            <column name="CO_ACM_USUARIO" length="10" />
+        </many-to-one>
+        <many-to-one name="unidadAdministrativaDTOByCoUnidadAdminRegistral" class="es.dipucadiz.etir.comun.dto.UnidadAdministrativaDTO" fetch="select">
+            <column name="CO_UNIDAD_ADMIN_REGISTRAL" length="4" />
+        </many-to-one>
+        <many-to-one name="unidadAdministrativaDTOByCoUnidadAdminDepende" class="es.dipucadiz.etir.comun.dto.UnidadAdministrativaDTO" fetch="select">
+            <column name="CO_UNIDAD_ADMIN_DEPENDE" length="4" />
+        </many-to-one>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="50" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" />
+        </property>
+        <property name="telefono" type="java.lang.Integer">
+            <column name="TELEFONO" precision="9" scale="0" />
+        </property>
+        <property name="fax" type="java.lang.Integer">
+            <column name="FAX" precision="9" scale="0" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="50" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="boPrincipal" type="java.lang.Boolean">
+            <column name="BO_PRINCIPAL" precision="1" scale="0" />
+        </property>
+        <set name="extraccionDTOs" inverse="true" lazy="true" table="GA_EXTRACCION" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ExtraccionDTO" />
+        </set>
+        <set name="plantillaFirmaDTOs" inverse="true" lazy="true" table="GA_PLANTILLA_FIRMA" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlantillaFirmaDTO" />
+        </set>
+        <set name="tramiteUnidadAdminDTOs" inverse="true" lazy="true" table="GA_TRAMITE_UNIDAD_ADMIN" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.TramiteUnidadAdminDTO" />
+        </set>
+        <set name="incidSitCargoPermisoDTOs" inverse="true" lazy="true" table="GA_INCID_SIT_CARGO_PERMISO" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.IncidSitCargoPermisoDTO" />
+        </set>
+        <set name="incidenciaSituacionPerDTOs" inverse="true" lazy="true" table="GA_INCIDENCIA_SITUACION_PER" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.IncidenciaSituacionPerDTO" />
+        </set>
+        <set name="cruceGrupoDTOs" inverse="true" lazy="true" table="GA_CRUCE_GRUPO" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CruceGrupoDTO" />
+        </set>
+        <set name="unidadAdministrativaDTOsForCoUnidadAdminRegistral" inverse="true" lazy="true" table="GA_UNIDAD_ADMINISTRATIVA" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMIN_REGISTRAL" length="4" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.UnidadAdministrativaDTO" />
+        </set>
+        <set name="acmUsuarioDTOs" inverse="true" lazy="true" table="GA_ACM_USUARIO" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.AcmUsuarioDTO" />
+        </set>
+        <set name="codterrUniadmDTOs" inverse="true" lazy="true" table="GA_CODTERR_UNIADM" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CodterrUniadmDTO" />
+        </set>
+        <set name="unidadAdministrativaDTOsForCoUnidadAdminDepende" inverse="true" lazy="true" table="GA_UNIDAD_ADMINISTRATIVA" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMIN_DEPENDE" length="4" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.UnidadAdministrativaDTO" />
+        </set>
+        <set name="plantillaImagenDTOs" inverse="true" lazy="true" table="GA_PLANTILLA_IMAGEN" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlantillaImagenDTO" />
+        </set>
+        <set name="documentoDTOs" inverse="true" lazy="true" table="GA_DOCUMENTO" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DocumentoDTO" />
+        </set>
+        <set name="cargoDTOs" inverse="true" lazy="true" table="GA_CARGO" fetch="select">
+            <key>
+                <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CargoDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

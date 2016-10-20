@@ -1,0 +1,166 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 01-dic-2010 16:53:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.HDocumentoLiquidacionDTO" table="GA_H_DOCUMENTO_LIQUIDACION">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_H_DOCUMENTO_LIQUIDACION</param>
+            </generator>
+        </id>
+        <property name="coModelo" type="string">
+            <column name="CO_MODELO" length="3" />
+        </property>
+        <property name="coVersion" type="string">
+            <column name="CO_VERSION" length="1" />
+        </property>
+        <property name="coDocumento" type="string">
+            <column name="CO_DOCUMENTO" length="9" />
+        </property>
+        <property name="coCargoSubcargo" type="java.lang.Long">
+            <column name="CO_CARGO_SUBCARGO" precision="10" scale="0" />
+        </property>
+        <property name="imPrincipal" type="big_decimal">
+            <column name="IM_PRINCIPAL" precision="17" />
+        </property>
+       <!--  <property name="imBaseImponible" type="big_decimal">
+            <column name="IM_BASE_IMPONIBLE" precision="17" />
+        </property>
+        <property name="imBaseLiquidable" type="big_decimal">
+            <column name="IM_BASE_LIQUIDABLE" precision="17" />
+        </property>--> 
+
+        <property name="imRecargoApremio" type="big_decimal">
+            <column name="IM_RECARGO_APREMIO" precision="17" />
+        </property>
+        <property name="imCostas" type="big_decimal">
+            <column name="IM_COSTAS" precision="17" />
+        </property>
+        <property name="fxIniVoluntario" type="date">
+            <column name="FX_INI_VOLUNTARIO" length="7" />
+        </property>
+        <property name="fxFinVoluntario" type="date">
+            <column name="FX_FIN_VOLUNTARIO" length="7" />
+        </property>
+        <property name="fxCobro" type="date">
+            <column name="FX_COBRO" length="7" />
+        </property>
+        <property name="nuIntervencion" type="java.lang.Integer">
+            <column name="NU_INTERVENCION" precision="8" scale="0" />
+        </property>
+        <property name="fxLiquidacion" type="date">
+            <column name="FX_LIQUIDACION" length="7" />
+        </property>
+ 
+        <property name="fxPasoEjecutiva" type="date">
+            <column name="FX_PASO_EJECUTIVA" length="7" />
+        </property>
+        <property name="fxProvidencia" type="date">
+            <column name="FX_PROVIDENCIA" length="7" />
+        </property>
+        <property name="fxDemoraHasta" type="date">
+            <column name="FX_DEMORA_HASTA" length="7" />
+        </property>
+        <property name="fxProcesoCobro" type="date">
+            <column name="FX_PROCESO_COBRO" length="7" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="coFraccionamiento" type="java.lang.Long">
+            <column name="CO_FRACCIONAMIENTO" precision="11" scale="0" />
+        </property>
+        <property name="coPpp" type="java.lang.Long">
+            <column name="CO_PPP" precision="10" scale="0" />
+        </property>
+        <property name="coEstadoSituacion" type="string">
+            <column name="CO_ESTADO_SITUACION" length="1" />
+        </property>
+        <property name="coModoCobro" type="string">
+            <column name="CO_MODO_COBRO" length="3" />
+        </property>
+        <property name="coOtr" type="string">
+            <column name="CO_OTR" length="3" />
+        </property>
+        <property name="imACobrarC19" type="big_decimal">
+            <column name="IM_A_COBRAR_C19" precision="17" />
+        </property>
+        <property name="fxNotifVoluntaria" type="date">
+            <column name="FX_NOTIF_VOLUNTARIA" length="7" />
+        </property>
+        <property name="imCobradoPrincipal" type="big_decimal">
+            <column name="IM_COBRADO_PRINCIPAL" precision="17" />
+        </property>
+        <property name="imCobradoRecApremio" type="big_decimal">
+            <column name="IM_COBRADO_REC_APREMIO" precision="17" />
+        </property>
+        <property name="imCobradoIntereses" type="big_decimal">
+            <column name="IM_COBRADO_INTERESES" precision="17" />
+        </property>
+        <property name="imCobradoCostas" type="big_decimal">
+            <column name="IM_COBRADO_COSTAS" precision="17" />
+        </property>
+        <property name="porcBonificacionDomic" type="big_decimal">
+            <column name="PORC_BONIFICACION_DOMIC" precision="5" />
+        </property>
+        <property name="fxPublicVoluntaria" type="date">
+            <column name="FX_PUBLIC_VOLUNTARIA" length="7" />
+        </property>
+        <property name="fxNotifProvApremio" type="date">
+            <column name="FX_NOTIF_PROV_APREMIO" length="7" />
+        </property>
+        <property name="fxPublicProvApremio" type="date">
+            <column name="FX_PUBLIC_PROV_APREMIO" length="7" />
+        </property>
+        <property name="HTipoMovimiento" type="string">
+            <column name="H_TIPO_MOVIMIENTO" length="1" />
+        </property>
+        <property name="coProceso" type="string">
+            <column name="CO_PROCESO" length="20" />
+        </property>
+        <property name="coEjecucion" type="java.lang.Long">
+            <column name="CO_EJECUCION" precision="10" scale="0" />
+        </property>
+        <property name="imDemoraPendiente" type="big_decimal">
+            <column name="IM_DEMORA_PENDIENTE" precision="17" />
+        </property>
+        <property name="imPpalPdteEjecutiva" type="big_decimal">
+            <column name="IM_PPAL_PDTE_EJECUTIVA" precision="17" />
+        </property>
+        <property name="imPpalInicialEjecutiva" type="big_decimal">
+            <column name="IM_PPAL_INICIAL_EJECUTIVA" precision="17" />
+        </property>
+        <property name="fxPrescripcion" type="date">
+            <column name="FX_PRESCRIPCION" length="7" />
+        </property>
+        <property name="fxDemoraDesde" type="date">
+            <column name="FX_DEMORA_DESDE" length="7" />
+        </property>
+        <property name="fxFirmaProvApremio" type="date">
+            <column name="FX_FIRMA_PROV_APREMIO" length="7" />
+        </property>
+        <property name="imOtrosOrganismosCarga" type="big_decimal">
+            <column name="IM_OTROS_ORGANISMOS_CARGA" precision="17" />
+        </property>
+        <property name="imNoApremiable" type="big_decimal">
+            <column name="IM_NO_APREMIABLE" precision="19" />
+        </property>
+        <property name="imRecargoProvincial" type="big_decimal">
+            <column name="IM_RECARGO_PROVINCIAL" precision="19" />
+        </property>
+        <property name="anoCargoSigre" type="java.lang.Integer">
+            <column name="ANO_CARGO_SIGRE" length="4" />
+        </property>
+          <property name="nuCargoSigre" type="java.lang.Integer">
+            <column name="NU_CARGO_SIGRE" length="4" />
+        </property>
+         <property name="fxBaja" type="date">
+            <column name="FX_BAJA" length="7" />
+        </property>
+    </class>
+</hibernate-mapping>

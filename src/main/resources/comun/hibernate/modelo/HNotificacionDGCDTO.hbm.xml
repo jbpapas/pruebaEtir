@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 26-may-2010 13:41:38 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.HNotificacionDGCDTO" table="GA_H_NOTIFICACION_DGC">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0" />
+           <generator class="sequence">
+                <param name="sequence">SEQ_H_NOTIFICACION_DGC</param>
+            </generator>
+            
+        </id>
+        <property name="coNotificacionDgc" type="java.lang.Long">
+            <column name="CO_NOTIFICACION_DGC" precision="10" scale="0" />
+        </property>
+        <property name="coModelo" type="string">
+            <column name="CO_MODELO" length="3" not-null="true" />
+        </property>
+        <property name="coVersion" type="string">
+            <column name="CO_VERSION" length="1" not-null="true" />
+        </property>
+        <property name="coDocumento" type="string">
+            <column name="CO_DOCUMENTO" length="9" not-null="true" />
+        </property>
+        <property name="expedienteDgc" type="string">
+            <column name="EXPEDIENTE_DGC" length="13" not-null="true" />
+        </property>
+        <property name="anoExpediente" type="short">
+            <column name="ANO_EXPEDIENTE" precision="4" scale="0" not-null="true" />
+        </property>
+        <property name="coProvincia" type="string">
+            <column name="CO_PROVINCIA" length="2" />
+        </property>
+        <property name="coMunicipio" type="string">
+            <column name="CO_MUNICIPIO" length="3" />
+        </property>
+        <property name="coClienteTitular" type="java.lang.Long">
+            <column name="CO_CLIENTE_TITULAR" precision="10" scale="0" />
+        </property>
+        <property name="coClienteDestinatario" type="java.lang.Long">
+            <column name="CO_CLIENTE_DESTINATARIO" precision="10" scale="0" />
+        </property>
+        <property name="documentoExpediente" type="java.lang.Integer">
+            <column name="DOCUMENTO_EXPEDIENTE" precision="8" scale="0" />
+        </property>
+        <property name="boLiquidable" type="java.lang.Boolean">
+            <column name="BO_LIQUIDABLE" precision="1" scale="0" />
+        </property>
+        <property name="fxEnvioBop" type="date">
+            <column name="FX_ENVIO_BOP" length="7" />
+        </property>
+        <property name="resultadoNotificacion" type="string">
+            <column name="RESULTADO_NOTIFICACION" length="1" />
+        </property>
+        <property name="fxNotificacion" type="date">
+            <column name="FX_NOTIFICACION" length="7" />
+        </property>
+        <property name="boLiquidado" type="java.lang.Boolean">
+            <column name="BO_LIQUIDADO" precision="1" scale="0" />
+        </property>
+        <property name="boEnviadoSigre" type="java.lang.Boolean">
+            <column name="BO_ENVIADO_SIGRE" precision="1" scale="0" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" />
+        </property>
+        <property name="boResolucionPapel" type="java.lang.Boolean">
+            <column name="BO_RESOLUCION_PAPEL" precision="1" scale="0" />
+        </property>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="boNotificacionBop" type="java.lang.Boolean">
+            <column name="BO_NOTIFICACION_BOP" precision="1" scale="0" />
+        </property>
+        <property name="coDgc" type="java.lang.Byte">
+            <column name="CO_DGC" precision="2" scale="0" />
+        </property>
+        <property name="fhEnvioSigre" type="timestamp">
+            <column name="FH_ENVIO_SIGRE" length="11" />
+        </property>
+        <property name="fhImpresion" type="timestamp">
+            <column name="FH_IMPRESION" length="11" />
+        </property>
+        <property name="fxDevolucionDgc" type="date">
+            <column name="FX_DEVOLUCION_DGC" length="7" />
+        </property>
+        <property name="ejerEfectoIbi" type="java.lang.Short">
+            <column name="EJER_EFECTO_IBI" precision="4" scale="0" />
+        </property>
+        <property name="ejerEntradaPadron" type="java.lang.Short">
+            <column name="EJER_ENTRADA_PADRON" precision="4" scale="0" />
+        </property>
+        <property name="tipoAlteracion" type="string">
+            <column name="TIPO_ALTERACION" length="1" />
+        </property>
+        <property name="grupoAnulacion" type="java.lang.Long">
+            <column name="GRUPO_ANULACION" precision="15" scale="0" />
+        </property>
+        <property name="fhAnulacion" type="timestamp">
+            <column name="FH_ANULACION" length="11" />
+        </property>
+        <property name="fxEnvioNotificado" type="date">
+            <column name="FX_ENVIO_NOTIFICADO" length="7" />
+        </property>
+        <property name="fxPublicacionBop" type="date">
+            <column name="FX_PUBLICACION_BOP" length="7" />
+        </property>
+        <property name="grupoBop" type="java.lang.Long">
+            <column name="GRUPO_BOP" precision="15" scale="0" />
+        </property>
+        <property name="tipoProcedimiento" type="string">
+            <column name="TIPO_PROCEDIMIENTO" length="4" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="HTipoMovimiento" type="string">
+            <column name="H_TIPO_MOVIMIENTO" length="1" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

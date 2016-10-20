@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd"-->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+	<!-- ======================================================================== -->
+	<!-- ============== OJO, meter concurrentSessionController ================== -->
+	<!-- ======================================================================== -->
+
+   <!-- ======================== FILTER CHAIN ======================= -->
+
+    <bean id="filterChainProxy" class="org.acegisecurity.util.FilterChainProxy">
+      <property name="filterInvocationDefinitionSource">
+         <value><![CDATA[
+		    CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+		    PATTERN_TYPE_APACHE_ANT
+            /**=httpSessionContextIntegrationFilter,logoutFilter,authenticationProcessingFilter,basicProcessingFilter,securityContextHolderAwareRequestFilter,anonymousProcessingFilter,exceptionTranslationFilter,filterInvocationInterceptor
+         ]]></value>
+      </property>
+    </bean>
+
+   <!-- ======================== AUTHENTICATION ======================= -->
+
+   <bean id="_authenticationManager" class="org.acegisecurity.providers.ProviderManager">
+      <property name="providers">
+         <list>
+            <ref local="daoAuthenticationProvider"/>
+            <ref local="anonymousAuthenticationProvider"/>
+            <!--<ref local="rememberMeAuthenticationProvider"/>  -->
+         </list>
+      </property>
+   </bean>
+
+	<bean id="jdbcDaoImpl" class="es.dipucadiz.etir.comun.acegisecurity.GadirUserDetailsService">
+		<property name="dataSource"><ref bean="dataSource"/></property>
+		<!-- <property name="acmUsuarioDAO"><ref bean="acmUsuarioDAO"/></property>
+		<property name="acmMenuDAO"><ref bean="acmMenuDAO"/></property>
+		<property name="acmBotonDAO"><ref bean="acmBotonDAO"/></property>
+		<property name="procesoDAO"><ref bean="procesoDAO"/></property> -->
+		<property name="acmUsuarioBO"><ref bean="acmUsuarioBO"/></property>
+		<!-- <property name="acmMenuBO"><ref bean="acmMenuBO"/></property>
+		<property name="acmBotonBO"><ref bean="acmBotonBO"/></property>
+		<property name="acmUsuarioPreferenciaBO"><ref bean="acmUsuarioPreferenciaBO"/></property> -->
+		<!-- <property name="codigoTerritorialDAO"><ref bean="codigoTerritorialDAO"/></property> -->
+		<!--<property name="municipioDAO"><ref bean="municipioDAO"/></property>-->
+		<!-- no se usa porque sobreescribo el metodo -->
+		<!--<property name="usersByUsernameQuery"> 
+			<value>SELECT login, password, 1 as enabled FROM GA_ACM_USUARIO WHERE login=?</value>
+		</property>
+		<property name="authoritiesByUsernameQuery">
+			<value>SELECT login,'ROLE_USER' as authority FROM GA_ACM_USUARIO WHERE login = ?</value>
+		</property>		-->
+	</bean>
+
+   <!--<bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.Md5PasswordEncoder"/>shaaaa-->
+   <bean id="passwordEncoder" class="org.acegisecurity.providers.encoding.PlaintextPasswordEncoder"/>
+
+   <bean id="daoAuthenticationProvider" class="org.acegisecurity.providers.dao.DaoAuthenticationProvider">
+      <property name="userDetailsService"><ref local="jdbcDaoImpl"/></property>
+		<!-- <property name="userCache"><ref local="userCache"/></property> -->
+      <property name="passwordEncoder"><ref local="passwordEncoder"/></property>
+   </bean>
+   
+   
+<!--
+   <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean"/>
+
+   <bean id="userCacheBackend" class="org.springframework.cache.ehcache.EhCacheFactoryBean">
+      <property name="cacheManager">
+         <ref local="cacheManager"/>
+      </property>
+      <property name="cacheName">
+         <value>userCache</value>
+      </property>
+   </bean>
+
+   <bean id="userCache" class="org.acegisecurity.providers.dao.cache.EhCacheBasedUserCache">
+      <property name="cache"><ref local="userCacheBackend"/></property>
+   </bean>
+-->
+   <!-- Automatically receives AuthenticationEvent messages -->
+   <bean id="loggerListener" class="org.acegisecurity.event.authentication.LoggerListener"/>
+
+   <bean id="basicProcessingFilter" class="org.acegisecurity.ui.basicauth.BasicProcessingFilter">
+      <property name="authenticationManager"><ref local="_authenticationManager"/></property>
+      <property name="authenticationEntryPoint"><ref local="basicProcessingFilterEntryPoint"/></property>
+   </bean>
+
+   <bean id="basicProcessingFilterEntryPoint" class="org.acegisecurity.ui.basicauth.BasicProcessingFilterEntryPoint">
+      <property name="realmName"><value>Contacts Realm</value></property>
+   </bean>
+
+   <bean id="anonymousProcessingFilter" class="org.acegisecurity.providers.anonymous.AnonymousProcessingFilter">
+      <property name="key"><value>foobar</value></property>
+      <property name="userAttribute"><value>anonymousUser,ROLE_ANONYMOUS</value></property>
+   </bean>
+
+   <bean id="anonymousAuthenticationProvider" class="org.acegisecurity.providers.anonymous.AnonymousAuthenticationProvider">
+      <property name="key"><value>foobar</value></property>
+   </bean>
+
+   <bean id="httpSessionContextIntegrationFilter" class="org.acegisecurity.context.HttpSessionContextIntegrationFilter">
+   </bean>
+
+
+   <bean id="logoutFilter" class="org.acegisecurity.ui.logout.LogoutFilter">
+      <constructor-arg value="/login.action?logout=1"/>
+      <constructor-arg>
+         <list>
+              <bean class="org.acegisecurity.ui.logout.SecurityContextLogoutHandler"/>
+         </list>
+      </constructor-arg>
+   </bean>
+
+   <bean id="securityContextHolderAwareRequestFilter" class="org.acegisecurity.wrapper.SecurityContextHolderAwareRequestFilter"/>
+
+   <!-- ===================== HTTP REQUEST SECURITY ==================== -->
+
+   <bean id="exceptionTranslationFilter" class="org.acegisecurity.ui.ExceptionTranslationFilter">
+      <property name="authenticationEntryPoint"><ref local="authenticationProcessingFilterEntryPoint"/></property>
+      <property name="accessDeniedHandler">
+      	<bean class="org.acegisecurity.ui.AccessDeniedHandlerImpl">
+      		<property name="errorPage" value="/accesoDenegado.action"/>
+      	</bean>
+      </property>
+   </bean>
+
+   <bean id="authenticationProcessingFilter" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilter">
+      <property name="authenticationManager"><ref bean="_authenticationManager"/></property>
+      <property name="authenticationFailureUrl"><value>/login.action?login_error=1</value></property>
+      <property name="defaultTargetUrl"><value>/bienvenido.action?lg=1</value></property>
+      <property name="filterProcessesUrl"><value>/j_acegi_security_check</value></property>
+      <property name="alwaysUseDefaultTargetUrl"><value>true</value></property>
+      <property name="exceptionMappings">
+            <props>
+                  <prop key="org.acegisecurity.BadCredentialsException">/login.action?login_error=2</prop>
+                  <prop key="org.acegisecurity.CredentialsExpiredException">/login.action?login_error=3</prop>
+                  <prop key="org.acegisecurity.LockedException">/login.action?login_error=4</prop>
+                  <prop key="org.acegisecurity.DisabledException">/login.action?login_error=5</prop>
+            </props>
+      </property>
+   </bean>
+
+   <bean id="authenticationProcessingFilterEntryPoint" class="org.acegisecurity.ui.webapp.AuthenticationProcessingFilterEntryPoint">
+      <property name="loginFormUrl"><value>/login.action?fin_sesion=1</value></property>
+      <property name="forceHttps"><value>false</value></property>
+   </bean>
+
+   <bean id="httpRequestAccessDecisionManager" class="org.acegisecurity.vote.AffirmativeBased">
+      <property name="allowIfAllAbstainDecisions"><value>true</value></property>
+      <property name="decisionVoters">
+         <list>
+         	<bean id="gadirVoter" class="es.dipucadiz.etir.comun.acegisecurity.GadirVoter"/>
+            <!-- <bean id="roleVoter" class="org.acegisecurity.vote.RoleVoter"/> -->
+         </list>
+      </property>
+   </bean>
+   
+   <!-- Note the order that entries are placed against the objectDefinitionSource is critical.
+        The FilterSecurityInterceptor will work from the top of the list down to the FIRST pattern that matches the request URL.
+        Accordingly, you should place MOST SPECIFIC (ie a/b/c/d.*) expressions first, with LEAST SPECIFIC (ie a/.*) expressions last -->
+   <bean id="filterInvocationInterceptor" class="org.acegisecurity.intercept.web.FilterSecurityInterceptor">
+      <property name="authenticationManager"><ref bean="_authenticationManager"/></property>
+      <property name="accessDecisionManager"><ref local="httpRequestAccessDecisionManager"/></property>
+      <property name="objectDefinitionSource">
+         <value><![CDATA[
+			    CONVERT_URL_TO_LOWERCASE_BEFORE_COMPARISON
+			    PATTERN_TYPE_APACHE_ANT
+			    /index.jsp=ROLE_ANONYMOUS,ROLE_USER
+			    /index2.jsp=ROLE_ANONYMOUS,ROLE_USER
+			    /login.action=ROLE_ANONYMOUS,ROLE_USER
+			    /recordarcontrasena.action=ROLE_ANONYMOUS,ROLE_USER
+			    /accesodenegado.action=ROLE_ANONYMOUS,ROLE_USER
+			    /webservice.action=ROLE_ANONYMOUS,ROLE_USER
+			    /webserviceparametrico.action=ROLE_ANONYMOUS,ROLE_USER
+			    /webservicesessioncounter.action=ROLE_ANONYMOUS,ROLE_USER
+			    /webserviceportafirmas.action=ROLE_ANONYMOUS,ROLE_USER
+			    /webservicenotificaciones.action=ROLE_ANONYMOUS,ROLE_USER
+			    /css/*=ROLE_ANONYMOUS,ROLE_USER
+			    /image/**=ROLE_ANONYMOUS,ROLE_USER
+			    /js/**=ROLE_ANONYMOUS,ROLE_USER
+			    /comun/*=ROLE_ANONYMOUS,ROLE_USER
+			    /struts/**=ROLE_ANONYMOUS,ROLE_USER
+				/**=ROLE_USER
+         ]]></value>
+      </property>
+   </bean>
+
+</beans>

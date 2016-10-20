@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.ExtraccionInformeEstructDTO" table="GA_EXTRACCION_INFORME_ESTRUCT">
+        <id name="coExtraccionInformeEstruct" type="java.lang.Long">
+            <column name="CO_EXTRACCION_INFORME_ESTRUCT" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_EXTRACCION_INFORME_ESTRUC</param>
+            </generator>
+        </id>
+        <!-- <many-to-one name="extraccionEstructuraDTO" class="es.dipucadiz.etir.comun.dto.ExtraccionEstructuraDTO" fetch="select">
+            <column name="CO_EXTRACCION" length="8" />
+            <column name="CO_EXTRACCION_TIPO_REGISTRO" length="10" />
+            <column name="ORDEN_EXTRACCION_ESTRUCTURA" precision="3" scale="0" />
+        </many-to-one> -->
+        <many-to-one name="extraccionInformeDTO" class="es.dipucadiz.etir.comun.dto.ExtraccionInformeDTO" fetch="select">
+            <column name="CO_EXTRACCION" length="8" />
+            <column name="CO_EXTRACCION_INFORME" precision="3" scale="0" />
+        </many-to-one>
+        <!-- jbenitac: a cambio de extraccionEstructuraDTO -->
+        <property name="coExtraccionTipoRegistro" type="string">
+            <column name="CO_EXTRACCION_TIPO_REGISTRO" length="10" />
+        </property>
+        <property name="ordenExtraccionEstructura" type="java.lang.Short">
+            <column name="ORDEN_EXTRACCION_ESTRUCTURA" precision="3" scale="0" />
+        </property>
+        <!-- jbenitac: fin -->
+        <property name="linea" type="java.lang.Short">
+            <column name="LINEA" precision="3" scale="0" />
+        </property>
+        <property name="posIniEstructura" type="java.lang.Short">
+            <column name="POS_INI_ESTRUCTURA" precision="3" scale="0" />
+        </property>
+        <property name="posFinEstructura" type="java.lang.Short">
+            <column name="POS_FIN_ESTRUCTURA" precision="3" scale="0" />
+        </property>
+        <property name="posIniInforme" type="java.lang.Short">
+            <column name="POS_INI_INFORME" precision="3" scale="0" />
+        </property>
+        <property name="cabecera" type="string">
+            <column name="CABECERA" length="50" />
+        </property>
+        <property name="boTotal" type="java.lang.Boolean">
+            <column name="BO_TOTAL" precision="1" scale="0" />
+        </property>
+        <property name="formato" type="string">
+            <column name="FORMATO" length="1" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

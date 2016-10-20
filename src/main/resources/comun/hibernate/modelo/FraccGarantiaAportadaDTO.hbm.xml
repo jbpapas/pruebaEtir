@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2011 11:45:05 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.FraccGarantiaAportadaDTO" table="GA_FRACC_GARANTIA_APORTADA">
+        <id name="coFraccGarantiaAportada" type="java.lang.Long">
+            <column name="CO_FRACC_GARANTIA_APORTADA" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_FRACC_GARANTIA_APORTADA</param>
+            </generator>
+        </id>
+        <many-to-one name="fraccionamientoDTO" class="es.dipucadiz.etir.comun.dto.FraccionamientoDTO" fetch="select">
+            <column name="CO_FRACCIONAMIENTO" precision="11" scale="0" />
+        </many-to-one>
+        <many-to-one name="fraccionamientoGarantiaDTO" class="es.dipucadiz.etir.comun.dto.FraccionamientoGarantiaDTO" fetch="select">
+            <column name="CO_FRACCIONAMIENTO_GARANTIA" precision="10" scale="0" />
+        </many-to-one>
+        <property name="importe" type="big_decimal">
+            <column name="IMPORTE" precision="17" />
+        </property>
+        <property name="fxFin" type="date">
+            <column name="FX_FIN" length="7" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="fxIni" type="date">
+            <column name="FX_INI" length="7" />
+        </property>
+        <property name="texto" type="string">
+            <column name="TEXTO" length="200" />
+        </property>
+        <set name="fraccionamientoPlazoDTOs" inverse="true" lazy="true" table="GA_FRACCIONAMIENTO_PLAZO" fetch="select">
+            <key>
+                <column name="CO_FRACC_GARANTIA_APORTADA" precision="10" scale="0" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.FraccionamientoPlazoDTO" />
+        </set>
+
+        <many-to-one name="bdDocumentalGrupoDTO" class="es.dipucadiz.etir.comun.dto.BDDocumentalGrupoDTO" fetch="select">
+            <column name="CO_BD_DOCUMENTAL_GRUPO" precision="10" scale="0" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

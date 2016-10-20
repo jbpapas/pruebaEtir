@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	
+	<!-- TagLib propio -->
+	<bean class="es.dipucadiz.etir.comun.struts.taglib.GadirTagLibrary" type="org.apache.struts2.views.TagLibrary" name="gadir"/>
+	
+	<!-- Static content loader propio -->
+	<bean class="es.dipucadiz.etir.comun.struts.GadirStaticContentLoader" type="org.apache.struts2.dispatcher.StaticContentLoader" name="gadirStaticLoader" />
+	<constant name="struts.staticContentLoader" value="gadirStaticLoader" />
+
+	<package name="etir" namespace="/" extends="struts-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+			<result-type name="redirectAction"
+				class="es.dipucadiz.etir.comun.struts.GadirRedirectAction" />
+		</result-types>
+
+		
+		<interceptors>
+			<!-- Se sobrescribe el interceptor de los errores de conversión -->
+			<interceptor name="conversionError" class="es.dipucadiz.etir.comun.struts.interceptor.GadirStrutsConversionErrorInterceptor"/>
+			<interceptor name="GadirParams" class="es.dipucadiz.etir.comun.struts.interceptor.GadirStrutsParamsInterceptor"/>
+			<interceptor-stack name="gadirStack">
+				<interceptor-ref name="timer"/>
+				<interceptor-ref name="exception"/>
+                <interceptor-ref name="alias"/>
+                <interceptor-ref name="servletConfig"/>
+                <interceptor-ref name="i18n"/>
+                <interceptor-ref name="chain"/>
+                <interceptor-ref name="checkbox"/>
+                <interceptor-ref name="staticParams"/>
+                <interceptor-ref name="GadirParams">
+                  <param name="excludeParams">dojo\..*,d-\d+-p</param>
+                  <param name="excludeParams">struts\.enableJSONValidation</param>
+                </interceptor-ref>
+                <interceptor-ref name="conversionError"/>
+                <interceptor-ref name="prepare">
+					<param name="excludeMethods">volver,carga*Ajax</param>
+				</interceptor-ref>
+                <interceptor-ref name="validation">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+                <interceptor-ref name="workflow">
+                    <param name="excludeMethods">input,back,cancel,browse</param>
+                </interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="gadirStack"/>
+		
+		<global-results>
+            <result name="error" type="tiles">errorGeneral</result>
+            <result type="freemarker" name="autocompleterOptions">/template/ajax/options.ftl</result>
+			<result type="freemarker" name="ayudaCampo">/template/ajax/ayudaCampo.ftl</result>
+			<result type="freemarker" name="ajaxData">/template/ajax/ajaxData.ftl</result>
+			<result type="freemarker" name="webservice">/template/ajax/webservice.ftl</result>
+        </global-results>
+
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Throwable" />
+		</global-exception-mappings>
+		
+		<action name="login" class="LoginAction">
+			<result name="input" type="tiles">login</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">bienvenido</param>
+			</result>
+		</action>
+		
+		<action name="logout" class="LogoutAction" method="saveLog">
+		</action>
+		
+		<action name="accesoDenegado">
+			<result type="tiles">accesoDenegado</result>
+		</action>
+		
+		<action name="bienvenido" class="BienvenidoAction">
+			<result type="tiles">bienvenido</result>
+			<result name="locked" type="redirectAction">
+				<param name="actionName">usuarioBloqueado</param>
+			</result>
+			<result name="cambiarPassword"  type="tiles">preferencias</result>
+		</action>
+		
+		<action name="usuarioBloqueado" class="UsuarioBloqueadoAction">
+			<result name="input" type="tiles">login</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">bienvenido</param>
+			</result>
+			<result name="volver" type="redirectAction">
+				<param name="actionName">logout</param>
+			</result>
+		</action>
+		
+		<action name="recordarContrasena" class="RecordarContrasenaAction">
+			<result name="input" type="tiles">login</result>
+		</action>
+		
+		<action name="ayudacampo" class="AyudaCampoAction" method="getAyuda">
+		</action>
+		
+		<action name="informacion" class="InformacionAction" >
+			<result type="tiles" name="input">informacion</result>
+		</action>
+		
+		<action name="usuarios" class="UsuariosAction" >
+			<result type="tiles" name="input">usuarios</result>
+		</action>
+		
+		<action name="menu" class="MenuAction">
+		</action>
+		
+		<action name="notificaciones" class="usuarioNotificacionesAction">
+			<result type="freemarker" name="success">/template/ajax/numeroNotificaciones.ftl</result>
+		</action>
+		
+		<action name="notificacionesUsuario" class="usuarioNotificacionesAction" method="muestraNotificaciones">
+			<result>/WEB-INF/jsp/comun/template/notificaciones.jsp</result>
+		</action>
+		
+		<action name="notificaciones3TUsuario" class="usuarioNotificacionesAction" method="muestraNotificaciones">
+			<result>/WEB-INF/jsp/comun/template/notificaciones3T.jsp</result>
+		</action>
+
+		<action name="notificaciones3LUsuario" class="usuarioNotificacionesAction" method="muestraNotificaciones">
+			<result>/WEB-INF/jsp/comun/template/notificaciones3L.jsp</result>
+		</action>
+		
+		<action name="notificacionesGrabarRecibosParciales" class="usuarioNotificacionesAction" method="grabaNotificacionRecibosParciales">
+			<result>/WEB-INF/jsp/comun/blank.jsp</result>
+		</action>
+		
+		<action name="preferencias" class="UsuarioPreferenciasAction" >
+			<result type="tiles" name="input">preferencias</result>
+		</action>
+		
+		<action name="ayudaPeriodoLiquidatorio" class="ayudaPeriodoLiquidatorioAction" >
+			<result type="tiles" name="input">ayudaPeriodoLiquidatorio</result>
+		</action>
+		
+		<action name="ayudaCalle" class="ayudaCalleAction" >
+			<result type="tiles" name="input">ayudaCalle</result>
+		</action>
+		
+		<action name="ayudaContribuyente" class="ayudaContribuyenteAction" >
+			<result type="tiles" name="input">ayudaContribuyente</result>
+		</action>
+		
+		<action name="ayudaCatvia" class="ayudaCatviaAction" >
+			<result type="tiles" name="input">ayudaCatvia</result>
+		</action>
+		
+		<action name="ayudaCodigoTerritorial" class="ayudaCodigoTerritorialAction" >
+			<result type="tiles" name="input">ayudaCodigoTerritorial</result>
+		</action>
+		
+		<action name="ayudaTablaGT" class="ayudaTablaGTAction" >
+			<result type="tiles" name="input">ayudaTablaGT</result>
+		</action>
+		
+		<action name="ayudaTipoBienInmueble" class="ayudaTipoBienInmuebleAction" >
+			<result type="tiles" name="input">ayudaTipoBienInmueble</result>
+		</action>
+		
+		<action name="ayudaUnidadAdministrativa" class="ayudaUnidadAdministrativaAction" >
+			<result type="tiles" name="input">ayudaUnidadAdministrativa</result>
+		</action>
+		
+		<action name="ayudaMunicipio" class="ayudaMunicipioAction" >
+			<result type="tiles" name="input">ayudaMunicipio</result>
+		</action>
+		
+		<action name="ayudaProvincia" class="ayudaProvinciaAction" >
+			<result type="tiles" name="input">ayudaProvincia</result>
+		</action>
+		
+		<action name="ayudaPais" class="ayudaPaisAction" >
+			<result type="tiles" name="input">ayudaPais</result>
+		</action>
+				
+		<action name="historicoGenerico" class="HistoricoGenericoAction" >
+			<result type="tiles" name="input">historicoGenerico</result>
+		</action>
+		
+		<action name="historicoGenericoFiscal" class="HistoricoClienteAction" >
+			<result type="tiles" name="input">historicoGenerico</result>
+		</action>
+		
+		<action name="mantenimientoCasillas" class="MantenimientoCasillasAction" >
+			<result type="tiles" name="input">mantenimientoCasillas</result>
+			<result type="tiles" name="blank">blank</result>
+			<result name="altaAutoCenso" type="redirectAction">
+				<param name="actionName">altaAutomaticaCenso</param>
+				<param name="seleccionarDestinos">${seleccionarDestinos}</param>
+			</result>
+		</action>
+		
+		<action name="altaAutomaticaCenso" class="AltaAutomaticaCensoAction">
+			<result type="tiles" name="input">altaAutomaticaCenso</result>
+			<result type="tiles" name="blank">blank</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">mantenimientoCasillas</param>
+		        <param name="coModelo">${coModeloDestino}</param>
+		        <param name="coVersion">${coVersionDestino}</param>
+		        <param name="coDocumento">${coDocumentoDestino}</param>
+		        <param name="operacion">ALTA</param>
+		        <param name="edicion">true</param>
+		        <param name="nuevoDocumento">false</param>
+		        <param name="borrarDocumento">true</param>
+		        <param name="crearHoja">false</param>
+		        <param name="eliminarHoja">false</param>
+		        <param name="guardar">true</param>
+		        <param name="calcular">false</param>
+		        <param name="verTodoElDocumento">true</param>
+		        <param name="mostrarColumnaError">false</param>
+		        <param name="origen">${origen}</param>
+			</result>
+		</action>
+		
+		<action name="nuevoDocumento" class="NuevoDocumentoAction" >
+			<result type="tiles" name="input">nuevoDocumento</result>
+			<result name="detalle" type="redirectAction">
+				<param name="actionName">nuevoDocumento</param>
+				<param name="primerosDatos">${primerosDatos}</param>
+				<param name="coMunicipio">${coMunicipio}</param>
+				<param name="coConcepto">${coConcepto}</param>
+				<param name="coModelo">${coModelo}</param>
+				<param name="coVersion">${coVersion}</param>
+			</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">mantenimientoCasillas</param>
+		        <param name="coModelo">${coModelo}</param>
+		        <param name="coVersion">${coVersion}</param>
+		        <param name="coDocumento">${coDocumento}</param>
+		        <param name="operacion">ALTA</param>
+		        <param name="edicion">true</param>
+		        <param name="nuevoDocumento">false</param>
+		        <param name="borrarDocumento">true</param>
+		        <param name="crearHoja">true</param>
+		        <param name="eliminarHoja">true</param>
+		        <param name="guardar">${!calcular}</param>
+		        <param name="calcular">${calcular}</param>
+		        <param name="verTodoElDocumento">true</param>
+		        <param name="mostrarColumnaError">false</param>
+		        <param name="ejecutaIncidencia">${ejecutaIncidencia}</param>
+			</result>
+		</action>
+		<action name="nuevoDocumentoAjax" class="NuevoDocumentoAction" method="cargaDocumentosAjax">
+			<result>/WEB-INF/jsp/comun/nuevoDocumentoDocOriLista.jsp</result>
+		</action>
+
+		<!-- Action para trabajar con Ajax en el buscador de clientes -->
+		<action name="listadoClientes" class="BuscadorClientesAction" />
+		<action name="localizarClientePorNIF" class="BuscadorClientesActionNIF" method="buscarClientePorNif" />
+		
+		<!-- Action para trabajar con Ajax en el buscador de domicilio -->
+		<action name="buscadorDomicilio" class="buscadorDomicilioAction" />
+		
+		<action name="buscadorCalle" class="buscadorCalleAction" />
+		
+		<action name="webservice" class="webserviceAction" />
+		
+		<action name="webserviceParametrico" class="webserviceParametricoAction" />
+	
+		<action name="webserviceSessionCounter" class="webserviceSessionCounterAction" />
+
+		<action name="webservicePortafirmas" class="webservicePortafirmasAction" />
+
+		<action name="webserviceNotificaciones" class="webserviceNotificacionesAction" />
+
+		<action name="bloqueoUtilNotificacion" class="BloqueoUtil" method="notificarRecibos" />
+		
+		<action name="observacionesAjax" class="observacionesAjaxAction" />
+
+	</package>
+	
+</struts>

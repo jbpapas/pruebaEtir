@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 04-nov-2010 8:46:04 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.ReplicaSeguimientoDTO" table="GA_REPLICA_SEGUIMIENTO">
+        <id name="coReplicaSeguimiento" type="string">
+            <column name="CO_REPLICA_SEGUIMIENTO" length="1" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="replicaDTO" class="es.dipucadiz.etir.comun.dto.ReplicaDTO" fetch="select">
+            <column name="CO_REPLICA" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="documentoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoDTO" fetch="select">
+            <column name="CO_MODELO" length="3" />
+            <column name="CO_VERSION" length="1" />
+            <column name="CO_DOCUMENTO" length="9" />
+        </many-to-one>
+        <property name="boEnviado" type="boolean">
+            <column name="BO_ENVIADO" precision="1" scale="0" not-null="true" />
+        </property>
+        
+        <many-to-one name="documentoSeguimientoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoSeguimientoDTO" fetch="select">
+            <column name="CO_DOCUMENTO_SEGUIMIENTO" precision="10" scale="0" />
+        </many-to-one>
+        
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <many-to-one name="ejecucionDTO" class="es.dipucadiz.etir.comun.dto.EjecucionDTO" fetch="select">
+            <column name="CO_EJECUCION" precision="10" scale="0" />
+        </many-to-one>
+        
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

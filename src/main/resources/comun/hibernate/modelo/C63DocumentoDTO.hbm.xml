@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 04-nov-2010 8:41:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+	<class name="es.dipucadiz.etir.comun.dto.C63DocumentoDTO" table="GA_C63_DOCUMENTO">
+		<id name="coC63Documento" type="java.lang.Long">
+			<column name="CO_C63_DOCUMENTO" precision="10" scale="0" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_C63_DOCUMENTO</param>
+			</generator>
+		</id>
+
+		<many-to-one name="c63ClienteDTO" class="es.dipucadiz.etir.comun.dto.C63ClienteDTO" update="false" insert="false" fetch="select">
+			<column name="CO_C63_CLIENTE" precision="10" scale="0" />
+		</many-to-one>
+
+		<many-to-one name="documentoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoDTO" update="false" insert="false" fetch="select">
+			<column name="CO_MODELO" length="3" />
+			<column name="CO_VERSION" length="1" />
+			<column name="CO_DOCUMENTO" length="9" />
+		</many-to-one>
+
+		<property name="IBAN" type="string">
+			<column name="IBAN" length="24" />
+		</property>
+
+		<property name="imRetenido" type="big_decimal">
+			<column name="IM_RETENIDO" precision="15" scale="2" />
+		</property>
+
+		<property name="imLevantado" type="big_decimal">
+			<column name="IM_LEVANTADO" precision="15" scale="2" />
+		</property>
+
+		<property name="coExpediente" type="long">
+            <column name="CO_EXPEDIENTE" precision="10" scale="0" />
+        </property>
+	
+		<property name="coOtr" type="string">
+            <column name="CO_OTR" precision="7" scale="3" />
+        </property>
+		
+		<property name="imALevantar" type="big_decimal">
+            <column name="IM_A_LEVANTAR" precision="7" scale="4" />
+        </property>
+
+		<property name="coEstadoFase5" type="string">
+            <column name="CO_ESTADO_FASE5" length="1" />
+        </property>
+        
+		<property name="coUsuarioActualizacion" type="string">
+			<column name="CO_USUARIO_ACTUALIZACION" length="10" />
+		</property>
+		<property name="fhActualizacion" type="timestamp">
+			<column name="FH_ACTUALIZACION" length="11" />
+		</property>
+	</class>
+</hibernate-mapping>

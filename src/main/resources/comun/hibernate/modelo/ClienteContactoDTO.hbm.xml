@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.ClienteContactoDTO" table="GA_CLIENTE_CONTACTO">
+        <id name="coClienteContacto" type="java.lang.Long">
+            <column name="CO_CLIENTE_CONTACTO" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_CLIENTE_CONTACTO</param>
+            </generator>
+        </id>
+        <many-to-one name="clienteDTO" class="es.dipucadiz.etir.comun.dto.ClienteDTO" fetch="select">
+            <column name="CO_CLIENTE" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" not-null="true" />
+        </property>
+        <property name="contacto" type="string">
+            <column name="CONTACTO" length="20" not-null="true" />
+        </property>
+        <property name="boPreferente" type="boolean">
+            <column name="BO_PREFERENTE" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="OBSERVACIONES" length="200" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

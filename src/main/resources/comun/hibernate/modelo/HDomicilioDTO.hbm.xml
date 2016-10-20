@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-mar-2010 12:05:18 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.HDomicilioDTO" table="GA_H_DOMICILIO">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_H_DOMICILIO</param>
+            </generator>
+        </id>
+        <property name="coDomicilio" type="java.lang.Long">
+            <column name="CO_DOMICILIO" precision="10" scale="0" />
+        </property>
+        <property name="coCliente" type="long">
+            <column name="CO_CLIENTE" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="coUnidadUrbana" type="long">
+            <column name="CO_UNIDAD_URBANA" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="fxAlta" type="date">
+            <column name="FX_ALTA" length="7" />
+        </property>
+        <property name="boFiscalAeat" type="java.lang.Boolean">
+            <column name="BO_FISCAL_AEAT" precision="1" scale="0" />
+        </property>
+        <property name="boFiscalMunicipal" type="java.lang.Boolean">
+            <column name="BO_FISCAL_MUNICIPAL" precision="1" scale="0" />
+        </property>
+        <property name="boNotificacion" type="java.lang.Boolean">
+            <column name="BO_NOTIFICACION" precision="1" scale="0" />
+        </property>
+        <property name="procedencia" type="string">
+            <column name="PROCEDENCIA" length="4" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="HTipoMovimiento" type="string">
+            <column name="H_TIPO_MOVIMIENTO" length="1" />
+        </property>
+        <property name="coProceso" type="string">
+            <column name="CO_PROCESO" length="20" />
+        </property>
+        <property name="coEjecucion" type="java.lang.Long">
+            <column name="CO_EJECUCION" precision="10" scale="0" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

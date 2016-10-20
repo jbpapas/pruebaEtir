@@ -1,0 +1,7 @@
+package es.dipucadiz.etir.comun.bo;
+
+import es.dipucadiz.etir.comun.dto.DatosDTO;
+
+public interface DatosBO extends GenericBO<DatosDTO, Long>{
+			
+}

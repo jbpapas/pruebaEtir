@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-nov-2010 11:56:35 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.JuntaCargaDTO" table="GA_JUNTA_CARGA">
+        <id name="coJuntaCarga" type="java.lang.Long">
+            <column name="CO_JUNTA_CARGA" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_JUNTA_CARGA</param>
+            </generator>
+        </id>
+       <many-to-one name="documentoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoDTO" unique="true" insert="false" update="false">
+	        <column name="CO_MODELO" length="3" not-null="true" />
+	        <column name="CO_VERSION" length="1" not-null="true" />
+	        <column name="CO_DOCUMENTO" length="9" not-null="true" />
+        </many-to-one>             
+        <property name="nombreFichero" type="string">
+            <column name="NOMBRE_FICHERO" length="200" />
+        </property>
+        <property name="nuDelegacionRemitente" type="short">
+            <column name="NU_DELEGACION_REMITENTE" length="2" />
+        </property>
+        <property name="anoEnvio" type="short">
+            <column name="ANO_ENVIO" length="4" />
+        </property>
+        <property name="nuEnvio" type="short">
+            <column name="NU_ENVIO" precision="3" />
+        </property>
+        <property name="fxEnvio" type="date">
+            <column name="FX_ENVIO" precision="1"/>
+        </property>
+        <property name="nuLiquidaciones" type="long">
+            <column name="NU_LIQUIDACIONES" precision="7"/>
+        </property>
+		<property name="imTotalPte" type="big_decimal">
+			<column name="IM_TOTAL_PTE" precision="15" />
+		</property>
+		<property name="nuGarantias" type="long">
+			<column name="NU_GARANTIAS" precision="7" />
+		</property>
+       <property name="imTotalGarantias" type="big_decimal">
+			<column name="IM_TOTAL_GARANTIAS" precision="15" />
+		</property>
+        <property name="coEstadoSituacion" type="string">
+            <column name="CO_ESTADO_SITUACION" length="1" />
+        </property>
+         <property name="coResultado" type="string">
+            <column name="CO_RESULTADO" length="2" />
+        </property>
+          <property name="coError" type="short">
+            <column name="CO_ERROR" precision="2" />
+        </property>
+        <property name="nuLiquidacionesOk" type="long">
+			<column name="NU_LIQUIDACIONES_OK" precision="7" />
+		</property>
+		 <property name="imTotalLiquidacionesOk" type="big_decimal">
+			<column name="IM_TOTAL_LIQUIDACIONES_OK" precision="15" />
+		</property>
+		 <property name="nuLiquidacionesMal" type="long">
+			<column name="NU_LIQUIDACIONES_MAL" precision="7" />
+		</property>
+		 <property name="imTotalLiquidacionesMal" type="big_decimal">
+			<column name="IM_TOTAL_LIQUIDACIONES_MAL" precision="15" />
+		</property>
+        <many-to-one name="cargaDTO" class="es.dipucadiz.etir.comun.dto.CargaDTO" fetch="select">
+            <column name="CO_CARGA" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <set name="juntaCargaErrorDTOs" inverse="true" lazy="true" table="GA_JUNTA_CARGA_ERROR" fetch="select">
+            <key>
+                <column name="CO_JUNTA_CARGA" precision="10" scale="0" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.JuntaCargaErrorDTO" />
+        </set>   
+         <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

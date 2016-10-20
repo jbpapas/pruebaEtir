@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.HDepositoDTO" table="GA_H_DEPOSITO">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_H_DEPOSITO</param>
+            </generator>
+        </id>
+        <property name="coDeposito" type="java.lang.Long">
+        	<column name="CO_DEPOSITO" precision="10" scale="0" />
+        </property>
+        <property name="coCliente" type="java.lang.Long">
+        	<column name="CO_CLIENTE" precision="10" scale="0" />
+        </property>
+        <property name="coModeloOrigen" type="string">
+        	<column name="CO_MODELO_ORIGEN" precision="10" scale="0" />
+        </property>
+        <property name="coVersionOrigen" type="string">
+        	<column name="CO_VERSION_ORIGEN" precision="10" scale="0" />
+        </property>
+        <property name="coDocumentoOrigen" type="string">
+        	<column name="CO_DOCUMENTO_ORIGEN" precision="10" scale="0" />
+        </property>
+        <property name="tipo" type="string">
+        	<column name="TIPO" precision="10" scale="0" />
+        </property>
+        <property name="importeInicial" type="big_decimal">
+        	<column name="IMPORTE_INICIAL" precision="10" scale="0" />
+        </property>
+        <property name="importeDisponible" type="big_decimal">
+        	<column name="IMPORTE_DISPONIBLE" precision="10" scale="0" />
+        </property>
+        <property name="fhConstitucion" type="timestamp">
+            <column name="FH_CONSTITUCION" length="11" not-null="true" />
+        </property>
+        <property name="fhFinalizacion" type="timestamp">
+            <column name="FH_FINALIZACION" length="11" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="hTipoMovimiento" type="string">
+            <column name="H_TIPO_MOVIMIENTO" length="1" />
+        </property>
+        <property name="coDocumentoSegOrigen" type="java.lang.Integer">
+            <column name="CO_DOCUMENTO_SEG_ORIGEN" length="6" />
+        </property>
+        <property name="nuDocumentoSigre" type="java.lang.Integer">
+            <column name="NU_DOCUMENTO_SIGRE" length="6" />
+        </property>
+        <property name="boTransferido" type="java.lang.Boolean">
+            <column name="BO_TRANSFERIDO" length="1" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+       	</property>
+    </class>
+</hibernate-mapping>

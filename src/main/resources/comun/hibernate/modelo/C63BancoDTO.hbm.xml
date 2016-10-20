@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 04-nov-2010 8:41:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.C63BancoDTO" table="GA_C63_BANCO">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.C63BancoDTOId">
+            <key-property name="coBanco" type="string">
+                <column name="CO_BANCO" length="4" />
+            </key-property>
+            <key-property name="coExpediente" type="long">
+                <column name="CO_EXPEDIENTE" precision="10" scale="0"  />
+            </key-property>
+        </composite-id>
+        
+       
+          <many-to-one name="expedienteDTO" class="es.dipucadiz.etir.comun.dto.ExpedienteDTO" insert="false" update="false" fetch="select">
+            <column name="CO_EXPEDIENTE" precision="10" scale="0" />
+        </many-to-one>
+        
+       <property name="fxEnvioF3" type="date">
+            <column name="FX_ENVIO_F3" length="7" />
+        </property>
+       <property name="fxCalculoF3" type="date">
+            <column name="FX_CALCULO_F3" length="7" />
+        </property>
+       <property name="fxProcesoF4" type="date">
+            <column name="FX_PROCESO_F4" length="7" />
+        </property>                        
+ 
+        <property name="fxRetencion" type="date">
+            <column name="FX_RETENCION" length="7" />
+        </property>                        
+        
+               
+        <property name="contribEnviados" type="long">
+            <column name="TO_CONTRIB_ENVIADOS" precision="10" scale="0" />
+        </property>
+        
+        <property name="documentosEnviados" type="long">
+            <column name="TO_DOCUMENTOS_ENVIADOS" precision="10" scale="0" />
+        </property>
+        
+        <property name="imEnviado" type="big_decimal">
+            <column name="TO_IMPORTE_ENVIADO" precision="15" scale="2" />
+        </property>
+        
+        
+        
+        <property name="contribRetenidos" type="long">
+            <column name="TO_CONTRIB_RETENIDOS" precision="10" scale="0" />
+        </property>
+        
+        <property name="imRetenido" type="big_decimal">
+            <column name="TO_IMPORTE_RETENIDO" precision="15" scale="2" />
+        </property>        
+        
+        <property name="contribEmbargoTotal" type="long">
+            <column name="TO_CONTRIB_EMBARGO_TOTAL" precision="10" scale="0" />
+        </property>
+        
+        <property name="imEmbargoTotal" type="big_decimal">
+            <column name="TO_IMPORTE_EMBARGO_TOTAL" precision="15" scale="2" />
+        </property>  
+        
+         
+        <property name="contribEmbargoParcial" type="long">
+            <column name="TO_CONTRIB_EMBARGO_PARCIAL" precision="10" scale="0" />
+        </property>
+        
+        <property name="imEmbargoParcial" type="big_decimal">
+            <column name="TO_IMPORTE_EMBARGO_PARCIAL" precision="15" scale="2" />
+        </property>  
+                
+ 
+        <property name="contribEmbargoNegativo" type="long">
+            <column name="TO_CONTRIB_EMBARGO_NEGATIVO" precision="10" scale="0" />
+        </property>
+        
+        <property name="imEmbargoNegativo" type="big_decimal">
+            <column name="TO_IMPORTE_EMBARGO_NEGATIVO" precision="15" scale="2" />
+        </property>          
+         
+        <property name="toContribLevantado" type="java.lang.Long">
+			<column name="TO_CONTRIB_LEVANTADO" precision="10" scale="0" />
+		</property>
+
+		<property name="toImporteLevantado" type="big_decimal">
+			<column name="TO_IMPORTE_LEVANTADO" precision="15" scale="2" />
+		</property>
+                         
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+         
+    
+    </class>
+</hibernate-mapping>

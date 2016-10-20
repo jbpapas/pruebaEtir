@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-mar-2010 12:05:18 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.HCargoDTO" table="GA_H_CARGO">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_H_CARGO</param>
+            </generator>
+        </id>
+        <property name="coProvincia" type="string">
+            <column name="CO_PROVINCIA" length="2" />
+        </property>
+        <property name="coMunicipio" type="string">
+            <column name="CO_MUNICIPIO" length="3" />
+        </property>
+        <property name="anoCargo" type="java.lang.Short">
+            <column name="ANO_CARGO" precision="4" scale="0" />
+        </property>
+        <property name="nuCargo" type="java.lang.Short">
+            <column name="NU_CARGO" precision="4" scale="0" />
+        </property>
+        <property name="ejercicio" type="short">
+            <column name="EJERCICIO" precision="4" scale="0" not-null="true" />
+        </property>
+        <property name="periodo" type="string">
+            <column name="PERIODO" length="2" not-null="true" />
+        </property>
+        <property name="coUnidadAdministrativa" type="string">
+            <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="50" not-null="true" />
+        </property>
+        <property name="totalRecibos" type="java.lang.Integer">
+            <column name="TOTAL_RECIBOS" precision="6" scale="0" />
+        </property>
+        <property name="imTotal" type="big_decimal">
+            <column name="IM_TOTAL" precision="17" />
+        </property>
+        <property name="situacion" type="string">
+            <column name="SITUACION" length="1" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="coCargo" type="long">
+            <column name="CO_CARGO" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="coModelo" type="string">
+            <column name="CO_MODELO" length="3" />
+        </property>
+        <property name="HTipoMovimiento" type="string">
+            <column name="H_TIPO_MOVIMIENTO" length="1" />
+        </property>
+        <property name="coProceso" type="string">
+            <column name="CO_PROCESO" length="20" />
+        </property>
+        <property name="coEjecucion" type="java.lang.Long">
+            <column name="CO_EJECUCION" precision="10" scale="0" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

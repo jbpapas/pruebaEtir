@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 14-ene-2011 12:09:47 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.HAcmUsuarioNotificacionDTO" table="GA_H_ACM_USUARIO_NOTIFICACION">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_H_ACM_USUARIO_NOTIFICACION</param>
+            </generator>
+        </id>
+        <property name="coAcmUsuarioNotificacion" type="java.lang.Long">
+            <column name="CO_ACM_USUARIO_NOTIFICACION" precision="10" scale="0" />
+        </property>
+        <property name="coAcmUsuario" type="string">
+            <column name="CO_ACM_USUARIO" length="10" />
+        </property>
+        <property name="mensaje" type="string">
+            <column name="MENSAJE" length="200" />
+        </property>
+        <property name="importancia" type="java.lang.Short">
+            <column name="IMPORTANCIA" precision="1" scale="0" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" />
+        </property>
+        <property name="coEjecucion" type="java.lang.Long">
+            <column name="CO_EJECUCION" precision="10" scale="0" />
+        </property>
+        <property name="fxInicio" type="timestamp">
+            <column name="FX_INICIO" length="7" />
+        </property>
+        <property name="fxFin" type="timestamp">
+            <column name="FX_FIN" length="7" />
+        </property>
+        <property name="coAcmUsuarioRemitente" type="string">
+            <column name="CO_ACM_USUARIO_REMITENTE" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="HTipoMovimiento" type="string">
+            <column name="H_TIPO_MOVIMIENTO" length="1" />
+        </property>
+    </class>
+</hibernate-mapping>

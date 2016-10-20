@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 24-ene-2011 9:07:02 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.AcercaPeticionDTO" table="GA_ACERCA_PETICION">
+        <id name="coAcercaPeticion" type="java.lang.Long">
+            <column name="CO_ACERCA_PETICION" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_ACERCA_PETICION</param>
+            </generator>
+        </id>
+        <property name="fechaPeticion" type="timestamp">
+            <column name="FECHA_PETICION" length="11" />
+        </property>
+        <property name="fechaRespuesta" type="timestamp">
+            <column name="FECHA_RESPUESTA" length="11" />
+        </property>
+        <property name="xmlPeticion" type="clob">
+            <column name="XML_PETICION" />
+        </property>
+        <property name="xmlRespuesta" type="clob">
+            <column name="XML_RESPUESTA" />
+        </property>
+        <property name="coProcedimiento" type="string">
+            <column name="CO_PROCEDIMIENTO" length="3" />
+        </property>
+        <property name="coOperacion" type="string">
+            <column name="CO_OPERACION" length="2" />
+        </property>
+        <property name="coError" type="string">
+            <column name="CO_ERROR" length="2" />
+        </property>
+        <property name="coExpediente" type="string">
+            <column name="CO_EXPEDIENTE" length="20" />
+        </property>
+    </class>
+</hibernate-mapping>

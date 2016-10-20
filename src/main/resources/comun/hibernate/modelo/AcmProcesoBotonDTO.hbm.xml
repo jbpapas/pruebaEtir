@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.AcmProcesoBotonDTO" table="GA_ACM_PROCESO_BOTON">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.AcmProcesoBotonDTOId">
+            <key-property name="coProceso" type="string">
+                <column name="CO_PROCESO" length="20" />
+            </key-property>
+            <key-property name="coAcmBoton" type="long">
+                <column name="CO_ACM_BOTON" precision="10" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="procesoDTO" class="es.dipucadiz.etir.comun.dto.ProcesoDTO" update="false" insert="false" fetch="select">
+            <column name="CO_PROCESO" length="20" not-null="true" />
+        </many-to-one>
+        <many-to-one name="acmBotonDTO" class="es.dipucadiz.etir.comun.dto.AcmBotonDTO" update="false" insert="false" fetch="join" lazy="false">
+            <column name="CO_ACM_BOTON" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="boInclusion" type="java.lang.Boolean">
+            <column name="BO_INCLUSION" precision="1" scale="0" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

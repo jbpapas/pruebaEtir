@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 07-abr-2010 9:08:08 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.ExpedienteDTO" table="GA_EXPEDIENTE">
+        <id name="coExpediente" type="java.lang.Long">
+            <column name="CO_EXPEDIENTE" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_EXPEDIENTE</param>
+            </generator>
+        </id>
+        <many-to-one name="codigoTerritorialDTO" class="es.dipucadiz.etir.comun.dto.CodigoTerritorialDTO" fetch="select">
+            <column name="CO_CODIGO_TERRITORIAL" length="6" />
+        </many-to-one>
+        <many-to-one name="expedienteOrigenDTO" class="es.dipucadiz.etir.comun.dto.ExpedienteDTO" fetch="select">
+            <column name="CO_EXPEDIENTE_ORIGEN" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="tramiteOrigenDTO" class="es.dipucadiz.etir.comun.dto.TramiteDTO" fetch="select">
+            <column name="CO_TRAMITE_ORIGEN" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="circuitoRutaDTO" class="es.dipucadiz.etir.comun.dto.CircuitoRutaDTO" fetch="select">
+            <column name="CO_CIRCUITO" length="10" />
+            <column name="CO_PROVINCIA" length="2" />
+            <column name="CO_MUNICIPIO" length="3" />
+        </many-to-one>
+        <many-to-one name="municipioDTO" class="es.dipucadiz.etir.comun.dto.MunicipioDTO" fetch="select">
+            <column name="CO_PROVINCIA_RUE" length="2" />
+            <column name="CO_MUNICIPIO_RUE" length="3" />
+        </many-to-one>
+        <many-to-one name="conceptoDTO" class="es.dipucadiz.etir.comun.dto.ConceptoDTO" fetch="select">
+            <column name="CO_CONCEPTO" length="4" />
+        </many-to-one>
+        <many-to-one name="documentoResumenDTO" class="es.dipucadiz.etir.comun.dto.DocumentoDTO" fetch="select">
+            <column name="CO_MODELO_RESUMEN" length="3" />
+            <column name="CO_VERSION_RESUMEN" length="1" />
+            <column name="CO_DOCUMENTO_RESUMEN" length="9" />
+        </many-to-one>
+        <property name="nuExpediente" type="java.lang.Long">
+            <column name="NU_EXPEDIENTE" precision="10" scale="0" />
+        </property>
+        <property name="ejercicio" type="java.lang.Short">
+            <column name="EJERCICIO" precision="4" scale="0" />
+        </property>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="OBSERVACIONES" length="200" />
+        </property>
+        <property name="maxSubExpediente" type="java.lang.Integer">
+            <column name="MAX_SUBEXPEDIENTE" length="6" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <set name="expedienteDTOs" inverse="true" lazy="true" table="GA_EXPEDIENTE" fetch="select">
+            <key>
+                <column name="CO_EXPEDIENTE_ORIGEN" precision="10" scale="0" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ExpedienteDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

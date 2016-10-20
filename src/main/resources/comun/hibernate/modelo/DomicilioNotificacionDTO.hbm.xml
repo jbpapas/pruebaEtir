@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.DomicilioNotificacionDTO" table="GA_DOMICILIO_NOTIFICACION">
+        <id name="coDomicilioNotificacion" type="java.lang.Long">
+            <column name="CO_DOMICILIO_NOTIFICACION" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_DOMICILIO_NOTIFICACION</param>
+            </generator>
+        </id>
+        <property name="coModeloCenso" type="string">
+        	<column name="CO_MODELO" length="3" not-null="true"/>
+        </property>
+        <property name="coVersionCenso" type="string">
+        	<column name="CO_VERSION" length="1" not-null="true" />
+        </property>
+        <property name="coDocumentoCenso" type="string">
+        	<column name="CO_DOCUMENTO" length="9" not-null="true" />
+        </property>        
+        <many-to-one name="conceptoDTO" class="es.dipucadiz.etir.comun.dto.ConceptoDTO" fetch="select">
+            <column name="CO_CONCEPTO" length="4" not-null="true" />
+        </many-to-one>
+        <many-to-one name="modeloVersionDTO" class="es.dipucadiz.etir.comun.dto.ModeloVersionDTO" update="false" insert="false" fetch="select">
+            <column name="CO_MODELO" length="3" not-null="true" />
+            <column name="CO_VERSION" length="1" not-null="true" />
+        </many-to-one>
+        <many-to-one name="domicilioDTO" class="es.dipucadiz.etir.comun.dto.DomicilioDTO" fetch="select">
+            <column name="CO_DOMICILIO" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="clienteDTO" class="es.dipucadiz.etir.comun.dto.ClienteDTO" fetch="select">
+            <column name="CO_CLIENTE" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="municipioDTO" class="es.dipucadiz.etir.comun.dto.MunicipioDTO" fetch="select">
+            <column name="CO_PROVINCIA" length="2" not-null="false" />
+            <column name="CO_MUNICIPIO" length="3" not-null="false" />
+        </many-to-one>
+        <property name="fxVigenciaDesde" type="date">
+            <column name="FX_VIGENCIA_DESDE" length="7" />
+        </property>
+        <property name="fxVigenciaHasta" type="date">
+            <column name="FX_VIGENCIA_HASTA" length="7" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

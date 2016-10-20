@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 22-mar-2013 13:49:06 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.ContadorRefObjDTO" table="GA_CONTADOR_REF_OBJ">
+        <id name="coContadorRefObj" type="java.lang.Long">
+            <column name="CO_CONTADOR_REF_OBJ" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_CONTADOR_REF_OBJ</param>
+            </generator>
+        </id>
+        <many-to-one name="municipioDTO" class="es.dipucadiz.etir.comun.dto.MunicipioDTO" fetch="select">
+            <column name="CO_PROVINCIA" length="2" />
+            <column name="CO_MUNICIPIO" length="3" />
+        </many-to-one>
+        <many-to-one name="conceptoDTO" class="es.dipucadiz.etir.comun.dto.ConceptoDTO" fetch="select">
+            <column name="CO_CONCEPTO" length="4" />
+        </many-to-one>
+        <many-to-one name="modeloDTO" class="es.dipucadiz.etir.comun.dto.ModeloDTO" fetch="select">
+            <column name="CO_MODELO" length="3" />
+        </many-to-one>
+        <property name="ejercicio" type="java.lang.Short">
+            <column name="EJERCICIO" precision="4" scale="0" />
+        </property>
+        <property name="prefijo" type="string">
+            <column name="PREFIJO" length="200">
+                <comment>El prefijo a usar en la referencia.</comment>
+            </column>
+        </property>
+        <property name="contador" type="long">
+            <column name="CONTADOR" precision="15" scale="0" not-null="true" />
+        </property>
+        <property name="longitud" type="java.lang.Byte">
+            <column name="LONGITUD" precision="2" scale="0">
+                <comment>Al estar relleno, se obligan ceros no significativos.</comment>
+            </column>
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

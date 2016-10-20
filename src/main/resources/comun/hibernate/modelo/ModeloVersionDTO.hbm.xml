@@ -1,0 +1,136 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.ModeloVersionDTO" table="GA_MODELO_VERSION">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.ModeloVersionDTOId">
+            <key-property name="coModelo" type="string">
+                <column name="CO_MODELO" length="3" />
+            </key-property>
+            <key-property name="coVersion" type="string">
+                <column name="CO_VERSION" length="1" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="modeloDTO" class="es.dipucadiz.etir.comun.dto.ModeloDTO" update="false" insert="false" fetch="join" lazy="false">
+            <column name="CO_MODELO" length="3" not-null="true" />
+        </many-to-one>
+        <property name="fxAlta" type="date">
+            <column name="FX_ALTA" length="7" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <set name="sigreTasaDTOs" inverse="true" lazy="true" table="GA_SIGRE_TASA" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" />
+                <column name="CO_VERSION" length="1" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.SigreTasaDTO" />
+        </set>
+        <set name="incidenciaSituacionDTOs" inverse="true" lazy="true" table="GA_INCIDENCIA_SITUACION" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.IncidenciaSituacionDTO" />
+        </set>
+        <set name="extraccionDTOsForVermodExtraDatosDestino" inverse="true" lazy="true" table="GA_EXTRACCION" fetch="select">
+            <key>
+                <column name="CO_MODELO_DESTINO" length="3" />
+                <column name="CO_VERSION_DESTINO" length="1" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ExtraccionDTO" />
+        </set>
+        <set name="cruceDTOsForVermodArgcru" inverse="true" lazy="true" table="GA_CRUCE" fetch="select">
+            <key>
+                <column name="CO_MODELO_ORIGEN" length="3" />
+                <column name="CO_VERSION_ORIGEN" length="1" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CruceDTO" />
+        </set>
+        <set name="correspondenciaDTOs" inverse="true" lazy="true" table="GA_CORRESPONDENCIA" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CorrespondenciaDTO" />
+        </set>
+        <set name="cruceDTOsForVermodArgcruCruce" inverse="true" lazy="true" table="GA_CRUCE" fetch="select">
+            <key>
+                <column name="CO_MODELO_CRUCE" length="3" />
+                <column name="CO_VERSION_CRUCE" length="1" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CruceDTO" />
+        </set>
+        <set name="cargaDTOs" inverse="true" lazy="true" table="GA_CARGA" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CargaDTO" />
+        </set>
+        <set name="documentoDTOs" inverse="true" lazy="true" table="GA_DOCUMENTO" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DocumentoDTO" />
+        </set>
+        <set name="incidSitCargoDTOs" inverse="true" lazy="true" table="GA_INCID_SIT_CARGO" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.IncidSitCargoDTO" />
+        </set>
+        <set name="extraccionDTOsForVermodExtraDatos" inverse="true" lazy="true" table="GA_EXTRACCION" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" />
+                <column name="CO_VERSION" length="1" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ExtraccionDTO" />
+        </set>
+        <set name="plantillaModeloDTOs" inverse="true" lazy="true" table="GA_PLANTILLA_MODELO" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlantillaModeloDTO" />
+        </set>
+        <set name="casillaModeloDTOs" inverse="true" lazy="true" table="GA_CASILLA_MODELO" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CasillaModeloDTO" />
+        </set>
+        <set name="parametroMunicipioDTOs" inverse="true" lazy="true" table="GA_PARAMETRO_MUNICIPIO" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" />
+                <column name="CO_VERSION" length="1" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ParametroMunicipioDTO" />
+        </set>
+        <set name="domicilioNotificacionDTOs" inverse="true" lazy="true" table="GA_DOMICILIO_NOTIFICACION" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DomicilioNotificacionDTO" />
+        </set>
+        <set name="plantillaDTOs" inverse="true" lazy="true" table="GA_PLANTILLA" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlantillaDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

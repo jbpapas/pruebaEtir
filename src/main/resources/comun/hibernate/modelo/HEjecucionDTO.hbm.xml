@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-mar-2010 12:05:18 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.HEjecucionDTO" table="GA_H_EJECUCION">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_H_EJECUCION</param>
+            </generator>
+        </id>
+        <property name="coEjecucion" type="long">
+            <column name="CO_EJECUCION" precision="10" scale="0" not-null="true" />
+        </property>
+        <property name="coProceso" type="string">
+            <column name="CO_PROCESO" length="20" not-null="true" />
+        </property>
+        <property name="coAcmUsuario" type="string">
+            <column name="CO_ACM_USUARIO" length="10" not-null="true" />
+        </property>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="coTerminacion" type="java.lang.Integer">
+            <column name="CO_TERMINACION" precision="5" scale="0" />
+        </property>
+        <property name="fhEstado" type="date">
+            <column name="FH_ESTADO" length="7" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="OBSERVACIONES" length="100" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="HTipoMovimiento" type="string">
+            <column name="H_TIPO_MOVIMIENTO" length="1" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

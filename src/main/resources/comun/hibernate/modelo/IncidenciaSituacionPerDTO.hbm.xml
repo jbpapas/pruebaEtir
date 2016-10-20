@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-nov-2010 12:10:12 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.IncidenciaSituacionPerDTO" table="GA_INCIDENCIA_SITUACION_PER">
+        <id name="coIncidenciaSituacionPer" type="java.lang.Long">
+            <column name="CO_INCIDENCIA_SITUACION_PER" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_INCIDENCIA_SITUACION_PER</param>
+            </generator>
+        </id>
+        <many-to-one name="incidenciaSituacionDTO" class="es.dipucadiz.etir.comun.dto.IncidenciaSituacionDTO" fetch="select">
+            <column name="CO_INCIDENCIA_SITUACION" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="codigoTerritorialDTO" class="es.dipucadiz.etir.comun.dto.CodigoTerritorialDTO" fetch="select">
+            <column name="CO_CODIGO_TERRITORIAL" length="6" />
+        </many-to-one>
+        <many-to-one name="acmUsuarioDTO" class="es.dipucadiz.etir.comun.dto.AcmUsuarioDTO" fetch="select">
+            <column name="CO_ACM_USUARIO" length="10" />
+        </many-to-one>
+        <many-to-one name="unidadAdministrativaDTO" class="es.dipucadiz.etir.comun.dto.UnidadAdministrativaDTO" fetch="select">
+            <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" />
+        </many-to-one>
+        <property name="boInclusion" type="boolean">
+            <column name="BO_INCLUSION" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

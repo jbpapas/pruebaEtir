@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 17-ene-2011 8:59:46 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.HDocumentoLiqPagoParcDTO" table="GA_H_DOCUMENTO_LIQ_PAGO_PARC">
+    
+    
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_H_DOCUMENTO_LIQ_PAGO_PARC</param>
+            </generator>
+        </id>
+        
+        <property name="coDocumentoLiqPagoParc" type="java.lang.Long">
+            <column name="CO_DOCUMENTO_LIQ_PAGO_PARC"  precision="10" scale="0" />
+        </property>
+        
+        
+        <many-to-one name="documentoLiquidacionDTO" class="es.dipucadiz.etir.comun.dto.DocumentoLiquidacionDTO" fetch="select">
+            <column name="CO_MODELO" length="3" />
+            <column name="CO_VERSION" length="1" />
+            <column name="CO_DOCUMENTO" length="9" />
+        </many-to-one>
+        <many-to-one name="documentoSeguimientoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoSeguimientoDTO" fetch="select">
+            <column name="CO_DOCUMENTO_SEGUIMIENTO" precision="10" scale="0" />
+        </many-to-one>
+        <property name="fxCobro" type="timestamp">
+            <column name="FX_COBRO" length="7" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" />
+        </property>
+        <property name="imCobradoTotal" type="big_decimal">
+            <column name="IM_COBRADO_TOTAL" precision="17" />
+        </property>
+        <property name="imCobradoPrincipal" type="big_decimal">
+            <column name="IM_COBRADO_PRINCIPAL" precision="17" />
+        </property>
+        <property name="imCobradoRecApremio" type="big_decimal">
+            <column name="IM_COBRADO_REC_APREMIO" precision="17" />
+        </property>
+        <property name="imCobradoIntereses" type="big_decimal">
+            <column name="IM_COBRADO_INTERESES" precision="17" />
+        </property>
+        <property name="imCobradoCostas" type="big_decimal">
+            <column name="IM_COBRADO_COSTAS" precision="17" />
+        </property>
+        <property name="imIngresado" type="big_decimal">
+            <column name="IM_INGRESADO" precision="17" />
+        </property>
+        <property name="porcRecargo" type="big_decimal">
+            <column name="PORC_RECARGO" precision="5" />
+        </property>
+        <many-to-one name="estadoSituacionDTO" class="es.dipucadiz.etir.comun.dto.EstadoSituacionDTO" fetch="select">
+            <column name="CO_ESTADO_SITUACION" length="1" />
+        </many-to-one>
+        <property name="nuIntervencion" type="java.lang.Long">
+            <column name="NU_INTERVENCION" precision="10" scale="0" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="boAnulable" type="java.lang.Boolean">
+            <column name="BO_ANULABLE" precision="1" scale="0" />
+        </property>
+ 
+    </class>
+</hibernate-mapping>

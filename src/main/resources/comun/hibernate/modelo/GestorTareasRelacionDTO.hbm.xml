@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 24-ene-2011 9:07:02 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.GestorTareasRelacionDTO" table="GA_GESTOR_TAREAS_RELACION">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.GestorTareasRelacionDTOId">
+            <key-property name="nuTarea" type="long">
+                <column name="NU_TAREA" precision="10" scale="0" />
+            </key-property>
+            <key-property name="nuTareaRelacionada" type="long">
+                <column name="NU_TAREA_RELACIONADA" precision="10" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="gestorTareasDTO" class="es.dipucadiz.etir.comun.dto.GestorTareasDTO" update="false" insert="false" fetch="select">
+            <column name="NU_TAREA" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="gestorTareasRelacionadaDTO" class="es.dipucadiz.etir.comun.dto.GestorTareasDTO" update="false" insert="false" fetch="select">
+            <column name="NU_TAREA_RELACIONADA" precision="10" scale="0" />
+        </many-to-one>
+		<property name="tipoRelacion" type="string">
+			<column name="TIPO_RELACION" length="2" />
+		</property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

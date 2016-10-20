@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 07-jul-2010 10:24:49 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.PlanificacionDTO" table="GA_PLANIFICACION">
+        <id name="coPlanificacion" type="java.lang.Long">
+            <column name="CO_PLANIFICACION" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_PLANIFICACION</param>
+            </generator>
+        </id>
+        <many-to-one name="acmUsuarioDTO" class="es.dipucadiz.etir.comun.dto.AcmUsuarioDTO" fetch="select">
+            <column name="CO_ACM_USUARIO" length="10" />
+        </many-to-one>
+        <many-to-one name="procesoDTO" class="es.dipucadiz.etir.comun.dto.ProcesoDTO" fetch="select">
+            <column name="CO_PROCESO" length="20" />
+        </many-to-one>
+        <property name="fxInicio" type="date">
+            <column name="FX_INICIO" length="7" />
+        </property>
+        <property name="hoInicio" type="string">
+            <column name="HO_INICIO" length="4" />
+        </property>
+        <property name="fxFin" type="date">
+            <column name="FX_FIN" length="7" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="200" />
+        </property>
+        <property name="boActivo" type="java.lang.Boolean">
+            <column name="BO_ACTIVO" precision="1" scale="0" />
+        </property>
+        <property name="frecuencia" type="string">
+            <column name="FRECUENCIA" length="400" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="OBSERVACIONES" length="200" />
+        </property>
+        <set name="planificacionArgumentoDTOs" inverse="true" lazy="true" table="GA_PLANIFICACION_ARGUMENTO" fetch="select">
+            <key>
+                <column name="CO_PLANIFICACION" precision="10" scale="0" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlanificacionArgumentoDTO" />
+        </set>
+    </class>
+</hibernate-mapping>

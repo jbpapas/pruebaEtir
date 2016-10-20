@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-nov-2010 11:56:35 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.GarantiaDTO" table="GA_GARANTIA">
+        <id name="coGarantia" type="java.lang.Long">
+            <column name="CO_GARANTIA" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_GARANTIA</param>
+            </generator>
+        </id>
+        <property name="texto" type="string">
+            <column name="TEXTO" length="200" />
+        </property>
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <set name="fraccionamientoGarDocDTOs" inverse="true" lazy="true" table="GA_FRACCIONAMIENTO_GAR_DOC" fetch="select">
+            <key>
+                <column name="CO_GARANTIA" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.FraccionamientoGarDocDTO" />
+        </set>
+        <set name="fraccionamientoGarantiaDTOs" inverse="true" lazy="true" table="GA_FRACCIONAMIENTO_GARANTIA" fetch="select">
+            <key>
+                <column name="CO_GARANTIA" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.FraccionamientoGarantiaDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

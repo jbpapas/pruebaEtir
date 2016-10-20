@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-mar-2010 12:05:18 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.HDocumentoCensoDTO" table="GA_H_DOCUMENTO_CENSO">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_H_DOCUMENTO_CENSO</param>
+            </generator>
+        </id>
+        <property name="coModelo" type="string">
+            <column name="CO_MODELO" length="3" />
+        </property>
+        <property name="coVersion" type="string">
+            <column name="CO_VERSION" length="1" />
+        </property>
+        <property name="coDocumento" type="string">
+            <column name="CO_DOCUMENTO" length="9" />
+        </property>
+        <property name="fxAlta" type="date">
+            <column name="FX_ALTA" length="7" />
+        </property>
+        <property name="fxBaja" type="date">
+            <column name="FX_BAJA" length="7" />
+        </property>
+        <property name="boActivo" type="java.lang.Boolean">
+            <column name="BO_ACTIVO" precision="1" scale="0" />
+        </property>
+        <property name="tipoMovimiento" type="string">
+            <column name="TIPO_MOVIMIENTO" length="2" />
+        </property>
+        <property name="ejercicioPadron" type="java.lang.Short">
+            <column name="EJERCICIO_PADRON" precision="4" scale="0" />
+        </property>
+        <property name="periodoPadron" type="string">
+            <column name="PERIODO_PADRON" length="2" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="HTipoMovimiento" type="string">
+            <column name="H_TIPO_MOVIMIENTO" length="1" />
+        </property>
+        <property name="coProceso" type="string">
+            <column name="CO_PROCESO" length="20" />
+        </property>
+        <property name="coEjecucion" type="java.lang.Long">
+            <column name="CO_EJECUCION" precision="10" scale="0" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="OBSERVACIONES" length="200" />
+        </property>
+        <property name="fxTramite" type="date">
+            <column name="FX_TRAMITE" length="7" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

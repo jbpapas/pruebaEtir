@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.PlantillaEtiquetaDTO" table="GA_PLANTILLA_ETIQUETA">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.PlantillaEtiquetaDTOId">
+            <key-property name="coPlantilla" type="long">
+                <column name="CO_PLANTILLA" precision="10" scale="0" />
+            </key-property>
+            <key-property name="coEtiqueta" type="string">
+                <column name="CO_ETIQUETA" length="10" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="plantillaTablaDTO" class="es.dipucadiz.etir.comun.dto.PlantillaTablaDTO" update="false" insert="false" fetch="select">
+            <column name="CO_PLANTILLA" precision="10" scale="0" not-null="true" />
+            <column name="CO_PLANTILLA_TABLA" precision="3" scale="0" />
+        </many-to-one>
+        <many-to-one name="plantillaDTO" class="es.dipucadiz.etir.comun.dto.PlantillaDTO" update="false" insert="false" fetch="select">
+            <column name="CO_PLANTILLA" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="coPlantillaTabla" type="java.lang.Short">
+            <column name="CO_PLANTILLA_TABLA" precision="3" scale="0" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <set name="plantillaEtiquetaCampoDTOs" inverse="true" lazy="true" table="GA_PLANTILLA_ETIQUETA_CAMPO" fetch="select">
+            <key>
+                <column name="CO_PLANTILLA" precision="10" scale="0" not-null="true" />
+                <column name="CO_ETIQUETA" length="10" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlantillaEtiquetaCampoDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.CargaControlRecepcionDTO" table="GA_CARGA_CONTROL_RECEPCION">
+        <id name="coCargaControlRecepcion" type="java.lang.Long">
+            <column name="CO_CARGA_CONTROL_RECEPCION" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_CARGA_CONTROL_RECEPCION</param>
+            </generator>
+        </id>
+        <many-to-one name="cargaDTO" class="es.dipucadiz.etir.comun.dto.CargaDTO" fetch="select">
+            <column name="CO_CARGA" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="municipioDTO" class="es.dipucadiz.etir.comun.dto.MunicipioDTO" fetch="select">
+            <column name="CO_PROVINCIA" length="2" not-null="true" />
+            <column name="CO_MUNICIPIO" length="3" not-null="true" />
+        </many-to-one>
+        <many-to-one name="ejecucionDTO" class="es.dipucadiz.etir.comun.dto.EjecucionDTO" fetch="select">
+            <column name="CO_EJECUCION" precision="10" scale="0" />
+        </many-to-one>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="totalCargados" type="java.lang.Integer">
+            <column name="TOTAL_CARGADOS" precision="8" scale="0" />
+        </property>
+        <property name="fhRecepcion" type="timestamp">
+            <column name="FH_RECEPCION" length="11" />
+        </property>
+        <property name="boNorechazable" type="java.lang.Boolean">
+            <column name="BO_NORECHAZABLE" precision="1" scale="0" />
+        </property>
+        <property name="fichero" type="string">
+            <column name="FICHERO" length="300" />
+        </property>
+        <property name="coModeloResumen" type="string">
+            <column name="CO_MODELO_RESUMEN" length="3" />
+        </property>
+        <property name="coVersionResumen" type="string">
+            <column name="CO_VERSION_RESUMEN" length="1" />
+        </property>
+        <property name="coDocumentoResumen" type="string">
+            <column name="CO_DOCUMENTO_RESUMEN" length="9" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <set name="documentoDTOs" inverse="true" lazy="true" table="GA_DOCUMENTO" fetch="select">
+            <key>
+                <column name="CO_CARGA_CONTROL_RECEPCION" precision="10" scale="0" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DocumentoDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+        
+        <property name="subtipo" type="string">
+            <column name="CO_SUBTIPO" length="1" />
+        </property>        
+        
+    </class>
+</hibernate-mapping>

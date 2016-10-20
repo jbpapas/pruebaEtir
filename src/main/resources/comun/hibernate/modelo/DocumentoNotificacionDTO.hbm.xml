@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 06-feb-2012 08:15:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.DocumentoNotificacionDTO" table="GA_DOCUMENTO_NOTIFICACION">
+        <id name="coDocumentoNotificacion" type="java.lang.Long">
+            <column name="CO_DOCUMENTO_NOTIFICACION" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_DOCUMENTO_NOTIFICACION</param>
+            </generator>
+        </id>
+        <!-- <one-to-one name="documentoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoDTO" constrained="true"></one-to-one> -->
+        <many-to-one name="documentoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoDTO" fetch="select">
+            <column name="CO_MODELO" length="3" />
+            <column name="CO_VERSION" length="1" />
+            <column name="CO_DOCUMENTO" length="9" />
+        </many-to-one>
+        <many-to-one name="docSeguimientoEnvioDTO" class="es.dipucadiz.etir.comun.dto.DocumentoSeguimientoDTO" fetch="select">
+            <column name="CO_DOC_SEGUIMIENTO_ENVIO" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="docSeguimientoResultadoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoSeguimientoDTO" fetch="select">
+            <column name="CO_DOC_SEGUIMIENTO_RESULTADO" precision="10" scale="0" />
+        </many-to-one>
+        <property name="coResultado" type="string">
+            <column name="CO_RESULTADO" length="3" />
+        </property>
+        <property name="fxResultado" type="date">
+            <column name="FX_RESULTADO" length="7" />
+        </property>
+        <many-to-one name="expedienteDTO" class="es.dipucadiz.etir.comun.dto.ExpedienteDTO" fetch="select">
+            <column name="CO_EXPEDIENTE" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="documentoResultadoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoDTO" fetch="select">
+            <column name="CO_MODELO_RESULTADO" length="3" />
+            <column name="CO_VERSION_RESULTADO" length="1" />
+            <column name="CO_DOCUMENTO_RESULTADO" length="9" />
+        </many-to-one>
+        <many-to-one name="bdDocumentalGrupoDTO" class="es.dipucadiz.etir.comun.dto.BDDocumentalGrupoDTO" fetch="select">
+            <column name="CO_BD_DOCUMENTAL_GRUPO" precision="10" scale="0" />
+        </many-to-one>
+        <property name="codigoBarras" type="string">
+            <column name="CODIGO_BARRAS" length="42" />
+        </property>
+        <property name="tipoNotificacion" type="string">
+            <column name="TIPO_NOTIFICACION" length="1" />
+        </property>   
+        <property name="codigoBarrasNot" type="string">
+            <column name="CODIGO_BARRAS_NOT" length="50" />
+        </property>     
+        <many-to-one name="remesaCargoCanalResDTO" class="es.dipucadiz.etir.comun.dto.RemesaCargoCanalResDTO" fetch="select">
+            <column name="CO_REMESA_CARGO_CANAL_RES" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="unidadUrbanaDTO" class="es.dipucadiz.etir.comun.dto.UnidadUrbanaDTO" fetch="select">
+            <column name="CO_UNIDAD_URBANA" precision="10" scale="0" />
+        </many-to-one>	
+        <property name="imNotificado" type="big_decimal">
+            <column name="IM_NOTIFICADO" precision="17" />
+        </property>
+        <property name="imNotificadoDocumento" type="big_decimal">
+            <column name="IM_NOTIFICADO_DOCUMENTO" precision="17" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>        
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="es.dipucadiz.etir.comun.dto.CalendarioTareaMasivaDTO" table="GA_CALENDARIO_TAREA_MASIVA">
+		<id name="coCalendarioTareaMasiva" type="java.lang.Long">
+			<column name="CO_CALENDARIO_TAREA_MASIVA" precision="10" scale="0" />
+			<generator class="sequence">
+				<param name="sequence">SEQ_CALENDARIO_TAREA_MASIVA</param>
+			</generator>
+		</id>
+		<property name="coTipo" type="string">
+			<column name="CO_TIPO" length="2" />
+		</property>
+		<property name="fxTarea" type="date">
+			<column name="FX_TAREA" length="7" />
+		</property>
+		<property name="nuTarea" type="java.lang.Integer">
+			<column name="NU_TAREA" length="10" />
+		</property>
+		<property name="estado" type="string">
+			<column name="ESTADO" length="1" />
+		</property>
+		<property name="fhActualizacion" type="timestamp">
+			<column name="FH_ACTUALIZACION" length="11" />
+		</property>
+		<property name="coUsuarioActualizacion" type="string">
+			<column name="CO_USUARIO_ACTUALIZACION" length="10" />
+		</property>	
+	</class>
+</hibernate-mapping>

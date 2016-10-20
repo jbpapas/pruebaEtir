@@ -1,0 +1,2624 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<query name="AcmMenu.findAcmMenusActivosByAcmPerfil">
+		Select m 
+		from AcmMenuDTO m
+		left join m.acmPerfilMenuDTOs pm
+		where pm.id.coAcmPerfil = :coAcmPerfil
+			and m.boActivo = true 
+		order by m.orden
+	</query>
+	
+	<query name="AcmMenu.findAcmMenusActivosByAcmPerfilSinOrden">
+		Select m 
+		from AcmMenuDTO m
+		left join m.acmPerfilMenuDTOs pm
+		where pm.id.coAcmPerfil = :coAcmPerfil
+			and m.boActivo = true 
+		order by m.coAcmMenu
+	</query>
+	
+	<query name="AcmMenu.Proceso.findAcmMenusByAcmPerfil">
+		Select m, p
+		from AcmMenuDTO m
+		left join m.acmPerfilMenuDTOs pm
+		left join m.procesoDTO p
+		where pm.id.coAcmPerfil = :coAcmPerfil
+		order by m.orden
+	</query>
+	
+	<query name="AcmMenu.findAcmMenuPadre">
+		Select m
+		from AcmMenuDTO m
+		where m.procesoDTO is null
+		order by m.coAcmMenu
+	</query>
+	
+	<query name="AcmMenu.findAcmMenuByNombre">
+		Select m
+		from AcmMenuDTO m
+		where m.nombre = :nombre
+		order by m.coAcmMenu
+	</query>
+	
+	<query name="AcmMenu.findAcmMenuByProceso">
+		Select m
+		from AcmMenuDTO m
+		left join m.procesoDTO u
+		where u.coProceso = :coProceso
+		order by m.coAcmMenu
+	</query>
+	
+	<query name="AcmBoton.findAcmBotonsByAcmPerfil">
+		Select b 
+		from AcmBotonDTO b
+		left join b.acmPerfilBotonDTOs pb
+		where pb.id.coAcmPerfil = :coAcmPerfil
+	</query>
+	
+	<query name="AcmBoton.findAcmBotonsByAcmUsuario">
+		Select b 
+		from AcmBotonDTO b
+		left join b.acmUsuarioBotonDTOs ub
+		where ub.id.coAcmUsuario = :coAcmUsuario
+	</query>
+	
+	<query name="AcmBoton.findAcmBotonsByProceso">
+		Select b 
+		from AcmBotonDTO b
+		left join b.procesoDTO u
+		where u.coProceso = :coProceso
+	</query>
+	
+	<query name="Modelo.findModelosByConcepto">
+		select m
+		from ModeloDTO m
+		left join m.conceptoModeloDTOs cm
+		where cm.conceptoDTO.coConcepto = :coConcepto
+		and m.conceptoModeloDTOs.size > 0
+		order by m.coModelo asc
+	</query>
+
+	<query name="Modelo.findModelosByConceptoTLF_LR">
+		select m
+		from ModeloDTO m
+		left join m.conceptoModeloDTOs cm
+		where cm.conceptoDTO.coConcepto = :coConcepto
+		and m.conceptoModeloDTOs.size > 0
+		and (
+			(m.tipo = 'T' and (m.subtipo = 'L' or m.subtipo = 'F'))
+			or
+			(m.tipo = 'L' and m.subtipo = 'R')
+		)
+		order by m.coModelo asc
+	</query>
+	
+	<query name="Modelo.findAllOrdenados">
+		Select distinct c
+		from ModeloDTO c
+		order by c.coModelo asc
+	</query>
+
+	<query name="CodigoTerritorial.findCodigosTerritorialesDistintosByMunicipio">
+		Select distinct b 
+		from CodigoTerritorialDTO b
+		left join b.municipioCodterDTOs ub
+		where 
+		ub.municipioDTO.id.coProvincia = :coProvincia and
+		ub.municipioDTO.id.coMunicipio = :coMunicipio
+		order by b.coCodigoTerritorial ASC
+	</query>
+	
+	<query name="CodigoTerritorial.findCodigosTerritorialesDistintosByNotMunicipio">
+		Select distinct b 
+		from CodigoTerritorialDTO b
+		left join b.municipioCodterDTOs ub
+		where 
+		not(ub.municipioDTO.id.coProvincia = :coProvincia and
+		ub.municipioDTO.id.coMunicipio = :coMunicipio)
+	</query>
+
+	<query name="Cliente.findFirstClienteByNIF">
+		Select b 
+		from ClienteDTO b
+		where 
+		b.identificador = :identificador)
+		and rownum = 1;
+	</query>
+	
+	<query name="Concepto.findConceptosByNombreAndMunicipio">
+		Select c 
+		from ConceptoDTO c
+		where c.nombre like :nombreConcepto
+	</query>
+	
+	<query name="SigreTasa.findAllOrdenadas">
+		Select c
+		from SigreTasaDTO c
+		order by c.coTasa asc
+	</query>
+
+	<query name="SigreTasa.findTasasByProvinciaAndMunicipio">
+		Select c
+		from SigreTasaDTO c
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio
+		order by c.coTasa asc
+	</query>
+	
+	<query name="SigreTasa.findTasasByNombreMunicipioAndCodigo">
+		Select c
+		from SigreTasaDTO c
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.coTasa = :coTasa
+		order by c.coTasa asc
+	</query>
+	
+	<query name="SigreTasa.findTasasByMunicipioAndConcepto">
+		Select distinct c
+		from SigreTasaDTO c
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto
+		order by c.coTasa asc
+	</query>
+	
+	<query name="SigreTasa.ValidacionGrabarDatos">
+	 	Select c
+		from SigreTasaDTO c
+		where c.municipioDTO.id.coMunicipio = :coMunicipio
+		and c.coTasa = :coTasa
+		and c.conceptoDTO.coConcepto = :coConcepto
+	</query>
+
+	<query name="Concepto.findAllOrdenados">
+		Select c 
+		from ConceptoDTO c		
+		order by c.coConcepto asc
+	</query>
+	
+	<query name="Concepto.findConceptosByTasa">
+		Select distinct c.conceptoDTO 
+		from SigreTasaDTO c
+		where c.coTasa = :coTasa
+		order by c.coTasa asc
+	</query>
+	
+	<query name="Version.findVersionesByModelo2">
+		Select distinct c
+		from ModeloVersionDTO c, ModeloDTO b
+		where c.id.coModelo = b.coModelo
+		and b.coModelo = :coModelo
+		order by c.id.coVersion asc
+	</query>
+	
+	<query name="Version.findAllOrdenados">
+		Select distinct c
+		from ModeloVersionDTO c
+		order by c.id.coVersion asc
+	</query>
+	
+	<query name="ModeloVersion.findByModeloVersion">
+		Select distinct c
+		from ModeloVersionDTO c
+		where c.id.coModelo = :coModelo
+		and c.id.coVersion = :coVersion
+	</query>
+	
+	<query name="SigrePeriodo.findPeriodosSigreGadirByProvinciaMunicipio">	
+		Select s
+		from SigrePeriodoDTO s
+		where 
+		s.municipioDTO.id.coProvincia = :coProvincia and
+		s.municipioDTO.id.coMunicipio = :coMunicipio
+		order by s.periodoGadir
+	</query>
+
+	<query name="SigrePeriodo.findPeriodoSigreByProvinciaMunicipio">	
+		Select s
+		from SigrePeriodoDTO s
+		where 
+		s.municipioDTO.id.coProvincia = :coProvincia and
+		s.municipioDTO.id.coMunicipio = :coMunicipio and
+		s.id.sigrePeriodo = :sigrePeriodo
+	</query>
+	
+	<query name="Calle.findCallesByMunicipioAndLikeNombreCalle">
+		Select c 
+		from CalleDTO c
+		where 
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.municipioDTO.id.coProvincia = :coProvincia and		
+		upper(c.nombreCalle) like upper('%'||:nombreCalle||'%')
+	</query>
+	
+	<query name="Calle.countCallesByMunicipioAndLikeNombreCalle">
+		Select count(*) 
+		from CalleDTO c
+		where 
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.municipioDTO.id.coProvincia = :coProvincia and		
+		upper(c.nombreCalle) like upper('%'||:nombreCalle||'%')
+		order by c.nombreCalle
+	</query>
+	
+	<query name="Calle.findCallesByMunicipioAndNombreCalleAndUbicacion">
+		Select c 
+		from CalleDTO c
+		where 
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.municipioDTO.id.coProvincia = :coProvincia and
+		c.sigla = :sigla and		
+		c.nombreCalle = :nombreCalle and
+		c.calleUbicacionDTO.coCalleUbicacion = :coCalleUbicacion
+	</query>
+	
+	<query name="Calle.findCallesByMunicipioAndNombreCalleSinUbicacion">
+		Select c 
+		from CalleDTO c
+		where 
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.municipioDTO.id.coProvincia = :coProvincia and
+		c.sigla = :sigla and
+		c.nombreCalle = :nombreCalle and
+		c.calleUbicacionDTO is null
+	</query>
+	
+	<query name="Calle.findCallesByMunicipioAndUbicacion">
+		Select c 
+		from CalleDTO c
+		where 
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.municipioDTO.id.coProvincia = :coProvincia and
+		c.calleUbicacionDTO.coCalleUbicacion = :coCalleUbicacion
+	</query>
+	
+	<query name="Calle.findCallesConMunicipioByID">
+		Select c 
+		from CalleDTO c
+		left join fetch c.municipioDTO
+		left join fetch c.calleUbicacionDTO
+		where 
+		c.coCalle = :coCalle
+	</query>
+	
+	<query name="Calle.findCallesByMunicipioAndCodigoMunicipal">
+		Select c 
+		from CalleDTO c
+		left join fetch c.municipioDTO
+		left join fetch c.calleUbicacionDTO
+		where 
+		c.municipioDTO = :municipioDTO and
+		c.coMunicipal = :coMunicipal
+	</query>
+	
+	<query name="Proceso.findByTipo">	
+		Select p
+		from ProcesoDTO p
+		where p.tipo = :tipo1 or p.tipo = :tipo2 or p.tipo = :tipo3
+		order by coProceso		
+	</query>
+	
+	<query name="Proceso.findBy2Tipos">	
+		Select p
+		from ProcesoDTO p
+		where p.tipo = :tipo1 or p.tipo = :tipo2
+		order by coProceso		
+	</query>
+	
+	<query name="Proceso.findByTipoMenu">	
+		Select p
+		from ProcesoDTO p
+		where p.tipo = 'M'
+		order by coProceso
+	</query>
+	
+	<query name="Proceso.findByTipoBatch">	
+		Select p
+		from ProcesoDTO p
+		where p.tipo = 'B' or p.tipo = 'A' or p.tipo = 'C' or p.tipo = 'L'
+		order by coProceso
+	</query>
+	
+	<query name="Proceso.findProcesoAyuda">	
+		Select distinct uc
+		from AyudaCampoDTO c
+		left join c.procesoDTO uc
+		order by uc.coProceso
+	</query>
+	
+	<query name="AyudaCampo.findCamposByProceso">	
+		Select c
+		from AyudaCampoDTO c
+		where 
+		c.procesoDTO.coProceso = :coProceso
+		order by c.coAyudaCampo
+	</query>
+	
+	<query name="AyudaCampo.findByProcesoAndCampo">	
+		Select c
+		from AyudaCampoDTO c
+		where 
+		c.procesoDTO.coProceso = :coProceso and
+		c.campo = :campo
+	</query>
+	
+
+	<query name="Procesos.findProcesosByCodigo">
+		Select c 
+		from ProcesoDTO c
+		where c.coProceso = :coProceso
+	</query>
+	
+	<query name="SigreSubconcepto.findSigreSubconceptosByProvinciaAndMunicipio">
+		Select s
+		from SigreSubconceptoDTO s
+		where s.municipioDTO.id.coProvincia = :coProvincia and
+		s.municipioDTO.id.coMunicipio = :coMunicipio 
+		order by s.coTasa asc
+	</query>
+
+	<query name="SigreSubconcepto.findSigreSubconceptosByProvinciaAndMunicipioAndTasa">
+		Select s
+		from SigreSubconceptoDTO s
+		where s.municipioDTO.id.coProvincia = :coProvincia and
+		s.municipioDTO.id.coMunicipio = :coMunicipio and
+		s.coTasa = :coTasa
+		order by s.nuSubconcepto asc
+	</query>
+	
+	<query name="SigreSubconcepto.existeSubconcepto">
+		Select s
+		from SigreSubconceptoDTO s
+		where s.municipioDTO.id.coProvincia = :coProvincia and
+		s.municipioDTO.id.coMunicipio = :coMunicipio and
+		s.coTasa = :coTasa and
+		s.nuSubconcepto = :nuSubconcepto and
+		s.casillaModeloDTO.id.coModelo = :coModelo and
+		s.casillaModeloDTO.id.coVersion = :coVersion
+	</query>
+	
+	<query name="SigreSubconcepto.findAllOrdenadas">
+		Select s
+		from SigreSubconceptoDTO s
+		order by s.coTasa asc
+	</query>
+	
+	<query name="CasillaModelo.findCasillasByVersion">
+		Select distinct c
+		from CasillaModeloDTO c, ModeloVersionDTO v
+		where c.id.coVersion = v.id.coVersion and
+		v.id.coVersion = :coVersion
+		order by c.id.nuCasilla asc
+	</query>	
+	
+	<query name="CasillaModelo.findCasillasByModelo">
+		Select distinct c
+		from CasillaModeloDTO c, ModeloVersionDTO m
+		where c.id.coModelo = m.id.coModelo
+		and m.id.coModelo = :coModelo
+		order by c.id.nuCasilla asc
+	</query>
+	
+	<query name="CasillaModelo.findCasillasByModeloAndVersion">
+		Select distinct c
+		from CasillaModeloDTO c, ModeloVersionDTO m
+		where c.id.coModelo = m.id.coModelo and
+		c.id.coVersion = m.id.coVersion and
+		m.id.coModelo = :coModelo and
+		m.id.coVersion = :coVersion
+		order by c.id.nuCasilla asc
+	</query>		
+	
+	<query name="Funcion.findFuncionesByTipo">
+		Select c 
+		from FuncionDTO c
+		where c.tipo = :tipo
+		order by c.coFuncion asc
+	</query>
+	
+	<query name="Funcion.findFuncionesByNombre">
+		Select c 
+		from FuncionDTO c
+		where upper(c.nombre) like upper('%'||:nombre||'%')
+		order by c.coFuncion asc
+	</query>
+	
+	<query name="Funcion.findFuncionesByNombreAndTipo">
+		Select c 
+		from FuncionDTO c
+		where upper(c.nombre) like upper('%'||:nombre||'%') and
+		c.tipo = :tipo
+		order by c.coFuncion asc
+	</query>
+	
+	<query name="Funcion.findFuncionesByCodigo">
+		Select c 
+		from FuncionDTO c
+		where upper(c.coFuncion) like upper('%'||:codigo||'%')
+		order by c.coFuncion asc
+	</query>
+	
+	<query name="Funcion.findFuncionesByCodigoAndTipo">
+		Select c 
+		from FuncionDTO c
+		where upper(c.coFuncion) like upper('%'||:codigo||'%') and
+		c.tipo = :tipo
+		order by c.coFuncion asc
+	</query>
+	
+	<query name="Funcion.findFuncionesByCodigoAndNombre">
+		Select c 
+		from FuncionDTO c
+		where upper(c.coFuncion) like upper('%'||:codigo||'%') and
+		upper(c.nombre) like upper('%'||:nombre||'%')
+		order by c.coFuncion asc
+	</query>
+
+	<query name="Funcion.findFuncionesByCodigoAndNombreAndTipo">
+		Select c 
+		from FuncionDTO c
+		where upper(c.coFuncion) like upper('%'||:codigo||'%') and
+		upper(c.nombre) like upper('%'||:nombre||'%') and
+		c.tipo = :tipo
+		order by c.coFuncion asc
+	</query>
+
+	<query name="FuncionArgumento.findFuncionArgumentoOrdenMaximo">
+		Select  c
+		from FuncionArgumentoDTO c
+		where c.id.coFuncion = :coFuncion
+		order by c.id.coArgumentoFuncion desc limit 1
+	</query>
+	
+	<query name="FuncionArgumento.findFuncionArgumentoByOrdenAndFuncion">
+		Select  c
+		from FuncionArgumentoDTO c
+		where c.id.coArgumentoFuncion = :coArgumentoFuncion and
+		c.id.coFuncion = :coFuncion
+	</query>
+	
+	<query name="FuncionArgumento.findFuncionArgumentoByOrden">
+		Select  c
+		from FuncionArgumentoDTO c
+		where c.id.coArgumentoFuncion = :coArgumentoFuncion
+	</query>
+	
+	<query name="FuncionArgumento.findFuncionArgumentoByCodigoFuncion">
+		Select c
+		from FuncionArgumentoDTO c
+		where c.id.coFuncion = :coFuncion
+		order by c.id.coArgumentoFuncion asc
+	</query>
+	
+	<query name="FuncionArgumento.findFuncionArgumentoByCodigoFuncionDescendente">
+		Select c
+		from FuncionArgumentoDTO c
+		where c.id.coFuncion = :coFuncion
+		order by c.id.coArgumentoFuncion desc
+	</query>
+	
+	<query name="FuncionArgumento.ValidarFuncionArgumento">
+		Select c
+		from FuncionArgumentoDTO c
+		where c.id.coFuncion = :coFuncion and
+		c.id.coArgumentoFuncion = :coArgumentoFuncion and
+		c.formato = :formato and
+		c.longitud = :longitud and
+		c.boEntrada = :boEntrada
+	</query>
+	
+	<query name="FuncionArgumento.ValidarFuncionArgumentoLogico">
+		Select c
+		from FuncionArgumentoDTO c
+		where c.id.coFuncion = :coFuncion and
+		c.id.coArgumentoFuncion = :coArgumentoFuncion and
+		c.formato = :formato and
+		c.boEntrada = :boEntrada
+	</query>
+	
+	<query name="DiaFestivo.findByMunicipioAno">
+		Select d 
+		from DiaFestivoDTO d
+		where 
+			d.municipioDTO.id.coMunicipio = :coMunicipio and
+			d.municipioDTO.id.coProvincia = :coProvincia and	
+			d.dia between :fechaInicio and :fechaFin
+		order by d.dia asc
+	</query>
+	
+	<query name="AcmProcesoBoton.findAcmProcesoBotonByProceso">
+		Select c 
+		from AcmProcesoBotonDTO c
+		where c.id.coProceso = :coProceso
+		order by c.id.coAcmBoton asc
+	</query>
+	
+	<query name="AcmProcesoBoton.findAcmProcesoBotonByProcesoAndBoton">
+		Select c 
+		from AcmProcesoBotonDTO c
+		where c.id.coProceso = :coProceso and
+		c.id.coAcmBoton = :coAcmBoton
+		order by c.id.coAcmBoton asc
+	</query>
+	
+	<query name="DiaFestivo.findByMunicipioDiaTipo">
+		Select d 
+		from DiaFestivoDTO d
+		where 
+			d.municipioDTO.id.coMunicipio = :coMunicipio and
+			d.municipioDTO.id.coProvincia = :coProvincia and
+			d.tipo = :tipoDiaFestivo and	
+			d.dia between :fechaInicio and :fechaFin
+		order by d.dia asc
+	</query>
+	
+	<!-- Devuelve la longitud de todos los argumentos de una funcion. -->
+	<query name="Funcion.longitudArgumentos" >
+		select sum(arg.longitud) as longitudTotal from FuncionArgumentoDTO arg 
+		where arg.id.coFuncion = :coFuncion
+	</query>
+	
+	<!-- Devuelve las funciones con argumentos de salida -->
+	<query name="Funciones.obtenerFuncionesConParametrosSalida">
+		select distinct f from FuncionDTO f left join fetch f.funcionArgumentoDTOs arg
+		where arg.boEntrada = false
+		and f.funcionArgumentoDTOs.size > 0
+	</query>
+	
+	
+	<query name="MensajeError.findMensajesErrorByCodigoMinimo">
+		Select c 
+		from MensajeErrorDTO c
+		where c.coMensajeError >= :coMensajeError
+		order by c.coMensajeError
+	</query>
+	
+	<query name="MensajeError.findMensajesErrorByCodigo">
+		Select c 
+		from MensajeErrorDTO c
+		where c.coMensajeError = :coMensajeError
+		order by c.coMensajeError
+	</query>
+	
+	<query name="MensajeError.findMensajesErrorByNombre">
+		Select c 
+		from MensajeErrorDTO c
+		where upper(c.texto) like upper('%'||:texto||'%')
+		order by c.coMensajeError
+	</query>
+	<!-- Devuelve las funciones con argumentos de salida -->
+	<query name="Funciones.obtenerFuncionesConParametrosSalidaConTipo">
+		select distinct f from FuncionDTO f left join fetch f.funcionArgumentoDTOs arg
+		where arg.boEntrada = false
+		and f.funcionArgumentoDTOs.size > 0 
+		and f.tipo = :tipo
+	</query>
+	
+	<query name="IncidenciaSituacion.findModelosDistintosByMunicipio">
+		Select distinct m.modeloVersionDTO.modeloDTO
+		from IncidenciaSituacionDTO m
+		left join m.modeloVersionDTO.modeloDTO md
+		where 
+		m.municipioDTO.id.coProvincia = :coProvincia and 
+		m.municipioDTO.id.coMunicipio = :coMunicipio
+		order by md.coModelo asc
+	</query>
+	
+	<query name="IncidenciaSituacion.findVersionesByModeloMunicipio">
+		Select distinct m.modeloVersionDTO
+		from IncidenciaSituacionDTO m
+		where 
+		m.modeloVersionDTO.modeloDTO.coModelo = :coModelo and
+		m.municipioDTO.id.coProvincia = :coProvincia and
+		m.municipioDTO.id.coMunicipio = :coMunicipio
+	</query>
+	
+	<query name="IncidenciaSituacion.findIncidenciasDistintasByMunicipioModeloVersion">
+		Select distinct m.incidenciaDTO
+		from IncidenciaSituacionDTO m
+		left join m.incidenciaDTO cc
+		where 
+		m.modeloVersionDTO.modeloDTO.coModelo = :coModelo and
+		m.modeloVersionDTO.id.coVersion = :coVersion and
+		m.municipioDTO.id.coProvincia = :coProvincia and
+		m.municipioDTO.id.coMunicipio = :coMunicipio
+		order by cc.coIncidencia asc
+	</query>
+	
+	<query name="IncidenciaSituacion.FindAlgunoDestino">
+		Select m
+		from IncidenciaSituacionDTO m
+		left join m.incidenciaDTO cc
+		where 
+		m.municipioDTO.id.coProvincia = :coProvincia and
+		m.municipioDTO.id.coMunicipio = :coMunicipio and
+		m.modeloVersionDTO.modeloDTO.coModelo = :coModelo and
+		m.modeloVersionDTO.id.coVersion = :coVersion 
+		order by cc.coIncidencia asc
+	</query>
+	
+	<query name="IncidenciaSituacion.FindByProceso">
+		Select m
+		from IncidenciaSituacionDTO m
+		left join m.procesoDTO c
+		where c.coProceso = :coProceso
+		order by m.coIncidenciaSituacion asc
+	</query>
+	
+	<query name="IncidenciaSituacion.FindIncidenciasByProceso">
+		Select m.incidenciaDTO
+		from IncidenciaSituacionDTO m
+		where 
+		m.modeloVersionDTO.modeloDTO.coModelo = :coModelo and
+		m.modeloVersionDTO.id.coVersion = :coVersion and
+		m.municipioDTO.id.coProvincia = :coProvincia and
+		m.municipioDTO.id.coMunicipio = :coMunicipio and		
+		m.procesoDTO.coProceso = :coProceso
+		order by m.incidenciaDTO.coIncidencia
+	</query>
+	
+	<query name="CasillasRelacionadas.findMunicipios">
+		select distinct uc
+		from CasillasRelacionadasDTO c 
+		left join c.municipioDTO uc 
+		order by uc.id.coProvincia, uc.id.coMunicipio 
+	</query>
+	
+	<query name="CasillasRelacionadas.findByMunicipio">
+		select distinct uc
+		from CasillasRelacionadasDTO c 
+		left join c.conceptoDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio
+		order by uc.coConcepto 
+	</query>
+	
+	<query name="CasillasRelacionadas.findByMunicipioAndConcepto">
+		select distinct uc
+		from CasillasRelacionadasDTO c 
+		left join c.casillaModeloDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto
+		order by uc.id.coModelo 
+	</query>
+	
+	<query name="CasillasRelacionadas.findByMunicipioAndConceptoAndModelo">
+		select distinct uc
+		from CasillasRelacionadasDTO c 
+		left join c.casillaModeloDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		uc.id.coModelo = :coModelo
+		order by uc.id.coVersion 
+	</query> 
+	
+	<query name="CasillasRelacionadas.findMunicipioRelByMunicipioConceptoModeloVersion">
+		select distinct c
+		from CasillasRelacionadasDTO c 		 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		c.casillaModeloDTO.id.coModelo = :coModelo and
+		c.casillaModeloDTO.id.coVersion = :coVersion
+		order by c.coProvinciaRelacionada, c.coMunicipioRelacionada  
+	</query> 
+	
+	<query name="CasillasRelacionadas.findModeloRelByMuniConceptoModeloVersionMuniRel">
+		select distinct c
+		from CasillasRelacionadasDTO c 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		c.casillaModeloDTO.id.coModelo = :coModelo and
+		c.casillaModeloDTO.id.coVersion = :coVersion and
+		c.coProvinciaRelacionada = :coProvRel and
+		c.coMunicipioRelacionada = :coMuniRel
+		order by c.coConceptoRelacionada  
+	</query> 
+	
+	<query name="CasillasRelacionadas.findModeloRelByMuniConceptoModeloVersionMuniRelConceptoRel">
+		select distinct c
+		from CasillasRelacionadasDTO c  
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		c.casillaModeloDTO.id.coModelo = :coModelo and
+		c.casillaModeloDTO.id.coVersion = :coVersion and
+		c.coProvinciaRelacionada = :coProvRel and
+		c.coMunicipioRelacionada = :coMuniRel and
+		c.coConceptoRelacionada = :coConceptoRel
+		order by c.coModeloRelacionada  
+	</query> 
+	
+	<query name="CasillasRelacionadas.findVersionesRelacionadasByAll">
+		select distinct c
+		from CasillasRelacionadasDTO c  
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		c.casillaModeloDTO.id.coModelo = :coModelo and
+		c.casillaModeloDTO.id.coVersion = :coVersion and
+		c.coProvinciaRelacionada = :coProvRel and
+		c.coMunicipioRelacionada = :coMuniRel and
+		c.coConceptoRelacionada = :coConceptoRel and
+		c.coModeloRelacionada = :coModeloRel
+		order by c.coVersionRelacionada  
+	</query> 
+	
+	<query name="CasillasRelacionadas.findByAll">
+		select distinct c
+		from CasillasRelacionadasDTO c  
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		c.casillaModeloDTO.id.coModelo = :coModelo and
+		c.casillaModeloDTO.id.coVersion = :coVersion and
+		c.coProvinciaRelacionada = :coProvRel and
+		c.coMunicipioRelacionada = :coMuniRel and
+		c.coConceptoRelacionada = :coConceptoRel and
+		c.coModeloRelacionada = :coModeloRel and
+		c.coVersionRelacionada = :coVersionRel
+		order by c.casillaModeloDTO.id.nuCasilla, c.nuCasillaRelacionada  
+	</query>
+	
+	<query name="AcmPerfilMenu.findAcmPerfilMenuByMenu">
+		Select c 
+		from AcmPerfilMenuDTO c
+		where c.id.coAcmMenu = :coAcmMenu
+		order by c.id.coAcmPerfil
+	</query>
+	
+	<query name="AcmPerfilMenu.findAcmPerfilMenuByPerfilAndMenu">
+		Select c 
+		from AcmPerfilMenuDTO c
+		where c.id.coAcmPerfil = :coAcmPerfil and
+		c.id.coAcmMenu = :coAcmMenu
+		order by c.id.coAcmPerfil
+	</query>
+	
+	<query name="CasillaMunicipio.findMunicipios">
+		select distinct uc
+		from CasillaMunicipioDTO c 
+		left join c.municipioDTO uc 
+		order by uc.id.coProvincia, uc.id.coMunicipio 
+	</query>
+	
+	<query name="CasillaMunicipio.findByMunicipio">
+		select distinct uc
+        from CasillaMunicipioDTO c, ConceptoDTO uc 
+        where c.municipioDTO.id.coProvincia = :coProvincia and
+        c.municipioDTO.id.coMunicipio = :coMunicipio and
+        c.conceptoDTO.coConcepto = uc.coConcepto
+        order by uc.coConcepto 
+	</query>
+	
+	<query name="CasillaMunicipio.findByMunicipioAndConcepto">
+		select distinct uc
+		from CasillaMunicipioDTO c 
+		left join c.casillaModeloDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto
+		order by uc.id.coModelo 
+	</query>
+	
+	<query name="CasillaMunicipio.findByMunicipioAndConceptoAndModelo">
+		select distinct uc
+		from CasillaMunicipioDTO c 
+		left join c.casillaModeloDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		uc.id.coModelo = :coModelo
+		order by uc.id.coVersion 
+	</query> 
+	
+	<query name="CasillaMunicipio.findByMunicipioAndConceptoAndModeloAndVersion">
+		select distinct c
+		from CasillaMunicipioDTO c  
+		left join fetch c.casillaMunicipioOperacionDTOs
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		c.casillaModeloDTO.id.coModelo = :coModelo and
+		c.casillaModeloDTO.id.coVersion = :coVersion
+		order by c.casillaModeloDTO.id.nuCasilla  
+	</query>
+	
+	<query name="Validaciones.findMunicipios">
+		select distinct uc
+		from ValidacionDTO c 
+		left join c.municipioDTO uc 
+		order by uc.id.coProvincia, uc.id.coMunicipio 
+	</query>
+	
+	<query name="Validaciones.findByMunicipio">
+		select distinct uc
+		from ValidacionDTO c 
+		left join c.conceptoDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio
+		order by uc.coConcepto 
+	</query>
+	
+	<query name="Validaciones.findByMunicipioAndConcepto">
+		select distinct uc
+		from ValidacionDTO c 
+		left join c.casillaModeloDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto
+		order by uc.id.coModelo 
+	</query>
+	
+	<query name="Validaciones.findByMunicipioAndConceptoAndModelo">
+		select distinct uc
+		from ValidacionDTO c 
+		left join c.casillaModeloDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		uc.id.coModelo = :coModelo
+		order by uc.id.coVersion 
+	</query> 
+	
+	<query name="Validaciones.findByMunicipioAndConceptoAndModeloAndVersion">
+		select distinct c
+		from ValidacionDTO c  
+		left join fetch c.validacionArgumentoDTOs
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		c.casillaModeloDTO.id.coModelo = :coModelo and
+		c.casillaModeloDTO.id.coVersion = :coVersion
+		order by c.casillaModeloDTO.id.nuCasilla  
+	</query>
+	
+	<query name="Validaciones.findByFuncion">
+		select distinct c
+		from ValidacionDTO c  
+		left join c.funcionDTO m
+		where m.coFuncion = :coFuncion
+		order by c.coValidacion  
+	</query>
+	
+	<query name="Correspondencias.findMunicipios">
+		select distinct uc
+		from CorrespondenciaDTO c 
+		left join c.municipioDTO uc 
+		order by uc.id.coProvincia, uc.id.coMunicipio 
+	</query>
+	
+	<query name="Correspondencias.findByMunicipio">
+		select distinct uc
+		from CorrespondenciaDTO c 
+		left join c.conceptoDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio
+		order by uc.coConcepto 
+	</query>
+
+	<query name="Correspondencias.findByMunicipioAndConcepto"> 
+		select distinct uc
+		from CorrespondenciaDTO c 
+		left join c.modeloVersionDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto
+		order by uc.id.coModelo
+	</query>
+
+	<query name="Correspondencias.findByMunicipioAndConceptoAndModelo">
+		select distinct uc
+		from CorrespondenciaDTO c 
+		left join c.modeloVersionDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		uc.id.coModelo = :coModelo
+		order by uc.id.coVersion 
+	</query> 
+	
+	<query name="Correspondencias.findByMunicipioAndConceptoAndModeloAndVersion">
+		select distinct c
+		from CorrespondenciaDTO c  
+		left join fetch c.correspondenciaArgumentoDTOs
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		c.modeloVersionDTO.id.coModelo = :coModelo and
+		c.modeloVersionDTO.id.coVersion = :coVersion
+	</query>
+	
+	<query name="AcmBoton.ProcesosTipoMyP">
+		select p
+		from ProcesoDTO p
+		where p.tipo = :tipo1 or
+		p.tipo = :tipo2
+		order by p.coProceso
+	</query>
+	
+	<query name="Carga.findMunicipios">
+		select distinct uc
+		from CargaDTO c 
+		left join c.municipioDTO uc 
+		order by uc.id.coProvincia, uc.id.coMunicipio 
+	</query>
+	
+	<query name="Carga.findByMunicipio">
+		select distinct uc
+		from CargaDTO c 
+		left join c.conceptoDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio
+		order by uc.coConcepto 
+	</query>
+	
+	<query name="Carga.findByMunicipioAndConcepto">
+		select distinct uc
+		from CargaDTO c 
+		left join c.modeloVersionDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto
+		order by uc.id.coModelo 
+	</query>
+	
+	<query name="Carga.findByMunicipioAndConceptoAndModelo">
+		select distinct uc
+		from CargaDTO c 
+		left join c.modeloVersionDTO uc 
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		uc.id.coModelo = :coModelo
+		order by uc.id.coVersion 
+	</query> 
+	
+	<query name="Carga.findByMunicipioAndConceptoAndModeloAndVersion">
+		select distinct c
+		from CargaDTO c 
+		left join fetch c.cargaTipoRegistroDTOs  
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.conceptoDTO.coConcepto = :coConcepto and
+		c.modeloVersionDTO.id.coModelo = :coModelo and
+		c.modeloVersionDTO.id.coVersion = :coVersion 
+	</query> 
+	
+	<query name="CargaTipoRegistro.findByCargaAndTipoRegistro">
+		select distinct c
+		from CargaTipoRegistroDTO c 
+		left join fetch c.cargaEstructuraDTOs
+		left join fetch c.cargaCriterioDTOs  
+		where c.id.coCarga = :coCarga and
+		c.id.coCargaTipoRegistro = :coCargaTipoRegistro 
+	</query> 
+	
+	<query name="CargaCriterio.findByCargaAndTipoRegistroAndCriterio">
+		select distinct c
+		from CargaCriterioDTO c 
+		left join fetch c.cargaCriterioCondicionDTOs  
+		where c.id.coCarga = :coCarga and
+		c.id.coCargaTipoRegistro = :coCargaTipoRegistro and
+		c.id.coCargaCriterio = :coCargaCriterio 
+	</query>
+	
+	<query name="Ejecucion.findByProceso">
+		Select m
+		from EjecucionDTO m
+		left join fetch m.procesoDTO 
+		where m.procesoDTO.coProceso = :coProceso
+		order by m.coEjecucion desc
+	</query>
+	
+	<query name="HEjecucion.findByCodigo">
+		Select m
+		from HEjecucionDTO m
+		where m.coEjecucion = :coEjecucion
+		order by m.id
+	</query>
+	
+	<query name="HEjecucion.findByCodigoOrdenadosByFecha">
+		Select m
+		from HEjecucionDTO m
+		where m.coEjecucion = :coEjecucion and m.estado is not null
+		order by m.fhActualizacion
+	</query>
+	
+	<query name="HEjecucion.findByCodigoAndEstado">
+		Select m
+		from HEjecucionDTO m
+		where m.coEjecucion = :coEjecucion and
+		m.estado = :estado
+	</query>
+	
+	<query name="Extraccion.findTipoRegistrosAndInformes">
+		select distinct e
+		from ExtraccionDTO e 
+		left join fetch e.extraccionTipoRegistroDTOs
+		left join fetch e.extraccionInformeDTOs  
+		where e.coExtraccion = :coExtraccion
+	</query> 
+	
+	<query name="ExtraccionTipoRegistro.findExtraccionCriteriosAndOrdenesAndEstructuras">
+		select distinct e
+		from ExtraccionTipoRegistroDTO e 
+		left join fetch e.extraccionCriterioDTOs
+		left join fetch e.extraccionOrdenDTOs
+		left join fetch e.extraccionEstructuraDTOs
+		where e.id.coExtraccion = :coExtraccion and
+		e.id.coExtraccionTipoRegistro = :coExtraccionTipoRegistro
+	</query> 
+	
+	<query name="ExtraccionCriterio.findExtraccionCondiciones">
+		select distinct e
+		from ExtraccionCriterioDTO e 
+		left join fetch e.extraccionCriterioCondDTOs
+		where e.id.coExtraccion = :coExtraccion and
+		e.id.coExtraccionTipoRegistro = :coExtraccionTipoRegistro and
+		e.id.coExtraccionCriterio = :coExtraccionCriterio
+	</query> 
+	
+	<query name="ExtraccionOrden.findExtraccionOrdenCampos">
+		select distinct e
+		from ExtraccionOrdenDTO e 
+		left join fetch e.extraccionOrdenCampoDTOs
+		where e.id.coExtraccion = :coExtraccion and
+		e.id.coExtraccionTipoRegistro = :coExtraccionTipoRegistro and
+		e.id.orden = :orden
+	</query> 
+	
+	<query name="ExtraccionEstructura.findExtraccionEstructuraCampos">
+		select distinct e
+		from ExtraccionEstructuraDTO e 
+		left join fetch e.extraccionEstructuraCampoDTOs
+		where e.id.coExtraccion = :coExtraccion and
+		e.id.coExtraccionTipoRegistro = :coExtraccionTipoRegistro and
+		e.id.ordenExtraccionEstructura = :ordenExtraccionEstructura
+	</query> 
+	
+	<query name="ExtraccionInforme.findExtraccionInformeEstructs">
+		select distinct e
+		from ExtraccionInformeDTO e 
+		left join fetch e.extraccionInformeEstructDTOs
+		where e.id.coExtraccion = :coExtraccion and
+		e.id.coExtraccionInforme = :coExtraccionInforme
+	</query> 
+	
+	<query name="Informe.findAllByFecha">
+		select distinct i
+		from InformeDTO i 		
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByUsuario">
+		select distinct i
+		from InformeDTO i 		
+		where i.coUsuarioActualizacion = :coUsuarioActualizacion
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByUsuarioAndNombreAndFechas">
+		select distinct i
+		from InformeDTO i, PlantillaDTO p
+		where i.coPlantilla = p.coPlantilla and
+		upper(p.plantillaOdtDTO.nombre) like upper('%'||:nombre||'%') and
+		i.coUsuarioActualizacion = :coUsuarioActualizacion and				 
+		i.fhActualizacion between :fechaDesde and :fechaHasta 
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByUsuarioAndNombreAndFechaInicio">
+		select distinct i
+		from InformeDTO i, PlantillaDTO p
+		where i.coPlantilla = p.coPlantilla and
+		upper(p.plantillaOdtDTO.nombre) like upper('%'||:nombre||'%') and
+		i.coUsuarioActualizacion = :coUsuarioActualizacion and
+		i.fhActualizacion >= :fechaDesde 
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByUsuarioAndNombreAndFechaFin">
+		select distinct i
+		from InformeDTO i, PlantillaDTO p
+		where i.coPlantilla = p.coPlantilla and
+		upper(p.plantillaOdtDTO.nombre) like upper('%'||:nombre||'%') and
+		i.coUsuarioActualizacion = :coUsuarioActualizacion and
+		:fechaHasta >= i.fhActualizacion  
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByUsuarioAndNombre">
+		select distinct i
+		from InformeDTO i, PlantillaDTO p
+		where i.coPlantilla = p.coPlantilla and
+		upper(p.plantillaOdtDTO.nombre) like upper('%'||:nombre||'%') and
+		i.coUsuarioActualizacion = :coUsuarioActualizacion   
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByUsuarioAndFechas">
+		select distinct i
+		from InformeDTO i 		
+		where i.coUsuarioActualizacion = :coUsuarioActualizacion and
+		i.fhActualizacion between :fechaDesde and :fechaHasta
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByUsuarioAndFechaInicio">
+		select distinct i
+		from InformeDTO i 		
+		where i.coUsuarioActualizacion = :coUsuarioActualizacion and
+		i.fhActualizacion >= :fechaDesde 
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByUsuarioAndFechaFin">
+		select distinct i
+		from InformeDTO i 		
+		where i.coUsuarioActualizacion = :coUsuarioActualizacion and
+		:fechaHasta >= i.fhActualizacion  
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByNombreAndFechas">
+		select distinct i
+		from InformeDTO i, PlantillaDTO p
+		where i.coPlantilla = p.coPlantilla and
+		upper(p.plantillaOdtDTO.nombre) like upper('%'||:nombre||'%') and
+		i.fhActualizacion between :fechaDesde and :fechaHasta
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByNombreAndFechaInicio">
+		select distinct i
+		from InformeDTO i, PlantillaDTO p
+		where i.coPlantilla = p.coPlantilla and
+		upper(p.plantillaOdtDTO.nombre) like upper('%'||:nombre||'%') and
+		i.fhActualizacion >= :fechaDesde 
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByNombreAndFechaFin">
+		select distinct i
+		from InformeDTO i, PlantillaDTO p
+		where i.coPlantilla = p.coPlantilla and
+		upper(p.plantillaOdtDTO.nombre) like upper('%'||:nombre||'%') and
+		:fechaHasta >= i.fhActualizacion  
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByNombre">
+		select distinct i
+		from InformeDTO i, PlantillaDTO p
+		where i.coPlantilla = p.coPlantilla and
+		upper(p.plantillaOdtDTO.nombre) like upper('%'||:nombre||'%')   
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByFechas">
+		select distinct i
+		from InformeDTO i 		
+		where i.fhActualizacion between :fechaDesde and :fechaHasta 
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByFechaInicio">
+		select distinct i
+		from InformeDTO i 		
+		where i.fhActualizacion >= :fechaDesde 
+		order by i.fhActualizacion desc
+	</query> 
+	
+	<query name="Informe.findByFechaFin">
+		select distinct i
+		from InformeDTO i 		
+		where i.fhActualizacion >= :fechaHasta 
+		order by i.fhActualizacion desc
+	</query>
+	
+	<query name="Informe.findByCodigoEjecucion">
+		select distinct i
+		from InformeDTO i
+		where i.ejecucionDTO.coEjecucion = :coEjecucion
+		order by i.fhActualizacion desc
+	</query> 
+
+	<query name="Plantilla.findPlantillaOdt">
+		select p
+		from PlantillaDTO p
+		left join fetch p.plantillaOdtDTO  		
+		where p.coPlantilla = :coPlantilla
+	</query>
+	
+	<query name="ProcesoAccion.findAccionesByProceso">
+		select m
+		from ProcesoAccionDTO m
+		left join m.procesoDTO u 		
+		where u.coProceso = :coProceso 
+		order by m.coProcesoAccion
+	</query>
+	
+	<query name="ProcesoAccion.findAccionesByProcesoOrdenadosByAccion">
+		select m
+		from ProcesoAccionDTO m
+		left join m.procesoDTO u 		
+		where u.coProceso = :coProceso 
+		order by m.accion
+	</query>
+	
+	<query name="ProcesoAccion.findAccionesByCodigo">
+		select m
+		from ProcesoAccionDTO m
+		left join m.procesoDTO u 		
+		where m.accion = :accion 
+		order by m.coProcesoAccion
+	</query>
+	
+	<query name="ProcesoAccion.findAccionesByProcesoAndCodigo">
+		select m
+		from ProcesoAccionDTO m
+		left join m.procesoDTO u 		
+		where m.accion = :accion and
+		m.procesoDTO.coProceso = :coProceso
+	</query>
+	
+	<query name="ProcesoParametro.findParametrosByProceso">
+		select m
+		from ProcesoParametroDTO m
+		left join m.procesoDTO u 		
+		where u.coProceso = :coProceso 
+		order by m.id.coProceso
+	</query>
+	
+	<query name="ProcesoParametro.findParametrosByProcesoOrdenadosByNumeroParametro">
+		select m
+		from ProcesoParametroDTO m
+		left join m.procesoDTO u 		
+		where u.coProceso = :coProceso 
+		order by m.id.nuParametro
+	</query>
+	
+	<query name="ProcesoParametro.findParametrosByProcesoAndNumero">
+		select m
+		from ProcesoParametroDTO m		
+		where m.id.coProceso = :coProceso and
+		m.id.nuParametro = :nuParametro
+		order by m.id.coProceso
+	</query>
+	<query name="FormulaPaso.findByFuncion">
+		select distinct c
+		from FormulaPasoDTO c  
+		left join c.funcionDTO m
+		where m.coFuncion = :coFuncion
+		order by c.id.coFormula
+	</query>
+	
+	<query name="Correspondencia.findByFuncion">
+		select distinct c
+		from CorrespondenciaDTO c  
+		left join c.funcionDTO m
+		where m.coFuncion = :coFuncion
+		order by c.coCorrespondencia
+	</query>
+		
+	<query name="TipoGravamen.findMunicipios">
+		select distinct ut
+		from TipoGravamenDTO t
+		left join t.municipioDTO ut  		
+		order by ut.id.coProvincia, ut.id.coMunicipio
+	</query>
+
+	<query name="TipoGravamen.findByEjercicio">
+		select distinct i
+		from TipoGravamenDTO i  
+		where i.ejercicio = :ejercicio 	
+	</query>
+	
+
+	<query name="TipoGravamen.findMunicipiosTodos">
+		select distinct i
+		from TipoGravamenDTO i  		
+		order by i.ejercicio desc
+	</query>
+	
+	<query name="TipoGravamen.findByMunicipioConceptoEjercicio">
+		select distinct t
+		from TipoGravamenDTO t   		
+		where t.municipioDTO.id.coProvincia = :coProvincia and
+		t.municipioDTO.id.coMunicipio = :coMunicipio and
+		t.conceptoDTO.coConcepto = :coConcepto and
+		t.ejercicio = :ejercicio 
+	</query>
+	<query name="TipoGravamen.findByTodosConceptosxMunicipioEjercicio">
+		select distinct t
+		from TipoGravamenDTO t   		
+		where t.municipioDTO.id.coProvincia = :coProvincia and
+		t.municipioDTO.id.coMunicipio = :coMunicipio and
+		t.ejercicio = :ejercicio 
+	</query>
+	<query name="TipoGravamen.findByTodosMunicipiosConceptosxEjercicio">
+		select distinct t
+		from TipoGravamenDTO t   		
+		where t.ejercicio = :ejercicio 
+	</query>
+	<query name="TipoGravamen.findByTodosMunicipiosxConceptoEjercicio">
+		select distinct t
+		from TipoGravamenDTO t   		
+		where t.conceptoDTO.coConcepto = :coConcepto and 
+		 	  t.ejercicio = :ejercicio
+	</query>
+	
+	
+	<query name="TipoGravamen.findByMunicipioAndEjercicioAndConcepto">
+		select distinct t
+		from TipoGravamenDTO t   		
+		where t.municipioDTO.id.coProvincia = :coProvincia and
+		t.municipioDTO.id.coMunicipio = :coMunicipio and
+		t.ejercicio = :ejercicio and
+		t.conceptoDTO.coConcepto = :coConcepto
+	</query>
+	
+	
+	
+	<query name="TipoGravamen.findByMunicipio">
+		select distinct t
+		from TipoGravamenDTO t
+		left join fetch t.conceptoDTO   		
+		where t.municipioDTO.id.coProvincia = :coProvincia and
+		t.municipioDTO.id.coMunicipio = :coMunicipio
+		order by t.conceptoDTO.coConcepto asc, t.ejercicio desc
+	</query>
+	
+	<query name="TipoGravamen.findConceptosByMunicipio">
+		select distinct ut
+		from TipoGravamenDTO t
+		left join t.conceptoDTO ut  		
+		where t.municipioDTO.id.coProvincia = :coProvincia and
+		t.municipioDTO.id.coMunicipio = :coMunicipio
+		order by ut.coConcepto
+	</query>
+	
+	<query name="TipoGravamen.findEjerciciosByMunicipioAndConcepto">
+		select distinct t
+		from TipoGravamenDTO t  		
+		left join fetch t.conceptoDTO
+		where t.municipioDTO.id.coProvincia = :coProvincia and
+		t.municipioDTO.id.coMunicipio = :coMunicipio and
+		t.conceptoDTO.coConcepto = :coConcepto
+		order by t.ejercicio desc
+	</query>
+	
+	<query name="TipoGravamen.findConceptosByMunicipioAndEjercicio">
+		select distinct t
+		from TipoGravamenDTO t  	
+		left join fetch t.conceptoDTO  	
+		where t.municipioDTO.id.coProvincia = :coProvincia and
+		t.municipioDTO.id.coMunicipio = :coMunicipio and
+		t.ejercicio = :ejercicio
+		order by t.conceptoDTO.coConcepto
+	</query>
+	
+	<query name="TipoGravamen.findByMunicipioAndConceptoAndEjercicio">
+		select distinct t
+		from TipoGravamenDTO t  
+		left join fetch t.conceptoDTO		
+		where t.municipioDTO.id.coProvincia = :coProvincia and
+		t.municipioDTO.id.coMunicipio = :coMunicipio and
+		t.conceptoDTO.coConcepto = :coConcepto and
+		t.ejercicio = :ejercicio
+		order by t.tipoIce
+	</query>
+	
+	<query name="DocumentoLiquidacion.findByMunicipioAndConceptoAndEjercicio">
+		select distinct d
+		from DocumentoLiquidacionDTO d  		
+		where d.documentoDTO.municipioDTO.id.coProvincia = :coProvincia and
+		d.documentoDTO.municipioDTO.id.coMunicipio = :coMunicipio and
+		d.documentoDTO.conceptoDTO.coConcepto = :coConcepto and
+		d.documentoDTO.ejercicio = :ejercicio		
+	</query>
+	
+	<query name="TipoGravamen.findByTipoGravamenAndMunicipioAndConceptoAndEjercicioAndTipoIceAndRango">
+		select distinct t
+		from TipoGravamenDTO t  		
+		where t.coTipoGravamen != :coTipoGravamen and 
+		t.municipioDTO.id.coProvincia = :coProvincia and
+		t.municipioDTO.id.coMunicipio = :coMunicipio and
+		t.conceptoDTO.coConcepto = :coConcepto and
+		t.ejercicio = :ejercicio and
+		t.tipoIce = :tipoIce and
+		((:desde between t.valCatastralDesde and t.valCatastralHasta or
+		:hasta between t.valCatastralDesde and t.valCatastralHasta) or
+		(t.valCatastralDesde between :desde and :hasta or
+		t.valCatastralHasta between :desde and :hasta))	
+	</query>
+	
+	<query name="TipoGravamen.findByTipoGravamenAndMunicipioAndConceptoAndEjercicioAndRango">
+		select distinct t
+		from TipoGravamenDTO t  		
+		where t.coTipoGravamen != :coTipoGravamen and 
+		t.municipioDTO.id.coProvincia = :coProvincia and
+		t.municipioDTO.id.coMunicipio = :coMunicipio and
+		t.conceptoDTO.coConcepto = :coConcepto and
+		t.ejercicio = :ejercicio and
+		t.tipoIce is null and
+		((:desde between t.valCatastralDesde and t.valCatastralHasta or
+		:hasta between t.valCatastralDesde and t.valCatastralHasta) or
+		(t.valCatastralDesde between :desde and :hasta or
+		t.valCatastralHasta between :desde and :hasta))
+	</query>
+	
+	<query name="TipoGravamen.findByMunicipioAndConceptoAndEjercicioAndTipoIceAndRango">
+		select distinct t
+		from TipoGravamenDTO t  		
+		where t.municipioDTO.id.coProvincia = :coProvincia and
+		t.municipioDTO.id.coMunicipio = :coMunicipio and
+		t.conceptoDTO.coConcepto = :coConcepto and
+		t.ejercicio = :ejercicio and
+		t.tipoIce = :tipoIce and
+		((:desde between t.valCatastralDesde and t.valCatastralHasta or
+		:hasta between t.valCatastralDesde and t.valCatastralHasta) or
+		(t.valCatastralDesde between :desde and :hasta or
+		t.valCatastralHasta between :desde and :hasta))	
+	</query>
+	
+	<query name="TipoGravamen.findByMunicipioAndConceptoAndEjercicioAndRango">
+		select distinct t
+		from TipoGravamenDTO t  		
+		where t.municipioDTO.id.coProvincia = :coProvincia and
+		t.municipioDTO.id.coMunicipio = :coMunicipio and
+		t.conceptoDTO.coConcepto = :coConcepto and
+		t.ejercicio = :ejercicio and
+		t.tipoIce is null and
+		((:desde between t.valCatastralDesde and t.valCatastralHasta or
+		:hasta between t.valCatastralDesde and t.valCatastralHasta) or
+		(t.valCatastralDesde between :desde and :hasta or
+		t.valCatastralHasta between :desde and :hasta))
+	</query>
+	
+	<query name="EjecucionParameto.findByCodigo">
+		Select m
+		from EjecucionParametroDTO m
+		where m.id.coEjecucion = :coEjecucion
+		order by m.id.nuParametro
+	</query>
+	
+	<query name="EjecucionParameto.findByCodigoNumero">
+		Select m
+		from EjecucionParametroDTO m
+		where m.id.coEjecucion = :coEjecucion and
+		      m.id.nuParametro = :nuParametro
+		order by m.id.nuParametro
+	</query>
+	
+	<query name="CargaControlRecepcion.findByCodigoEjecucion">
+		select distinct i
+		from CargaControlRecepcionDTO i
+		where i.ejecucionDTO.coEjecucion = :coEjecucion
+		order by i.fhActualizacion desc
+	</query>
+	
+	<query name="CalleSinonimo.findBySinonimoAndSiglas">
+		select m
+		from CalleSinonimoDTO m
+		left join fetch m.calleDTO 
+		left join fetch m.calleDTO.municipioDTO
+		where m.id.sigla = :sigla and
+		m.id.sinonimo = :sinonimo
+		order by m.id.coCalle
+	</query>
+	
+	<query name="CalleUbicacion.findByProvinciaAndMunicipio">
+		Select c
+		from CalleUbicacionDTO c
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio
+		order by c.coCalleUbicacion
+	</query>
+	
+	<query name="CalleUbicacion.findByProvinciaAndMunicipioAndUbicacion">
+		Select c
+		from CalleUbicacionDTO c
+		where c.municipioDTO.id.coProvincia = :coProvincia and
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.ubicacion = :ubicacion
+		order by c.coCalleUbicacion
+	</query>
+	
+	<query name="IndiceSituacion.findMunicipios">
+		select distinct ui
+		from IndiceSituacionIAEDTO i
+		left join i.municipioDTO ui  		
+		order by ui.id.coProvincia, ui.id.coMunicipio
+	</query>
+	
+	<query name="IndiceSituacion.findEjerciciosByMunicipio">
+		select distinct i
+		from IndiceSituacionIAEDTO i
+		where i.municipioDTO.id.coProvincia = :coProvincia and
+		i.municipioDTO.id.coMunicipio = :coMunicipio 		
+		order by i.ejercicio desc
+	</query>
+	
+	<query name="IndiceSituacion.findByMunicipio">
+		select distinct i
+		from IndiceSituacionIAEDTO i   		
+		where i.municipioDTO.id.coProvincia = :coProvincia and
+		i.municipioDTO.id.coMunicipio = :coMunicipio
+		order by i.ejercicio desc, i.categoriaCalle asc
+	</query>
+	
+	<query name="IndiceSituacion.findByMunicipioAndEjercicio">
+		select distinct i
+		from IndiceSituacionIAEDTO i   		
+		where i.municipioDTO.id.coProvincia = :coProvincia and
+		i.municipioDTO.id.coMunicipio = :coMunicipio and
+		i.ejercicio = :ejercicio
+		order by i.categoriaCalle asc
+	</query>
+	
+	<query name="IndiceSituacion.findByMunicipioAndEjercicioAndCategoria">
+		select distinct i
+		from IndiceSituacionIAEDTO i   		
+		where i.municipioDTO.id.coProvincia = :coProvincia and
+		i.municipioDTO.id.coMunicipio = :coMunicipio and
+		i.ejercicio = :ejercicio and
+		i.categoriaCalle = :categoria 
+	</query>
+	
+	<query name="IndiceSituacion.findAllOrdenadosByEjercicios">
+		select distinct i		
+		from IndiceSituacionIAEDTO i
+		order by i.ejercicio desc
+	</query>
+	
+	<query name="IndiceSituacion.findByEjercicio">
+		select i		
+		from IndiceSituacionIAEDTO i
+		left join fetch i.municipioDTO
+		where i.ejercicio = :ejercicio
+	</query>
+	
+	<query name="RevisionCatastral.findMunicipios">
+		select distinct ur
+		from RevisionCatastralDTO r
+		left join r.municipioDTO ur  		
+		order by ur.id.coProvincia, ur.id.coMunicipio
+	</query>
+	
+	<query name="RevisionCatastral.findByMunicipioAndConcepto">
+		select distinct r
+		from RevisionCatastralDTO r  		
+		where r.municipioDTO.id.coProvincia = :coProvincia and
+		r.municipioDTO.id.coMunicipio = :coMunicipio and
+		r.conceptoDTO.coConcepto = :coConcepto
+	</query>
+	
+	<query name="RevisionCatastral.findByMunicipio">
+		select r
+		from RevisionCatastralDTO r
+		left join fetch r.municipioDTO
+		left join fetch r.conceptoDTO
+		where r.municipioDTO.id.coProvincia = :coProvincia and
+		r.municipioDTO.id.coMunicipio = :coMunicipio
+	</query>
+	
+	<query name="LiquidatorioEjercicio.findMunicipios">
+		select distinct ul
+		from LiquidatorioEjercicioDTO l
+		left join l.municipioDTO ul  		
+		order by ul.id.coProvincia, ul.id.coMunicipio
+	</query>
+	
+	<query name="LiquidatorioEjercicio.findConceptosByMunicipio">
+		select distinct ul
+		from LiquidatorioEjercicioDTO l
+		left join l.conceptoDTO ul
+		where l.municipioDTO.id.coProvincia = :coProvincia and
+		l.municipioDTO.id.coMunicipio = :coMunicipio
+		order by ul.coConcepto asc		
+	</query>
+	
+	<query name="LiquidatorioEjercicio.findModelosByMunicipioAndConceptoAndTipo">
+		select distinct ul
+		from LiquidatorioEjercicioDTO l
+		left join l.modeloDTO ul
+		where l.municipioDTO.id.coProvincia = :coProvincia and
+		l.municipioDTO.id.coMunicipio = :coMunicipio and
+		l.conceptoDTO.coConcepto = :coConcepto and
+		(ul.tipo = :tipo or ul.coModelo = '***')
+		order by ul.coModelo asc		
+	</query>
+	
+	<query name="LiquidatorioEjercicio.findByMunicipioAndConceptoAndModelo">
+		select distinct l
+		from LiquidatorioEjercicioDTO l		
+		where l.municipioDTO.id.coProvincia = :coProvincia and
+		l.municipioDTO.id.coMunicipio = :coMunicipio and
+		l.conceptoDTO.coConcepto = :coConcepto and
+		l.modeloDTO.coModelo = :coModelo
+		order by l.ejercicioDesde desc, l.ejercicioHasta desc		
+	</query>
+	
+	<query name="LiquidatorioPeriodo.findByCoLiquidatorioEjercicio">
+		select distinct l
+		from LiquidatorioPeriodoDTO l
+		where l.liquidatorioEjercicioDTO.coLiquidatorioEjercicio = :coLiquidatorioEjercicio
+		order by l.periodoLiquidatorio
+	</query>
+	
+	<query name="LiquidatorioPeriodo.findByMunicipioAndConceptoAndModeloAndEjercicio">
+		select p
+		from LiquidatorioPeriodoDTO p
+		where 
+			p.liquidatorioEjercicioDTO.municipioDTO.id.coMunicipio = :coMunicipio and
+			p.liquidatorioEjercicioDTO.municipioDTO.id.coProvincia = :coProvincia and
+			p.liquidatorioEjercicioDTO.conceptoDTO.coConcepto = :coConcepto and
+			p.liquidatorioEjercicioDTO.modeloDTO.coModelo = :coModelo and
+			:ejercicio between p.liquidatorioEjercicioDTO.ejercicioDesde and p.liquidatorioEjercicioDTO.ejercicioHasta
+		order by p.periodoLiquidatorio
+	</query>
+	
+	<query name="LiquidatorioEjercicio.findByMunicipioAndConceptoAndModeloAndEjercicios">
+		select distinct l
+		from LiquidatorioEjercicioDTO l
+		where l.municipioDTO.id.coProvincia = :coProvincia and
+		l.municipioDTO.id.coMunicipio = :coMunicipio and
+		l.conceptoDTO.coConcepto = :coConcepto and
+		l.modeloDTO.coModelo = :coModelo and
+		l.ejercicioDesde = :desde and
+		l.ejercicioHasta = :hasta
+	</query>
+	
+	<query name="LiquidatorioEjercicio.findByMunicipio">
+		select distinct l
+		from LiquidatorioEjercicioDTO l
+		where l.municipioDTO.id.coProvincia = :coProvincia and
+		l.municipioDTO.id.coMunicipio = :coMunicipio
+	</query>
+	
+	<query name="LiquidatorioEjercicio.findByMunicipioAndConcepto">
+		select distinct l
+		from LiquidatorioEjercicioDTO l
+		where l.municipioDTO.id.coProvincia = :coProvincia and
+		l.municipioDTO.id.coMunicipio = :coMunicipio and
+		l.conceptoDTO.coConcepto = :coConcepto
+	</query>
+	
+	<query name="LiquidatorioEjercicio.findByMunicipioAndModelo">
+		select distinct l
+		from LiquidatorioEjercicioDTO l
+		where l.municipioDTO.id.coProvincia = :coProvincia and
+		l.municipioDTO.id.coMunicipio = :coMunicipio and
+		l.modeloDTO.coModelo = :coModelo
+	</query>
+	
+	<query name="LiquidatorioEjercicio.findByMunicipioAndEjercicios">
+		select distinct l
+		from LiquidatorioEjercicioDTO l
+		where l.municipioDTO.id.coProvincia = :coProvincia and
+		l.municipioDTO.id.coMunicipio = :coMunicipio and
+		l.ejercicioDesde = :desde and
+		l.ejercicioHasta = :hasta
+	</query>
+	
+	<query name="LiquidatorioEjercicio.findByMunicipioAndConceptoAndEjercicios">
+		select distinct l
+		from LiquidatorioEjercicioDTO l
+		where l.municipioDTO.id.coProvincia = :coProvincia and
+		l.municipioDTO.id.coMunicipio = :coMunicipio and
+		l.conceptoDTO.coConcepto = :coConcepto and
+		l.ejercicioDesde = :desde and
+		l.ejercicioHasta = :hasta
+	</query>
+	
+	<query name="LiquidatorioEjercicio.findByMunicipioAndModeloAndEjercicios">
+		select distinct l
+		from LiquidatorioEjercicioDTO l
+		where l.municipioDTO.id.coProvincia = :coProvincia and
+		l.municipioDTO.id.coMunicipio = :coMunicipio and
+		l.modeloDTO.coModelo = :coModelo and
+		l.ejercicioDesde = :desde and
+		l.ejercicioHasta = :hasta
+	</query>
+	
+	<query name="Modelo.findModelosByConceptoAndTipo">
+		select m
+		from ModeloDTO m
+		left join m.conceptoModeloDTOs cm
+		where cm.conceptoDTO.coConcepto = :coConcepto
+		and m.conceptoModeloDTOs.size > 0
+		and m.tipo = :tipo
+		order by m.coModelo asc
+	</query>
+		
+	<query name="Bonificacion.findMunicipios">
+		select distinct ub
+		from BonificacionDTO b
+		left join b.municipioDTO ub  		
+		order by ub.id.coProvincia, ub.id.coMunicipio 
+	</query>
+	
+	<query name="Bonificacion.findConceptosByMunicipio">
+		select distinct ub
+		from BonificacionDTO b
+		left join b.conceptoDTO ub
+		where b.municipioDTO.id.coProvincia = :coProvincia and
+		b.municipioDTO.id.coMunicipio = :coMunicipio
+		order by ub.coConcepto asc 		
+	</query>
+	
+	<query name="Modelo.findByTipo">
+		select m
+		from ModeloDTO m		
+		where (m.tipo = :tipo or m.coModelo = '***')
+		order by m.coModelo asc
+	</query>
+	
+
+	
+	<query name="Bonificacion.findByNifAndActivo">
+		select b
+		from BonificacionDTO b		
+		left join fetch b.municipioDTO
+		left join fetch b.conceptoDTO
+		where b.clienteDTO.identificador = :nif and
+		b.boActiva = :boActivo
+		order by b.municipioDTO.id.coProvincia, b.municipioDTO.id.coMunicipio, b.conceptoDTO.coConcepto, b.orden, b.anoInicio
+	</query>
+	
+	<query name="Bonificacion.findByClienteAndActivo">
+		select distinct b
+		from BonificacionDTO b	
+		left join fetch b.municipioDTO
+		left join fetch b.conceptoDTO	
+		where b.clienteDTO.coCliente = :coCliente and
+		b.boActiva = :boActivo
+		order by b.municipioDTO.id.coProvincia, b.municipioDTO.id.coMunicipio, b.conceptoDTO.coConcepto, b.orden, b.anoInicio 
+	</query>
+	
+	<query name="Bonificacion.findByMunicipioAndConceptoAndActivo">
+		select distinct b
+		from BonificacionDTO b		
+		left join fetch b.clienteDTO
+		where b.municipioDTO.id.coProvincia = :coProvincia and
+		b.municipioDTO.id.coMunicipio = :coMunicipio and
+		b.conceptoDTO.coConcepto = :coConcepto and
+		b.boActiva = :boActivo
+		order by b.refObjTributario, b.orden, b.anoInicio 		
+	</query>
+	
+	<query name="Bonificacion.findByMunicipioAndConceptoAndReferenciaAndActivo">
+		select distinct b
+		from BonificacionDTO b		
+		left join fetch b.clienteDTO
+		where b.municipioDTO.id.coProvincia = :coProvincia and
+		b.municipioDTO.id.coMunicipio = :coMunicipio and
+		b.conceptoDTO.coConcepto = :coConcepto and
+		b.refObjTributario = :referencia and
+		b.boActiva = :boActivo
+		order by b.clienteDTO.razonSocial, b.orden, b.anoInicio 		
+	</query>
+	
+	<query name="Bonificacion.findMunicipioAndConceptoByRowid">
+		select distinct b
+		from BonificacionDTO b	
+		left join fetch b.municipioDTO
+		left join fetch b.conceptoDTO	
+		left join fetch b.clienteDTO
+		where b.rowid = :rowid
+		order by b.municipioDTO.id.coProvincia, b.municipioDTO.id.coMunicipio, b.orden, b.anoInicio 
+	</query>
+	
+	<query name="Bonificacion.findNuNonificacionByClienteAndMunicipioAndConceptoAndReferencia">
+		select distinct b
+		from BonificacionDTO b				
+		where b.clienteDTO.coCliente = :coCliente and
+		b.municipioDTO.id.coProvincia = :coProvincia and
+		b.municipioDTO.id.coMunicipio = :coMunicipio and
+		b.conceptoDTO.coConcepto = :coConcepto and
+		b.refObjTributario = :referencia 
+		order by b.orden desc, b.orden, b.anoInicio	
+	</query>
+	
+	<query name="Domicilio.findUnidadUrbanaByCliente">
+		select distinct ud
+		from DomicilioDTO d		
+		left join d.unidadUrbanaDTO ud		
+		left join fetch ud.calleDTO
+		left join fetch ud.calleDTO.municipioDTO
+		where d.clienteDTO.coCliente = :coCliente and
+		d.boFiscalMunicipal = '1' 		
+	</query>
+	
+	<query name="BonificacionArt74.findCasillaModeloByCoBonificacionArt74">
+		select distinct b
+		from BonificacionArt74DTO b	
+		left join fetch b.casillaModeloDTO
+		where b.coBonificacionArt74 = :coBonificacionArt74
+	</query>
+	
+	<query name="BonificacionArt74.findByMunicipioAndConceptoAndPeriodo">
+		select distinct b
+		from BonificacionArt74DTO b				
+		where b.revisionCatastralDTO.coRevisionCatastral = :coRevisionCatastral and
+		b.ejercicio between :ejercicioInicio and :ejercicioFin
+		order by b.ejercicio desc, b.casillaModeloDTO.id.coModelo, b.casillaModeloDTO.id.coVersion		
+	</query>
+	
+	<query name="CasillaModelo.findCasillasAPartirDeByModeloAndVersion">
+		Select distinct c
+		from CasillaModeloDTO c
+		where c.id.coModelo = :coModelo and
+		c.id.coVersion = :coVersion and
+		c.id.nuCasilla >= :nuCasilla
+		order by c.id.nuCasilla asc
+	</query>
+	
+	<query name="BonifArt74Tramo.findbyBonificacionArt74">
+		select distinct b
+		from BonifArt74TramoDTO b				
+		where b.bonificacionArt74DTO.coBonificacionArt74 = :coBonificacionArt74
+		order by b.coBonifArt74Tramo 		
+	</query>	
+	
+	<query name="BonificacionArt74.findByRevCatastAndEjercicioAndModeloAndVersion">
+		select distinct b
+		from BonificacionArt74DTO b				
+		where b.revisionCatastralDTO.coRevisionCatastral = :coRevisionCatastral and
+		b.ejercicio = :ejercicio and
+		b.casillaModeloDTO.id.coModelo = :coModelo and
+		b.casillaModeloDTO.id.coVersion = :coVersion		
+	</query>
+	
+	<query name="BonifArt74Tramo.findValorDesdeAndBonificacionArt74">
+		select distinct b
+		from BonifArt74TramoDTO b  		
+		where b.bonificacionArt74DTO.coBonificacionArt74 = :coBonificacionArt74 and
+		b.valorDesde = :desde	
+	</query>
+	
+	<query name="BonifArt74Tramo.findByBonificacionArt74">
+		select distinct b
+		from BonifArt74TramoDTO b  		
+		where b.bonificacionArt74DTO.coBonificacionArt74 = :coBonificacionArt74 
+	</query>
+	
+	<!-- Queries sb06 -->
+	
+	<query name="Circuito.FindOrganosPrimerNivel">
+		select i
+		from CircuitoAccesoDTO i
+		where i.id.coCircuito = :coCircuito
+	</query> 
+	
+	<query name="Circuito.FindCircuitosCompatibles">
+		select i
+		from CircuitoCompatibleDTO i
+		where i.id.coCircuito = :coCircuito
+	</query> 
+	
+	<query name="Circuito.FindModelos">
+		select i
+		from CircuitoModeloDTO i
+		where i.id.coCircuito = :coCircuito
+	</query> 
+	
+	<query name="Circuito.FindRutas">
+		select i
+		from CircuitoRutaDTO i
+		where i.id.coCircuito = :coCircuito
+		order by i.id.coMunicipio
+	</query> 
+	
+	<query name="CircuitoAcceso.FindOrganosPrimerNivel">
+		select i
+		from CircuitoAccesoDTO i
+		where i.id.coCircuito = :coCircuito
+		and i.id.organoPrimerNivel = :coOrganoAnadir
+	</query> 
+	
+	<query name="CircuitoModelo.FindModelos">
+		select i
+		from CircuitoModeloDTO i
+		where i.id.coCircuito = :coCircuito
+		and i.id.coModelo = :coModeloAnadir
+	</query>
+	
+	<query name="CircuitoModelo.findModelosByCircuito">
+		select distinct ui
+		from CircuitoModeloDTO i
+		left join i.modeloDTO ui
+		where i.id.coCircuito = :coCircuito
+		order by ui.coModelo
+	</query>
+	
+	<query name="CircuitoCompatible.FindCircuitos">
+		select i
+		from CircuitoCompatibleDTO i
+		where i.id.coCircuito = :coCircuito
+		and i.id.coCircuitoCompatible = :coCircuitoAnadir
+	</query>
+	
+	<query name="CircuitoCompatible.findByCircuitoCompatible">
+		select i
+		from CircuitoCompatibleDTO i
+		where i.id.coCircuitoCompatible = :coCircuitoCompatible		
+	</query>
+	
+	<query name="CircuitoRuta.FindRutas">
+		select i
+		from CircuitoRutaDTO i
+		where i.id.coCircuito = :coCircuito
+		and i.id.coProvincia = :coProvincia
+		and i.id.coMunicipio = :coMunicipio
+	</query>
+	
+	<query name="RutaTramite.AltaTramite">
+		select i
+		from TramiteDTO i
+		where i.tipoTramite = :tipoTramite
+		and i.circuitoRutaDTO.id.coCircuito = :coCircuito
+		and i.circuitoRutaDTO.id.coMunicipio = :coMunicipio
+		and i.circuitoRutaDTO.id.coProvincia = :coProvincia
+	</query>
+	
+	<query name="Ruta.findTramites">
+		select i
+		from TramiteDTO i
+		where i.circuitoRutaDTO.id.coCircuito = :coCircuito
+		and i.circuitoRutaDTO.id.coMunicipio = :coMunicipio
+		and i.circuitoRutaDTO.id.coProvincia = :coProvincia
+	</query>
+	
+	<query name="Tramite.FindTramitesByCircuitoAndRuta">
+		select i
+		from TramiteDTO i
+		where i.circuitoRutaDTO.id.coCircuito = :coCircuito
+		and i.circuitoRutaDTO.id.coMunicipio = :coMunicipio
+		and i.circuitoRutaDTO.id.coProvincia = :coProvincia
+		and (i.tipoTramite = 'C' or i.coTramite != :coTramite)
+		and i.tipoTramite != 'A'
+		order by i.etiqueta
+	</query>
+
+	<query name="Tramite.FindTramitesByCircuitoAndRutaNoApertura">
+		select i
+		from TramiteDTO i
+		where i.circuitoRutaDTO.id.coCircuito = :coCircuito
+		and i.circuitoRutaDTO.id.coMunicipio = :coMunicipio
+		and i.circuitoRutaDTO.id.coProvincia = :coProvincia
+		and i.coTramite != :coTramite
+		and i.tipoTramite != 'A'
+		order by i.etiqueta
+	</query>
+	
+	<query name="Tramite.FindEtiquetaRepetida">
+		select i
+		from TramiteDTO i
+		where i.circuitoRutaDTO.id.coCircuito = :coCircuito
+		and i.circuitoRutaDTO.id.coMunicipio = :coMunicipio
+		and i.circuitoRutaDTO.id.coProvincia = :coProvincia
+		and i.etiqueta = :etiqueta
+	</query>
+	
+	<query name="Tramite.FindModelosForIncidencias">
+		select i
+		from CircuitoModeloDTO i
+		where i.id.coCircuito = :coCircuito
+	</query>
+	
+	<query name="Tramite.findIncidenciasDistintas">
+		Select m
+		from IncidenciaSituacionDTO m
+		left join m.incidenciaDTO cc
+		where 
+		m.modeloVersionDTO.modeloDTO.coModelo = :coModelo and
+		m.modeloVersionDTO.id.coVersion = :coVersion and
+		m.municipioDTO.id.coProvincia = :coProvincia and
+		m.municipioDTO.id.coMunicipio = :coMunicipio
+		order by cc.coIncidencia asc
+	</query>
+	
+	<query name="Tramite.FindTramiteSiguientePorOrigen">
+		Select m
+		from TramiteTransicionDTO m
+		where 
+		m.id.coTramiteOrigen = :coTramite
+	</query>
+	
+	<query name="TramiteUnidadAdmin.FindUnidades">
+		select i
+		from TramiteUnidadAdminDTO i
+		where i.id.coTramiteOrigen = :coTramite
+		and i.id.coUnidadAdministrativa = :coUnidadAnadir
+	</query>
+	
+	<query name="TramiteCircDerivado.FindCircuitos">
+		select i
+		from TramiteCircDerivadoDTO i
+		where i.id.coTramite = :coTramite
+		and i.id.coCircuito = :coCircuitoAnadir
+	</query>
+	
+	<query name="TramiteCircDerivado.FindCircuitosByTramite">
+		select distinct i.circuitoDTO
+		from TramiteCircDerivadoDTO i
+		left join i.circuitoDTO c
+		where i.id.coTramite = :coTramite		
+		order by c.coCircuito
+	</query>
+	
+	<query name="CircuitoDerivado.findByCircuitoDerivado">
+		select i
+		from TramiteCircDerivadoDTO i
+		where i.id.coCircuito = :coCircuito		
+	</query>
+	
+	<query name="TramiteCircDependiente.FindDependientes">
+		select i
+		from TramiteCircDependienteDTO i
+		where i.id.coTramite = :coTramite
+		and i.id.coCircuitoDependiente = :coCircuitoAnadir
+		and i.id.coTramiteDependiente = :coTramiteAnadir
+	</query>
+	
+	<query name="TramiteCircDependiente.FindCircDerivados">
+		select distinct i.circuitoDTO
+		from TramiteCircDerivadoDTO i
+		left join i.circuitoDTO c
+		order by c.coCircuito
+	</query>
+	
+	<query name="TramiteCircDepen.FindTramites">
+		select i.tramiteDTO
+		from TramiteCircDerivadoDTO i
+		left join i.tramiteDTO t
+		where i.circuitoDTO.coCircuito = :coCircuito
+		order by t.coTramite
+	</query>
+	
+	<query name="TramiteCircDerivado.FindTramites">
+		select i.tramiteDTO
+		from TramiteCircDerivadoDTO i
+		left join i.tramiteDTO t
+		where t.circuitoRutaDTO.rowid = :circuitoRutaRowid and
+		t.coTramite != :coTramite
+		order by t.coTramite
+	</query>
+	
+	<query name="TramiteCircDerivado.FindCircuitosByRuta">
+		select i.circuitoDTO
+		from TramiteCircDerivadoDTO i
+		left join i.tramiteDTO t
+		where t.circuitoRutaDTO.rowid = :circuitoRutaRowid and
+		t.coTramite != :coTramite
+		order by t.coTramite
+	</query>
+		
+	<query name="CircuitoDependiente.findByCircuitoDependiente">
+		select i
+		from TramiteCircDependienteDTO i
+		where i.id.coCircuitoDependiente = :coCircuitoDependiente		
+	</query>
+		
+	<query name="Tramite.findTramitesConEtiqueta">
+		select i
+		from TramiteDTO i
+		where i.etiqueta = :etiqueta
+		and i.circuitoRutaDTO.id.coCircuito = :coCircuito
+		and i.circuitoRutaDTO.id.coMunicipio = :coMunicipio
+		and i.circuitoRutaDTO.id.coProvincia = :coProvincia
+	</query>
+	
+	<query name="Expediente.findMunicipios">
+	<!-- 
+		select distinct ue
+		from ExpedienteDTO e
+		join e.circuitoRutaDTO ue
+		left join fetch ue.municipioDTO	
+		order by ue.id.coProvincia, ue.id.coMunicipio
+	-->
+		select distinct ue
+		from CircuitoRutaDTO ue
+		left join fetch ue.municipioDTO	
+		where ue.boActivo = 1
+		order by ue.id.coProvincia, ue.id.coMunicipio
+	</query>
+	
+	<query name="Expediente.findCircuitoRutaByExpediente">
+		select e
+		from ExpedienteDTO e
+		left join fetch e.circuitoRutaDTO ue
+		where e.coExpediente = :coExpediente		
+	</query>
+	
+	<query name="Expediente.findByCircuito">
+		select distinct e
+		from ExpedienteDTO e
+		left join e.circuitoRutaDTO ue
+		where ue.id.coCircuito = :coCircuito		
+	</query>
+	
+	<query name="Expediente.findCircuitosByMunicipio">
+	<!-- 
+		select distinct ue
+		from ExpedienteDTO e
+		join e.circuitoRutaDTO ue
+		left join fetch ue.circuitoDTO
+		where ue.id.coProvincia = :coProvincia and 
+		ue.id.coMunicipio = :coMunicipio
+		order by ue.circuitoDTO.coCircuito
+	-->		
+		select distinct ue
+		from CircuitoRutaDTO ue
+		left join fetch ue.circuitoDTO
+		where ue.id.coProvincia = :coProvincia and ue.id.coMunicipio = :coMunicipio and ue.boActivo = 1
+		order by ue.circuitoDTO.coCircuito
+	</query>
+		
+	<query name="Expediente.findCodTerritorialesByCircuitoRuta">
+		select distinct ue
+		from ExpedienteDTO e
+		join e.codigoTerritorialDTO ue
+		where e.circuitoRutaDTO.id.coProvincia = :coProvincia and 
+		e.circuitoRutaDTO.id.coMunicipio = :coMunicipio and
+		e.circuitoRutaDTO.id.coCircuito = :coCircuito
+		order by ue.coCodigoTerritorial		
+	</query>
+	
+	<query name="Expediente.findAniosByCircuitoRutaAndCodTer">
+		select distinct e
+		from ExpedienteDTO e		
+		where e.circuitoRutaDTO.id.coProvincia = :coProvincia and 
+		e.circuitoRutaDTO.id.coMunicipio = :coMunicipio and
+		e.circuitoRutaDTO.id.coCircuito = :coCircuito and
+		e.codigoTerritorialDTO.coCodigoTerritorial = :coCodigoTerritorial
+		order by e.ejercicio desc	
+	</query>
+	
+	<query name="Expediente.findNuExpedientsByCircuitoRutaAndCodTerAndAnio">
+		select distinct e
+		from ExpedienteDTO e		
+		where e.circuitoRutaDTO.id.coProvincia = :coProvincia and 
+		e.circuitoRutaDTO.id.coMunicipio = :coMunicipio and
+		e.circuitoRutaDTO.id.coCircuito = :coCircuito and
+		e.codigoTerritorialDTO.coCodigoTerritorial = :coCodigoTerritorial and
+		e.ejercicio = :ejercicio
+		order by e.nuExpediente	desc
+	</query>	
+	
+	<query name="Expediente.findRUEsOrigenByMunicipio">
+		select distinct ue
+		from ExpedienteDTO e
+		join e.expedienteOrigenDTO ue 
+		join fetch ue.circuitoRutaDTO
+		where ue.circuitoRutaDTO.id.coProvincia = :coProvincia and 
+		ue.circuitoRutaDTO.id.coMunicipio = :coMunicipio
+		order by ue.coExpediente desc
+	</query>
+	
+	<query name="Expediente.findCodTerritorialesByCircuito">
+		select distinct ue
+		from ExpedienteDTO e
+		join e.codigoTerritorialDTO ue
+		where e.circuitoRutaDTO.id.coCircuito = :coCircuito
+		order by ue.coCodigoTerritorial		
+	</query>
+	
+	<query name="Expediente.findAniosByCircuitoAndCodTer">
+		select e
+		from ExpedienteDTO e		
+		where e.circuitoRutaDTO.id.coCircuito = :coCircuito and
+		e.codigoTerritorialDTO.coCodigoTerritorial = :coCodigoTerritorial
+		order by e.ejercicio desc	
+	</query>
+	
+	<query name="Expediente.findNuExpedientsByCircuitoAndCodTerAndAnio">
+		select e
+		from ExpedienteDTO e	
+		where e.circuitoRutaDTO.id.coCircuito = :coCircuito and
+		e.codigoTerritorialDTO.coCodigoTerritorial = :coCodigoTerritorial and
+		e.ejercicio = :ejercicio
+		order by e.nuExpediente	desc
+	</query>
+	
+	<query name="Expediente.findCodTerritorialesByCircuitoOrigen">
+		select ue.codigoTerritorialDTO
+		from ExpedienteDTO e
+		join e.expedienteOrigenDTO ue
+		where ue.circuitoRutaDTO.id.coCircuito = :coCircuito
+		order by ue.codigoTerritorialDTO.coCodigoTerritorial		
+	</query>
+	
+	<query name="Expediente.findAniosByCircuitoAndCodTerOrigen">
+		select distinct ue
+		from ExpedienteDTO e	
+		join e.expedienteOrigenDTO ue	
+		where ue.circuitoRutaDTO.id.coCircuito = :coCircuito and
+		ue.codigoTerritorialDTO.coCodigoTerritorial = :coCodigoTerritorial
+		order by ue.ejercicio desc	
+	</query>
+	
+	<query name="Expediente.findNuExpedientsByCircuitoAndCodTerAndAnioOrigen">
+		select distinct ue
+		from ExpedienteDTO e
+		join e.expedienteOrigenDTO ue		
+		where ue.circuitoRutaDTO.id.coCircuito = :coCircuito and
+		ue.codigoTerritorialDTO.coCodigoTerritorial = :coCodigoTerritorial and
+		ue.ejercicio = :ejercicio
+		order by ue.nuExpediente desc
+	</query>
+	
+	<query name="ExpDocSeguimiento.findTramitesByExpediente">
+		select distinct e.tramiteDTO
+		from ExpedienteSeguimientoDTO e
+		left join e.expedienteClienteDocDTOByCoExpedienteClienteDoc ue		
+		where ue.expedienteDTO.coExpediente = :coExpediente
+		order by e.tramiteDTO.etiqueta	
+	</query>
+		
+	<query name="ExpDocSeguimiento.findDocumentosByExpedienteAndTramite">
+		select distinct ue
+		from ExpedienteSeguimientoDTO e
+		left join e.expedienteClienteDocDTOByCoExpedienteClienteDoc ue
+		left join fetch ue.documentoDTO
+		where ue.expedienteDTO.coExpediente = :coExpediente and
+		e.tramiteDTO.coTramite = :coTramite
+		order by ue.documentoDTO.id.coModelo, ue.documentoDTO.id.coVersion, ue.documentoDTO.id.coDocumento	
+	</query>
+	
+	<query name="ExpDocSeguimiento.findByExpedienteAndTramite">
+		select distinct e
+		from ExpedienteSeguimientoDTO e
+		left join e.expedienteClienteDocDTOByCoExpedienteClienteDoc ue
+		where ue.expedienteDTO.coExpediente = :coExpediente and
+		e.tramiteDTO.coTramite = :coTramite	
+	</query>
+	
+	<query name="ExpDocSeguimiento.findDocumentosByExpediente">
+		select e
+		from ExpedienteSeguimientoDTO e
+		left join e.expedienteClienteDocDTOByCoExpedienteClienteDoc ue
+		left join fetch e.expedienteClienteDocDTOByCoExpedienteClienteDoc
+		where ue.expedienteDTO.coExpediente = :coExpediente 
+		order by ue.documentoDTO.id.coDocumento	
+	</query>
+	
+	<query name="Expediente.findMunicipio">
+		select ue.municipioDTO
+		from ExpedienteDTO e
+		left join e.circuitoRutaDTO ue
+		where e.coExpediente = :coExpediente
+	</query>
+	
+	<query name="Expediente.findByCircuitoAndCodTerAndEjercicioAndNuExpediente">
+		select distinct e
+		from ExpedienteDTO e
+		left join fetch e.circuitoRutaDTO
+		left join fetch e.codigoTerritorialDTO
+		where e.circuitoRutaDTO.id.coCircuito = :coCircuito and
+		e.codigoTerritorialDTO.coCodigoTerritorial = :coCodigoTerritorial and
+		e.ejercicio = :ejercicio and
+		e.nuExpediente = :nuExpediente
+	</query>
+	
+	<query name="Expediente.findByRue">
+		select distinct e
+		from ExpedienteDTO e
+		left join fetch e.circuitoRutaDTO
+		left join fetch e.codigoTerritorialDTO
+		where e.circuitoRutaDTO.id.coCircuito = :coCircuito and
+		e.circuitoRutaDTO.id.coProvincia = :coProvincia and
+		e.circuitoRutaDTO.id.coMunicipio = :coMunicipio and
+		e.codigoTerritorialDTO.coCodigoTerritorial = :coCodigoTerritorial and
+		e.ejercicio = :ejercicio and
+		e.nuExpediente = :nuExpediente
+	</query>
+	
+	<query name="TramiteTransicion.FindSiguienteDeTramiteOrigen">
+		select i
+		from TramiteTransicionDTO i
+		where i.id.coTramiteOrigen = :coTramite
+		order by i.orden
+	</query>
+	
+	<query name="FindModelosEyS">
+		select i
+		from ModeloDTO i
+		where i.tipo = 'E'
+		or i.tipo = 'S'
+	</query>
+	
+	<query name="TodosModelosSinGenerico">
+		select i
+		from ModeloDTO i
+		where i.coModelo != '***'
+		order by i.coModelo
+	</query>
+	
+	<query name="TodosCircuitosMenosSeleccionado">
+		select i
+		from CircuitoDTO i
+		where i.coCircuito != :coCircuito
+		order by i.coCircuito
+	</query>
+	
+	<query name="Expediente.findRUEsMenosSeleccionado">
+		select distinct e
+		from ExpedienteDTO e
+		left join fetch e.circuitoRutaDTO
+		left join fetch e.codigoTerritorialDTO
+		where e.coExpediente != :coExpediente
+		order by e.circuitoRutaDTO.id.coCircuito, e.codigoTerritorialDTO.coCodigoTerritorial, e.ejercicio desc, e.nuExpediente desc
+	</query>
+	
+	<query name="ExpedienteClienteDoc.findDocumentosByExpediente">
+		select e
+		from ExpedienteClienteDocDTO e
+		left join fetch e.documentoDTO
+		where e.expedienteDTO.coExpediente = :coExpediente
+		order by e.documentoDTO.id.coModelo, e.documentoDTO.id.coVersion, e.documentoDTO.id.coDocumento	
+	</query>
+	
+	<query name="ExpDocSeguimiento.findExpedienteClienteDoc">
+		select ue
+		from ExpedienteSeguimientoDTO e
+		left join e.expedienteClienteDocDTOByCoExpedienteClienteDoc ue
+		where e.coExpedienteSeguimiento = :coExpedienteSeguimiento
+	</query>
+	
+	<query name="ExpDocSeguimiento.findTramite">
+		select ue
+		from ExpedienteSeguimientoDTO e
+		left join e.tramiteDTO ue
+		left join fetch ue.circuitoRutaDTO
+		where e.coExpedienteSeguimiento = :coExpedienteSeguimiento
+	</query>
+	
+	<query name="ExpDocSeguimiento.findTramitesByExpedienteClienteDoc">
+		select e.tramiteDTO
+		from ExpedienteSeguimientoDTO e
+		left join e.expedienteClienteDocDTOByCoExpedienteClienteDoc ue
+		where ue.coExpedienteClienteDoc = :coExpedienteClienteDoc
+		order by e.coExpedienteSeguimiento
+	</query>
+	
+	<query name="ExpDocSeguimiento.findTramitesByExpedienteAndDocumento">
+		select e
+		from ExpedienteSeguimientoDTO e
+		left join e.expedienteClienteDocDTOByCoExpedienteClienteDoc ue
+		left join fetch e.unidadAdministrativaDTO
+		left join fetch e.tramiteDTO		
+		where ue.expedienteDTO.coExpediente = :coExpediente and
+		ue.documentoDTO.id.coDocumento = :coDocumento and
+		ue.documentoDTO.id.coModelo = :coModelo and
+		ue.documentoDTO.id.coVersion = :coVersion 
+		order by e.coExpedienteSeguimiento
+	</query>
+	
+	<query name="ExpDocSeguimiento.findUltimoTramiteFinalizadoByExpedienteAndDocumento">
+		select e
+		from ExpedienteSeguimientoDTO e
+		left join e.expedienteClienteDocDTOByCoExpedienteClienteDoc ue
+		left join fetch e.unidadAdministrativaDTO
+		left join fetch e.tramiteDTO		
+		where ue.expedienteDTO.coExpediente = :coExpediente and
+		ue.documentoDTO.id.coDocumento = :coDocumento and
+		ue.documentoDTO.id.coModelo = :coModelo and
+		ue.documentoDTO.id.coVersion = :coVersion and
+		e.situacionTramite = 'F'
+		order by e.fhCierre desc	
+	</query>
+	
+	<query name="ExpedienteClienteDoc.findDocumento">
+		select ue
+		from ExpedienteClienteDocDTO e
+		left join e.documentoDTO ue	
+		where e.coExpedienteClienteDoc = :coExpedienteClienteDoc
+	</query>
+	
+	<query name="ExpedienteClienteDoc.findExpediente">
+		select ue
+		from ExpedienteClienteDocDTO e
+		left join e.expedienteDTO ue
+		left join fetch ue.codigoTerritorialDTO
+		left join fetch ue.circuitoRutaDTO	
+		where e.coExpedienteClienteDoc = :coExpedienteClienteDoc
+	</query>
+	
+	<query name="Documento.findDocumentoOrigen">
+		select d.documentoDTOByOrigenDocuni
+		from DocumentoDTO d
+		where d.id.coDocumento = :coDocumento and
+		d.id.coModelo = :coModelo and
+		d.id.coVersion = :coVersion
+	</query>
+	
+	<query name="Expediente.findExpedienteOrigen">
+		select distinct ue
+		from ExpedienteDTO e
+		join e.expedienteOrigenDTO ue
+		left join fetch ue.circuitoRutaDTO
+		left join fetch ue.codigoTerritorialDTO
+		where e.coExpediente = :coExpediente
+	</query>
+	
+	<query name="TramiteTransicion.findTramiteDestino">
+		select distinct t
+		from TramiteTransicionDTO t
+		where t.id.coTramiteOrigen = :coTramite
+	</query>
+	
+	<query name="Tramite.findRutaByTramite">
+		select uc
+		from TramiteDTO t 
+		left join t.circuitoRutaDTO uc
+		where t.coTramite = :coTramite
+	</query>
+	
+	<query name="ExpDocSeguimiento.findByExpedienteAndDocumentoAndTramite">
+		select e
+		from ExpedienteSeguimientoDTO e
+		left join e.expedienteClienteDocDTOByCoExpedienteClienteDoc ue
+		left join fetch e.unidadAdministrativaDTO
+		left join fetch e.tramiteDTO
+		where ue.expedienteDTO.coExpediente = :coExpediente and
+		ue.documentoDTO.id.coDocumento = :coDocumento and
+		ue.documentoDTO.id.coModelo = :coModelo and
+		ue.documentoDTO.id.coVersion = :coVersion and
+		e.tramiteDTO.coTramite = :coTramite	and 
+		(e.situacionTramite != 'E' or e.situacionTramite is null)
+		order by e.fhActualizacion desc, e.coExpedienteSeguimiento
+	</query>
+	
+	<query name="ExpDocSeguimiento.findByExpedienteAndDocumentoAndTramite2">
+		select e
+		from ExpedienteSeguimientoDTO e
+		left join e.expedienteClienteDocDTOByCoExpedienteClienteDoc ue
+		left join fetch e.unidadAdministrativaDTO
+		where ue.expedienteDTO.coExpediente = :coExpediente and
+		ue.documentoDTO.id.coDocumento = :coDocumento and
+		ue.documentoDTO.id.coModelo = :coModelo and
+		ue.documentoDTO.id.coVersion = :coVersion and
+		e.tramiteDTO.coTramite = :coTramite	
+	</query>
+	
+	<query name="ExpedienteClienteDoc.findByExpedienteAndDocumento">
+		select e
+		from ExpedienteClienteDocDTO e
+		where e.expedienteDTO.coExpediente = :coExpediente and
+		e.documentoDTO.id.coDocumento = :coDocumento and
+		e.documentoDTO.id.coModelo = :coModelo and
+		e.documentoDTO.id.coVersion = :coVersion
+	</query>
+	
+	<query name="ExpDocSeguimiento.findTramitesDeModelosCompatiblesByCircuitoAndExpediente">
+		select distinct ut
+		from ExpedienteSeguimientoDTO e, CircuitoModeloDTO c
+		left join e.expedienteClienteDocDTOByCoExpedienteClienteDoc ue
+		left join e.tramiteDTO ut		
+		where c.id.coCircuito = :coCircuitoOrigen and
+		ue.expedienteDTO.coExpediente = :coExpediente and
+		ue.documentoDTO.id.coModelo in 
+			(select cm.id.coModelo 
+			from CircuitoModeloDTO cm
+			where cm.id.coCircuito = :coCircuito)
+		order by ut.coTramite	
+	</query>
+	
+	<query name="TramiteCondicion.findByTramite">
+		select distinct t
+		from TramiteCondicionDTO t
+		where t.id.coTramite = :coTramite
+		order by t.id.orden
+	</query>
+	
+	<query name="CircuitoModelo.findCircuitosConModelosComunes">
+		select uc
+		from CircuitoModeloDTO c
+		left join c.circuitoDTO uc
+		where c.id.coModelo in 
+			(select m.id.coModelo 
+			 from CircuitoModeloDTO m 
+			 where m.id.coCircuito = :coCircuito)
+		and c.id.coCircuito != :coCircuito
+		order by c.id.coCircuito
+	</query>
+	
+	<!-- copia Query -->
+	<query name="AcmMenu.findAcmMenusByAcmPerfil">
+		Select m 
+		from AcmMenuDTO m
+		left join m.acmPerfilMenuDTOs pm
+		where pm.id.coAcmPerfil = :coAcmPerfil
+	</query>
+	
+	<query name="Calle.findCallesByMunicipioAndLikeCalle">
+		Select c 
+		from CalleDTO c
+		where 
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.municipioDTO.id.coProvincia = :coProvincia and		
+		upper(c.nombreCalle) like upper(:nombreCalle||'%')
+	</query>
+	
+	<query name="Calle.findCallesByMunicipioSiglaAndLikeNombreCalle">
+		Select c 
+		from CalleDTO c
+		where 
+		c.municipioDTO.id.coMunicipio = :coMunicipio and
+		c.municipioDTO.id.coProvincia = :coProvincia and
+		c.sigla = :sigla and		
+		upper(c.nombreCalle) like upper('%'||:nombreCalle||'%')
+	</query>
+	
+	<query name="CodterrUniadm.findByUniAdmAndOrganoPrimerNivel">
+		Select distinct c
+		from CodterrUniadmDTO c
+		where c.id.coUnidadAdministrativa = :coUnidadAdministrativa and
+		upper(c.id.coCodigoTerritorial) like upper(:organoPrimerNivel||'%')
+	</query>
+	
+	<query name="Tramite.findNombres">
+		Select distinct t
+		from TramiteDTO t
+		where t.nombre is not null	
+		order by t.nombre	
+	</query>
+	
+	<query name="Documento.findCliente">
+		Select ud
+		from DocumentoDTO d
+		left join d.clienteDTO ud
+		where d.id.coDocumento = :coDocumento and	
+		d.id.coModelo = :coModelo and
+		d.id.coVersion = :coVersion	
+	</query>
+	
+	<query name="Tramite.findProcesoByTramite">
+		Select ut
+		from TramiteDTO t
+		join t.procesoDTO ut
+		where t.coTramite = :coTramite
+	</query>
+	
+	<query name="EstadoSituacion.findAllEstadoSituacionesOrdenados">
+		Select c 
+		from EstadoSituacionDTO c
+		order by c.coEstadoSituacion
+	</query>
+	
+	<query name="ModoCobro.findByEstadoOrigen">
+		Select mc
+		from ModoCobroDTO mc
+		where mc.coModoCobro in
+		(	
+			Select distinct modoCobroDTOByCoModoCobroOrigen.coModoCobro 
+			from IncidenciaSituacionDTO
+			where estadoSituacionDTOByCoEstadoSituacionOrigen.coEstadoSituacion = :coEstado
+		)
+	</query>
+	
+	<query name="ModoCobro.findByEstadoDestino">
+		Select mc
+		from ModoCobroDTO mc
+		where mc.coModoCobro in
+		(	
+			Select distinct modoCobroDTOByCoModoCobroDestino.coModoCobro 
+			from IncidenciaSituacionDTO
+			where estadoSituacionDTOByCoEstadoSituacionDestino.coEstadoSituacion = :coEstado
+		)
+	</query>
+
+
+</hibernate-mapping>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 04-nov-2010 8:41:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.CodigoTerritorialCompatDTO" table="GA_CODIGO_TERRITORIAL_COMPAT">
+        <id name="coCodigoTerritorialCompat" type="java.lang.Long">
+            <column name="CO_CODIGO_TERRITORIAL_COMPAT" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_CODIGO_TERRITORIAL_COMPAT</param>
+            </generator>
+        </id>
+        <property name="o1nUsuario" type="string">
+            <column name="O1N_USUARIO" length="2" not-null="true" />
+        </property>
+        <property name="o1nDocumento" type="string">
+            <column name="O1N_DOCUMENTO" length="2" not-null="true" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="boCoincide2" type="boolean">
+            <column name="BO_COINCIDE_2" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="boCoincide3" type="boolean">
+            <column name="BO_COINCIDE_3" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="boCoincide3usu2doc" type="boolean">
+            <column name="BO_COINCIDE_3USU_2DOC" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="modo" type="string">
+            <column name="MODO" length="1" not-null="true" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

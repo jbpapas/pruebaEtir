@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 09-mar-2010 14:09:36 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.InformeDTO" table="GA_INFORME">
+        <id name="coInforme" type="java.lang.Long">
+            <column name="CO_INFORME" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_INFORME</param>
+            </generator>
+        </id>
+        <many-to-one name="ejecucionDTO" class="es.dipucadiz.etir.comun.dto.EjecucionDTO" fetch="select">
+            <column name="CO_EJECUCION" precision="10" scale="0" />
+        </many-to-one>
+        <property name="rutaPdf" type="string">
+            <column name="RUTA_PDF" length="200" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="coPlantilla" type="java.lang.Long">
+            <column name="CO_PLANTILLA" precision="10" scale="0" />
+        </property>
+        <property name="coAcmUsuario" type="string">
+            <column name="CO_ACM_USUARIO" length="10" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

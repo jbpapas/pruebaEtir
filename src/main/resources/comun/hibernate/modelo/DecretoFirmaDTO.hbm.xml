@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 10-may-2012 8:24:35 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.DecretoFirmaDTO" table="GA_DECRETO_FIRMA">
+        <comment>Tabla que almacena firmantes de un decreto generado en Gadir y de sus adjuntos.</comment>
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.DecretoFirmaDTOId">
+            <key-property name="coDecreto" type="long">
+                <column name="CO_DECRETO" precision="10" scale="0" />
+            </key-property>
+            <key-property name="orden" type="int">
+                <column name="ORDEN" precision="5" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="decretoDTO" class="es.dipucadiz.etir.comun.dto.DecretoDTO" update="false" insert="false" fetch="select">
+            <column name="CO_DECRETO" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="nif" type="string">
+            <column name="NIF" length="20" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="200" />
+        </property>
+        <property name="cargo" type="string">
+            <column name="CARGO" length="200" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="serializable">
+            <column name="FH_ACTUALIZACION" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.AcmUsuarioDTO" table="GA_ACM_USUARIO">
+        <id name="coAcmUsuario" type="string">
+            <column name="CO_ACM_USUARIO" length="10" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="codigoTerritorialDTO" class="es.dipucadiz.etir.comun.dto.CodigoTerritorialDTO" fetch="select">
+            <column name="CO_CODIGO_TERRITORIAL" length="6" not-null="true" />
+        </many-to-one>
+        <many-to-one name="clienteDTO" class="es.dipucadiz.etir.comun.dto.ClienteDTO" fetch="join" lazy="false">
+            <column name="CO_CLIENTE" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="acmPerfilDTO" class="es.dipucadiz.etir.comun.dto.AcmPerfilDTO" fetch="select">
+            <column name="CO_ACM_PERFIL" length="10" />
+        </many-to-one>
+        <many-to-one name="unidadAdministrativaDTO" class="es.dipucadiz.etir.comun.dto.UnidadAdministrativaDTO" fetch="select">
+            <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" />
+        </many-to-one>
+        <property name="contrasena" type="string">
+            <column name="CONTRASENA" length="200" />
+        </property>
+        <property name="cargo" type="string">
+            <column name="CARGO" length="2" />
+        </property>
+        <property name="impresora" type="string">
+            <column name="IMPRESORA" length="50" />
+        </property>
+        <property name="carpetaAcceso" type="string">
+            <column name="CARPETA_ACCESO" length="200" />
+        </property>
+        <property name="codigoTerritorialGenerico" type="string">
+            <column name="CODIGO_TERRITORIAL_GENERICO" length="6" not-null="true" />
+        </property>
+        <property name="boAccesibilidad" type="java.lang.Boolean">
+            <column name="BO_ACCESIBILIDAD" precision="1" scale="0" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="email" type="string">
+            <column name="EMAIL" length="50" />
+        </property>
+        <property name="telefono" type="java.lang.Integer">
+            <column name="TELEFONO" precision="9" scale="0" />
+        </property>
+        <property name="fax" type="java.lang.Integer">
+            <column name="FAX" precision="9" scale="0" />
+        </property>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="OBSERVACIONES" length="200" />
+        </property>
+        <property name="diasPeriodoCaducidadPw" type="java.lang.Short">
+            <column name="DIAS_PERIODO_CADUCIDAD_PW" precision="3" scale="0" />
+        </property>
+        <property name="fxCaducidadPw" type="date">
+            <column name="FX_CADUCIDAD_PW" length="7" />
+        </property>
+        <property name="coHorarioTrabajo" type="java.lang.Long">
+            <column name="CO_HORARIO_TRABAJO" precision="10" scale="0" />
+        </property>
+        <set name="unidadAdministrativaDTOs" inverse="true" lazy="true" table="GA_UNIDAD_ADMINISTRATIVA" fetch="select">
+            <key>
+                <column name="CO_ACM_USUARIO" length="10" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.UnidadAdministrativaDTO" />
+        </set>
+        <set name="acmUsuarioNotificacionDTOsForCoAcmUsuarioRemitente" inverse="true" lazy="true" table="GA_ACM_USUARIO_NOTIFICACION" fetch="select">
+            <key>
+                <column name="CO_ACM_USUARIO_REMITENTE" length="10" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.AcmUsuarioNotificacionDTO" />
+        </set>
+        <set name="acmUsuarioPreferenciaDTOs" inverse="true" lazy="true" table="GA_ACM_USUARIO_PREFERENCIA" fetch="select">
+            <key>
+                <column name="CO_ACM_USUARIO" length="10" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.AcmUsuarioPreferenciaDTO" />
+        </set>
+        <set name="acmUsuarioNotificacionDTOsForCoAcmUsuario" inverse="true" lazy="true" table="GA_ACM_USUARIO_NOTIFICACION" fetch="select">
+            <key>
+                <column name="CO_ACM_USUARIO" length="10" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.AcmUsuarioNotificacionDTO" />
+        </set>
+        <set name="tablaGtUsuarioDTOs" inverse="true" lazy="true" table="GA_TABLA_GT_USUARIO" fetch="select">
+            <key>
+                <column name="CO_ACM_USUARIO" length="10" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.TablaGtUsuarioDTO" />
+        </set>
+         <set name="acmUsuarioCodterrDTOs" inverse="true" lazy="true" table="GA_ACM_USUARIO_CODTERR" fetch="select">
+            <key>
+                <column name="CO_ACM_USUARIO" length="10" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.AcmUsuarioCodterrDTO" />
+        </set>
+        <set name="acmUsuarioBotonDTOs" inverse="true" lazy="true" table="GA_ACM_USUARIO_BOTON" fetch="select">
+            <key>
+                <column name="CO_ACM_USUARIO" length="10" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.AcmUsuarioBotonDTO" />
+        </set>
+        <set name="planificacionDTOs" inverse="true" lazy="true" table="GA_PLANIFICACION" fetch="select">
+            <key>
+                <column name="CO_ACM_USUARIO" length="10" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlanificacionDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

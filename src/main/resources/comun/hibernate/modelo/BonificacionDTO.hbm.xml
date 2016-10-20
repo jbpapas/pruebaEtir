@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.BonificacionDTO" table="GA_BONIFICACION">
+        <id name="coBonificacion" type="java.lang.Long">
+            <column name="CO_BONIFICACION" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_BONIFICACION</param>
+            </generator>
+        </id>
+        <many-to-one name="municipioDTO" class="es.dipucadiz.etir.comun.dto.MunicipioDTO" fetch="select">
+            <column name="CO_PROVINCIA" length="2" not-null="true" />
+            <column name="CO_MUNICIPIO" length="3" not-null="true" />
+        </many-to-one>
+        <many-to-one name="conceptoDTO" class="es.dipucadiz.etir.comun.dto.ConceptoDTO" fetch="select">
+            <column name="CO_CONCEPTO" length="4" not-null="true" />
+        </many-to-one>
+        <many-to-one name="clienteDTO" class="es.dipucadiz.etir.comun.dto.ClienteDTO" fetch="select">
+            <column name="CO_CLIENTE" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="refObjTributario" type="string">
+            <column name="REF_OBJ_TRIBUTARIO" length="20" not-null="true" />
+        </property>
+        <property name="anoInicio" type="short">
+            <column name="ANO_INICIO" precision="4" scale="0" not-null="true" />
+        </property>
+        <property name="anoFin" type="short">
+            <column name="ANO_FIN" precision="4" scale="0" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="200" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="boActiva" type="boolean">
+            <column name="BO_ACTIVA" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="orden" type="java.lang.Byte">
+            <column name="ORDEN" precision="2" scale="0" />
+        </property>
+        <property name="dondeAplica" type="string">
+            <column name="DONDE_APLICA" length="1" />
+        </property>
+        <property name="tipoBonificacion" type="string">
+            <column name="TIPO_BONIFICACION" length="2" />
+        </property>
+        <property name="detalle" type="string">
+            <column name="DETALLE" length="200" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

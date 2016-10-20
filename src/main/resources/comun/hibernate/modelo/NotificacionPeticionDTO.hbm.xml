@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 24-ene-2011 9:07:02 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.NotificacionPeticionDTO" table="GA_NOTIFICACION_PETICION">
+        <id name="coNotificacionPeticion" type="java.lang.Long">
+            <column name="CO_NOTIFICACION_PETICION" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_NOTIFICACION_PETICION</param>
+            </generator>
+        </id>
+        <property name="nuPeticion" type="long">
+            <column name="NU_PETICION" precision="10" scale="0" />
+        </property>
+        <property name="coError" type="java.lang.Short">
+            <column name="CO_ERROR" precision="4" scale="0" />
+        </property>
+        <property name="mensajeError" type="string">
+            <column name="MENSAJE_ERROR" length="4000" />
+        </property>
+        <property name="codigoBarras" type="string">
+            <column name="CODIGO_BARRAS" length="42" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+           
+        <property name="intentos" type="integer">
+            <column name="intentos" precision="10" scale="0" />
+        </property>            
+         <property name="estado" type="string">
+            <column name="estado" length="255" />
+        </property>
+         <property name="fecha" type="string">
+            <column name="fecha" length="255" />
+        </property>
+        <property name="hora" type="string">
+            <column name="hora" length="255" />
+        </property>
+         <property name="anio" type="string">
+            <column name="anio" length="255" />
+        </property>
+        <property name="longitud" type="string">
+            <column name="longitud" length="255" />
+        </property>
+        <property name="latitud" type="string">
+            <column name="latitud" length="255" />
+        </property>      
+       <property name="altura" type="string">
+            <column name="altura" length="255" />
+        </property>   
+       <property name="domicilio" type="string">
+            <column name="domicilio" length="3500" />
+        </property>           
+            
+       <property name="boEnviadoIDE" type="boolean">
+            <column name="BO_ENVIADO_IDE" precision="1" scale="0"  />
+        </property>               
+
+    </class>
+</hibernate-mapping>

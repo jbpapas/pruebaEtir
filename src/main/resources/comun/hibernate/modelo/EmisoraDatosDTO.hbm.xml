@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 09-oct-2015 13:34:00 by prodriguez -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.EmisoraDatosDTO" table="GA_EMISORA_DATOS">
+    	<composite-id name="id" class="es.dipucadiz.etir.comun.dto.EmisoraDatosDTOId">
+            <key-property name="coEmisora" type="string">
+                <column name="CO_EMISORA" precision="6" scale="0"  />
+            </key-property>
+            <key-property name="fhDevengo" type="date">
+                <column name="FX_DEVENGO" length="11"  />
+            </key-property>
+            <key-property name="ficheroOrigen" type="string">
+                <column name="FICHERO_ORIGEN" length="100" />
+            </key-property>
+        </composite-id>
+        <property name="ficheroDestino" type="string">
+            <column name="FICHERO_DESTINO" length="100" />
+        </property>
+        <property name="numCobros" type="java.lang.Integer">
+            <column name="NUM_COBROS" precision="6" scale="0" />
+        </property>
+        <property name="imCobros" type="big_decimal">
+            <column name="IM_COBROS" precision="17"/>
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="6" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+    </class>
+</hibernate-mapping>

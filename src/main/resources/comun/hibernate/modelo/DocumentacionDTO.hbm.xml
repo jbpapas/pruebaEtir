@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.DocumentacionDTO" table="GA_DOCUMENTACION">
+        <id name="coDocumentacion" type="java.lang.Long">
+            <column name="CO_DOCUMENTACION" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_DOCUMENTACION</param>
+            </generator>
+        </id>
+  
+  
+        <many-to-one name="bDDocumentalGrupoDTO" class="es.dipucadiz.etir.comun.dto.BDDocumentalGrupoDTO" fetch="join" lazy="false">
+            <column name="CO_BD_DOCUMENTAL_GRUPO" length="10"  />
+        </many-to-one>
+        
+        
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" not-null="true" />
+        </property>
+        
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="200" />
+        </property>
+        
+         <property name="enlace" type="string">
+            <column name="ENLACE" length="200" />
+        </property>
+        
+               
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+       
+    </class>
+</hibernate-mapping>

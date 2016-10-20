@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.IncidenciaSituacionDTO" table="GA_INCIDENCIA_SITUACION">
+        <id name="coIncidenciaSituacion" type="java.lang.Long">
+            <column name="CO_INCIDENCIA_SITUACION" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_INCIDENCIA_SITUACION</param>
+            </generator>
+        </id>
+        <many-to-one name="modoCobroDTOByCoModoCobroOrigen" class="es.dipucadiz.etir.comun.dto.ModoCobroDTO" fetch="select">
+            <column name="CO_MODO_COBRO_ORIGEN" length="3" />
+        </many-to-one>
+        <many-to-one name="situacionDTOByCoSituacionOrigen" class="es.dipucadiz.etir.comun.dto.SituacionDTO" fetch="select">
+            <column name="CO_SITUACION_ORIGEN" length="2" />
+        </many-to-one>
+        <many-to-one name="municipioDTO" class="es.dipucadiz.etir.comun.dto.MunicipioDTO" fetch="select">
+            <column name="CO_PROVINCIA" length="2" not-null="true" />
+            <column name="CO_MUNICIPIO" length="3" not-null="true" />
+        </many-to-one>
+        <many-to-one name="incidenciaDTO" class="es.dipucadiz.etir.comun.dto.IncidenciaDTO" fetch="select">
+            <column name="CO_INCIDENCIA" length="3" not-null="true" />
+        </many-to-one>
+        <many-to-one name="situacionDTOByCoSituacionDestino" class="es.dipucadiz.etir.comun.dto.SituacionDTO" fetch="select">
+            <column name="CO_SITUACION_DESTINO" length="2" />
+        </many-to-one>
+        <many-to-one name="modoCobroDTOByCoModoCobroDestino" class="es.dipucadiz.etir.comun.dto.ModoCobroDTO" fetch="select">
+            <column name="CO_MODO_COBRO_DESTINO" length="3" />
+        </many-to-one>
+        <many-to-one name="modeloVersionDTO" class="es.dipucadiz.etir.comun.dto.ModeloVersionDTO" fetch="select">
+            <column name="CO_MODELO" length="3" not-null="true" />
+            <column name="CO_VERSION" length="1" not-null="true" />
+        </many-to-one>
+        <many-to-one name="estadoSituacionDTOByCoEstadoSituacionDestino" class="es.dipucadiz.etir.comun.dto.EstadoSituacionDTO" fetch="select">
+            <column name="CO_ESTADO_SITUACION_DESTINO" length="1" />
+        </many-to-one>
+        <many-to-one name="procesoDTO" class="es.dipucadiz.etir.comun.dto.ProcesoDTO" fetch="select">
+            <column name="CO_PROCESO" length="20" />
+        </many-to-one>
+        <many-to-one name="estadoSituacionDTOByCoEstadoSituacionOrigen" class="es.dipucadiz.etir.comun.dto.EstadoSituacionDTO" fetch="select">
+            <column name="CO_ESTADO_SITUACION_ORIGEN" length="1" />
+        </many-to-one>
+        <property name="actuacion" type="string">
+            <column name="ACTUACION" length="1" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="movimientoContable" type="string">
+            <column name="MOVIMIENTO_CONTABLE" length="4" />
+        </property>
+        <property name="boSeleccionable" type="boolean">
+            <column name="BO_SELECCIONABLE" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="boEconomica" type="boolean">
+            <column name="BO_ECONOMICA" precision="1" scale="0" not-null="true" />
+        </property>
+        <property name="boActualizaUltimaInsit" type="boolean">
+            <column name="BO_ACTUALIZA_ULTIMA_INSIT" precision="1" scale="0" not-null="true" />
+        </property>
+        <set name="tramiteDTOs" inverse="true" lazy="true" table="GA_TRAMITE" fetch="select">
+            <key>
+                <column name="CO_INCIDENCIA_SITUACION" precision="10" scale="0" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.TramiteDTO" />
+        </set>
+        <set name="incidenciaSituacionPerDTOs" inverse="true" lazy="true" table="GA_INCIDENCIA_SITUACION_PER" fetch="select">
+            <key>
+                <column name="CO_INCIDENCIA_SITUACION" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.IncidenciaSituacionPerDTO" />
+        </set>
+        <set name="incidSitCargoDTOs" inverse="true" lazy="true" table="GA_INCID_SIT_CARGO" fetch="select">
+            <key>
+                <column name="CO_INCIDENCIA_SITUACION" precision="10" scale="0" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.IncidSitCargoDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

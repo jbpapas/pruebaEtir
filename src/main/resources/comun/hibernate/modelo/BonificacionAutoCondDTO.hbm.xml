@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 19-oct-2011 13:28:57 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.BonificacionAutoCondDTO" table="GA_BONIFICACION_AUTO_COND">
+        <id name="coBonificacionAutoCond" type="java.lang.Long">
+            <column name="CO_BONIFICACION_AUTO_COND" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_BONIFICACION_AUTO_COND</param>
+            </generator>
+        </id>
+        <many-to-one name="bonificacionAutoDTO" class="es.dipucadiz.etir.comun.dto.BonificacionAutoDTO" fetch="select">
+            <column name="CO_BONIFICACION_AUTO" precision="10" scale="0" />
+        </many-to-one>
+        <property name="orden" type="java.lang.Byte">
+            <column name="ORDEN" precision="2" scale="0" />
+        </property>
+        <property name="nuCasilla" type="java.lang.Short">
+            <column name="NU_CASILLA" precision="3" scale="0" />
+        </property>
+        <property name="operador" type="string">
+            <column name="OPERADOR" length="2" />
+        </property>
+        <property name="texto" type="string">
+            <column name="TEXTO" length="50" />
+        </property>
+        <property name="conector" type="string">
+            <column name="CONECTOR" length="3" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+    </class>
+</hibernate-mapping>

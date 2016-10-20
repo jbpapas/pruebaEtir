@@ -1,0 +1,64 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 04-nov-2010 8:41:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.CuentaDTO" table="GA_CUENTA">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.CuentaDTOId">
+            <key-property name="coBanco" type="string">
+                <column name="CO_BANCO" length="4" />
+            </key-property>
+            <key-property name="coBancoSucursal" type="string">
+                <column name="CO_BANCO_SUCURSAL" length="4" />
+            </key-property>
+            <key-property name="dc" type="string">
+                <column name="DC" length="2" />
+            </key-property>
+            <key-property name="cuenta" type="string">
+                <column name="CUENTA" length="10" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="bancoSucursalDTO" class="es.dipucadiz.etir.comun.dto.BancoSucursalDTO" update="false" insert="false" fetch="select">
+            <column name="CO_BANCO" length="4" not-null="true" />
+            <column name="CO_BANCO_SUCURSAL" length="4" not-null="true" />
+        </many-to-one>
+        <property name="coModelo" type="string">
+            <column name="CO_MODELO" length="3" />
+        </property>
+        <property name="coVersion" type="string">
+            <column name="CO_VERSION" length="1" />
+        </property>
+        <property name="coDocumento" type="string">
+            <column name="CO_DOCUMENTO" length="9" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <set name="clienteCuentaDTOs" inverse="true" lazy="true" table="GA_CLIENTE_CUENTA" fetch="select">
+            <key>
+                <column name="CO_BANCO" length="4" not-null="true" />
+                <column name="CO_BANCO_SUCURSAL" length="4" not-null="true" />
+                <column name="DC" length="2" not-null="true" />
+                <column name="CUENTA" length="10" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ClienteCuentaDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    
+    
+    
+        <property name="prefijoIBAN" type="string">
+            <column name="PREFIJO_IBAN" length="4" />
+        </property>
+                <property name="sufijoExtranjero" type="string">
+            <column name="SUFIJO_EXTRANJERO" length="10" />
+        </property>
+  
+    
+    </class>
+</hibernate-mapping>

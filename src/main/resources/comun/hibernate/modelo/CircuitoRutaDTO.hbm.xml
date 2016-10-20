@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 07-abr-2010 9:08:08 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.CircuitoRutaDTO" table="GA_CIRCUITO_RUTA">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.CircuitoRutaDTOId">
+            <key-property name="coCircuito" type="string">
+                <column name="CO_CIRCUITO" length="10" />
+            </key-property>
+            <key-property name="coProvincia" type="string">
+                <column name="CO_PROVINCIA" length="2" />
+            </key-property>
+            <key-property name="coMunicipio" type="string">
+                <column name="CO_MUNICIPIO" length="3" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="municipioDTO" class="es.dipucadiz.etir.comun.dto.MunicipioDTO" update="false" insert="false" fetch="select">
+            <column name="CO_PROVINCIA" length="2" not-null="true" />
+            <column name="CO_MUNICIPIO" length="3" not-null="true" />
+        </many-to-one>
+        <many-to-one name="circuitoDTO" class="es.dipucadiz.etir.comun.dto.CircuitoDTO" update="false" insert="false" fetch="select">
+            <column name="CO_CIRCUITO" length="10" not-null="true" />
+        </many-to-one>
+        <property name="boActivo" type="java.lang.Boolean">
+            <column name="BO_ACTIVO" precision="1" scale="0" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="boIndividual" type="java.lang.Boolean">
+            <column name="BO_INDIVIDUAL" precision="1" scale="0" />
+        </property>
+        <property name="fxValidez" type="date">
+            <column name="FX_VALIDEZ" length="7" />
+        </property>
+        <set name="tramiteDTOs" inverse="true" lazy="true" table="GA_TRAMITE" fetch="select">
+            <key>
+                <column name="CO_CIRCUITO" length="10" />
+                <column name="CO_PROVINCIA" length="2" />
+                <column name="CO_MUNICIPIO" length="3" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.TramiteDTO" />
+        </set>
+        <set name="expedienteDTOs" inverse="true" lazy="true" table="GA_EXPEDIENTE" fetch="select">
+            <key>
+                <column name="CO_CIRCUITO" length="10" />
+                <column name="CO_PROVINCIA" length="2" />
+                <column name="CO_MUNICIPIO" length="3" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ExpedienteDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

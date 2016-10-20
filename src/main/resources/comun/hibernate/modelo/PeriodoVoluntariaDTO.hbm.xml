@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-nov-2010 11:56:35 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.PeriodoVoluntariaDTO" table="GA_PERIODO_VOLUNTARIA">
+        <id name="coPeriodoVoluntaria" type="java.lang.Long">
+            <column name="CO_PERIODO_VOLUNTARIA" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_PERIODO_VOLUNTARIA</param>
+            </generator>
+        </id>
+        <many-to-one name="conveniosConceptoDTO" class="es.dipucadiz.etir.comun.dto.ConveniosConceptoDTO" fetch="select">
+            <column name="CO_PROVINCIA" length="2" />
+            <column name="CO_MUNICIPIO" length="3" />
+            <column name="EJERCICIO" precision="4" scale="0" />
+            <column name="CO_CONCEPTO" length="4" />
+        </many-to-one>
+        <property name="periodo" type="string">
+            <column name="PERIODO" length="2" not-null="true" />
+        </property>
+        <property name="fxIniVoluntaria" type="date">
+            <column name="FX_INI_VOLUNTARIA" length="7" not-null="true" />
+        </property>
+        <property name="fxFinVoluntaria" type="date">
+            <column name="FX_FIN_VOLUNTARIA" length="7" not-null="true" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

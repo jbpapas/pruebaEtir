@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.FuncionDTO" table="GA_FUNCION">
+        <id name="coFuncion" type="string">
+            <column name="CO_FUNCION" length="8" />
+          	<generator class="assigned" />
+        </id>
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" not-null="true" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="50" not-null="true" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="200" />
+        </property>
+        <property name="clase" type="string">
+            <column name="CLASE" length="100" />
+        </property>
+        <property name="metodo" type="string">
+            <column name="METODO" length="50" />
+        </property>
+        <property name="coPlsql" type="string">
+            <column name="CO_PLSQL" length="61" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <set name="correspondenciaDTOs" inverse="true" lazy="true" table="GA_CORRESPONDENCIA" fetch="select">
+            <key>
+                <column name="CO_FUNCION" length="8" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CorrespondenciaDTO" />
+        </set>
+        <set name="formulaPasoDTOs" inverse="true" lazy="true" table="GA_FORMULA_PASO" fetch="select">
+            <key>
+                <column name="CO_FUNCION" length="8" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.FormulaPasoDTO" />
+        </set>
+        <set name="validacionDTOs" inverse="true" lazy="true" table="GA_VALIDACION" fetch="select">
+            <key>
+                <column name="CO_FUNCION" length="8" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ValidacionDTO" />
+        </set>
+        <set name="funcionArgumentoDTOs" inverse="true" lazy="true" table="GA_FUNCION_ARGUMENTO" fetch="select">
+            <key>
+                <column name="CO_FUNCION" length="8" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.FuncionArgumentoDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

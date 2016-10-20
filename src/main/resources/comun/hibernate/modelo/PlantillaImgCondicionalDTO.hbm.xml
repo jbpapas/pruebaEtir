@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-feb-2010 12:10:55 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.PlantillaImgCondicionalDTO" table="GA_PLANTILLA_IMG_CONDICIONAL">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.PlantillaImgCondicionalDTOId">
+            <key-property name="coPlantillaImagen" type="long">
+                <column name="CO_PLANTILLA_IMAGEN" precision="10" scale="0" />
+            </key-property>
+            <key-property name="ordenImgCondicional" type="short">
+                <column name="ORDEN_IMG_CONDICIONAL" precision="3" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="plantillaImagenDTO" class="es.dipucadiz.etir.comun.dto.PlantillaImagenDTO" update="false" insert="false" fetch="select">
+            <column name="CO_PLANTILLA_IMAGEN" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="operador" type="string">
+            <column name="OPERADOR" length="2" />
+        </property>
+        <property name="ruta" type="string">
+            <column name="RUTA" length="200" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <set name="plantillaImgCondCampoDTOs" inverse="true" lazy="true" table="GA_PLANTILLA_IMG_COND_CAMPO" fetch="select">
+            <key>
+                <column name="CO_PLANTILLA_IMAGEN" precision="10" scale="0" not-null="true" />
+                <column name="ORDEN_IMG_CONDICIONAL" precision="3" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlantillaImgCondCampoDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

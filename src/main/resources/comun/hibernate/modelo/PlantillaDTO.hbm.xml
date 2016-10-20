@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.PlantillaDTO" table="GA_PLANTILLA">
+        <id name="coPlantilla" type="java.lang.Long">
+            <column name="CO_PLANTILLA" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_PLANTILLA</param>
+            </generator>
+        </id>
+        <many-to-one name="procesoAccionDTO" class="es.dipucadiz.etir.comun.dto.ProcesoAccionDTO" fetch="select">
+            <column name="CO_PROCESO_ACCION" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="municipioDTO" class="es.dipucadiz.etir.comun.dto.MunicipioDTO" fetch="select">
+            <column name="CO_PROVINCIA" length="2" not-null="true" />
+            <column name="CO_MUNICIPIO" length="3" not-null="true" />
+        </many-to-one>
+        <many-to-one name="plantillaOdtDTO" class="es.dipucadiz.etir.comun.dto.PlantillaOdtDTO" fetch="select">
+            <column name="CO_PLANTILLA_ODT" precision="10" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="conceptoDTO" class="es.dipucadiz.etir.comun.dto.ConceptoDTO" fetch="select">
+            <column name="CO_CONCEPTO" length="4" not-null="true" />
+        </many-to-one>
+        <many-to-one name="modeloVersionDTO" class="es.dipucadiz.etir.comun.dto.ModeloVersionDTO" fetch="select">
+            <column name="CO_MODELO" length="3" not-null="true" />
+            <column name="CO_VERSION" length="1" not-null="true" />
+        </many-to-one>
+        <property name="tipo" type="string">
+            <column name="TIPO" length="1" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="orden" type="java.lang.Byte">
+            <column name="ORDEN" precision="2" scale="0" />
+        </property>
+        <set name="plantillaEtiquetaDTOs" inverse="true" lazy="true" table="GA_PLANTILLA_ETIQUETA" fetch="select">
+            <key>
+                <column name="CO_PLANTILLA" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlantillaEtiquetaDTO" />
+        </set>
+        <set name="informeDTOs" inverse="true" lazy="true" table="GA_INFORME" fetch="select">
+            <key>
+                <column name="CO_PLANTILLA" precision="10" scale="0" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.InformeDTO" />
+        </set>
+        <set name="plantillaTablaDTOs" inverse="true" lazy="true" table="GA_PLANTILLA_TABLA" fetch="select">
+            <key>
+                <column name="CO_PLANTILLA" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlantillaTablaDTO" />
+        </set>
+        <set name="plantillaModeloDTOs" inverse="true" lazy="true" table="GA_PLANTILLA_MODELO" fetch="select">
+            <key>
+                <column name="CO_PLANTILLA" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlantillaModeloDTO" />
+        </set>
+        <set name="plantillaFirmaDTOs" inverse="true" lazy="true" table="GA_PLANTILLA_FIRMA" fetch="select">
+            <key>
+                <column name="CO_PLANTILLA" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlantillaFirmaDTO" />
+        </set>
+        <set name="plantillaImagenDTOs" inverse="true" lazy="true" table="GA_PLANTILLA_IMAGEN" fetch="select">
+            <key>
+                <column name="CO_PLANTILLA" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PlantillaImagenDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

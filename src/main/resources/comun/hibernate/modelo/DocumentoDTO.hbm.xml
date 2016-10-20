@@ -1,0 +1,219 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.DocumentoDTO" table="GA_DOCUMENTO">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.DocumentoDTOId">
+            <key-property name="coModelo" type="string">
+                <column name="CO_MODELO" length="3" />
+            </key-property>
+            <key-property name="coVersion" type="string">
+                <column name="CO_VERSION" length="1" />
+            </key-property>
+            <key-property name="coDocumento" type="string">
+                <column name="CO_DOCUMENTO" length="9" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="domicilioDTOByCoDomicilioFiscal" class="es.dipucadiz.etir.comun.dto.DomicilioDTO" fetch="select">
+            <column name="CO_DOMICILIO_FISCAL" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="cargaControlRecepcionDTO" class="es.dipucadiz.etir.comun.dto.CargaControlRecepcionDTO" fetch="select">
+            <column name="CO_CARGA_CONTROL_RECEPCION" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="incidenciaDTO" class="es.dipucadiz.etir.comun.dto.IncidenciaDTO" fetch="select">
+            <column name="CO_INCIDENCIA" length="3" />
+        </many-to-one>
+        <many-to-one name="conceptoDTO" class="es.dipucadiz.etir.comun.dto.ConceptoDTO" fetch="select">
+            <column name="CO_CONCEPTO" length="4" />
+        </many-to-one>
+        <many-to-one name="clienteDTO" class="es.dipucadiz.etir.comun.dto.ClienteDTO" fetch="select">
+            <column name="CO_CLIENTE" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="documentoDTOByResumenDocumento" class="es.dipucadiz.etir.comun.dto.DocumentoDTO" fetch="select">
+            <column name="CO_MODELO_RESUMEN" length="3" />
+            <column name="CO_VERSION_RESUMEN" length="1" />
+            <column name="CO_DOCUMENTO_RESUMEN" length="9" />
+        </many-to-one>
+        <many-to-one name="codigoTerritorialDTO" class="es.dipucadiz.etir.comun.dto.CodigoTerritorialDTO" fetch="select">
+            <column name="CO_CODIGO_TERRITORIAL" length="6" />
+        </many-to-one>
+        <many-to-one name="municipioDTO" class="es.dipucadiz.etir.comun.dto.MunicipioDTO" fetch="select">
+            <column name="CO_PROVINCIA" length="2" not-null="true" />
+            <column name="CO_MUNICIPIO" length="3" not-null="true" />
+        </many-to-one>
+        <many-to-one name="situacionDTO" class="es.dipucadiz.etir.comun.dto.SituacionDTO" fetch="select">
+            <column name="CO_SITUACION" length="2" />
+        </many-to-one>
+        <many-to-one name="documentoDTOByOrigenDocuni" class="es.dipucadiz.etir.comun.dto.DocumentoDTO" fetch="select">
+            <column name="CO_MODELO_ORIGEN" length="3" />
+            <column name="CO_VERSION_ORIGEN" length="1" />
+            <column name="CO_DOCUMENTO_ORIGEN" length="9" />
+        </many-to-one>
+        <many-to-one name="domicilioDTOByCoDomicilio" class="es.dipucadiz.etir.comun.dto.DomicilioDTO" fetch="select">
+            <column name="CO_DOMICILIO" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="modeloVersionDTO" class="es.dipucadiz.etir.comun.dto.ModeloVersionDTO" update="false" insert="false" fetch="select">
+            <column name="CO_MODELO" length="3" not-null="true" />
+            <column name="CO_VERSION" length="1" not-null="true" />
+        </many-to-one>
+        <many-to-one name="domiciliacionDTO" class="es.dipucadiz.etir.comun.dto.DomiciliacionDTO" fetch="select">
+            <column name="CO_DOMICILIACION" precision="8" scale="0" />
+        </many-to-one>
+        <many-to-one name="unidadAdministrativaDTO" class="es.dipucadiz.etir.comun.dto.UnidadAdministrativaDTO" fetch="select">
+            <column name="CO_UNIDAD_ADMINISTRATIVA" length="4" />
+        </many-to-one>
+        <property name="ejercicio" type="java.lang.Short">
+            <column name="EJERCICIO" precision="4" scale="0" />
+        </property>
+        <property name="periodo" type="string">
+            <column name="PERIODO" length="2" />
+        </property>
+        <property name="refObjTributario1" type="string">
+            <column name="REF_OBJ_TRIBUTARIO" length="30" />
+        </property>
+        <property name="refObjTributario2" type="string">
+            <column name="REF_OBJ_TRIBUTARIO1" length="30" />
+        </property>
+        <property name="refObjTributario3" type="string">
+            <column name="REF_OBJ_TRIBUTARIO2" length="30" />
+        </property>
+        <property name="fxPresentacion" type="date">
+            <column name="FX_PRESENTACION" length="7" />
+        </property>
+        <property name="fxDevengo" type="date">
+            <column name="FX_DEVENGO" length="7" />
+        </property>
+        <property name="estado" type="string">
+            <column name="ESTADO" length="1" />
+        </property>
+        <property name="procedencia" type="string">
+            <column name="PROCEDENCIA" length="4" />
+        </property>
+        <property name="boIndividual" type="java.lang.Boolean">
+            <column name="BO_INDIVIDUAL" precision="1" scale="0" />
+        </property>
+        <property name="refCatastral" type="string">
+            <column name="REF_CATASTRAL" length="20" />
+        </property>
+        <property name="refDomiciliacion" type="string">
+            <column name="REF_DOMICILIACION" length="12" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <set name="documentoDTOsForOrigenDocuni" inverse="true" lazy="true" table="GA_DOCUMENTO" fetch="select">
+            <key>
+                <column name="CO_MODELO_ORIGEN" length="3" />
+                <column name="CO_VERSION_ORIGEN" length="1" />
+                <column name="CO_DOCUMENTO_ORIGEN" length="9" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DocumentoDTO" />
+        </set>
+        <set name="documentoNotDgcDTOs" inverse="true" lazy="true" table="GA_DOCUMENTO_NOT_DGC" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+                <column name="CO_DOCUMENTO" length="9" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DocumentoNotDgcDTO" />
+        </set>
+       
+       <many-to-one name="documentoLiquidacionDTO" class="es.dipucadiz.etir.comun.dto.DocumentoLiquidacionDTO" update="false" insert="false" fetch="select">
+	        <column name="CO_MODELO" length="3"/>
+	        <column name="CO_VERSION" length="1"/>
+	        <column name="CO_DOCUMENTO" length="9"/>
+        </many-to-one>
+       
+       
+       
+        <set name="documentoDTOsForResumenDocumento" inverse="true" lazy="true" table="GA_DOCUMENTO" fetch="select">
+            <key>
+                <column name="CO_MODELO_RESUMEN" length="3" />
+                <column name="CO_VERSION_RESUMEN" length="1" />
+                <column name="CO_DOCUMENTO_RESUMEN" length="9" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DocumentoDTO" />
+        </set>
+        <set name="expedienteClienteDocDTOs" inverse="true" lazy="true" table="GA_EXPEDIENTE_CLIENTE_DOC" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+                <column name="CO_DOCUMENTO" length="9" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ExpedienteClienteDocDTO" />
+        </set>
+        <set name="domiciliacionDTOs" inverse="true" lazy="true" table="GA_DOMICILIACION" fetch="select">
+            <key>
+                <column name="CO_MODELO_SOLICICITUD" length="3" />
+                <column name="CO_VERSION_SOLICICITUD" length="1" />
+                <column name="CO_DOCUMENTO_SOLICICITUD" length="9" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DomiciliacionDTO" />
+        </set>
+       <!-- <one-to-one name="documentoCensoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoCensoDTO" constrained="false"></one-to-one> -->
+       <many-to-one name="documentoCensoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoCensoDTO" update="false" insert="false" fetch="select">
+	        <column name="CO_MODELO" length="3"/>
+	        <column name="CO_VERSION" length="1"/>
+	        <column name="CO_DOCUMENTO" length="9"/>
+        </many-to-one> 
+
+        <set name="documentoCasillaValorDTOs" inverse="true" lazy="true" table="GA_DOCUMENTO_CASILLA_VALOR" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+                <column name="CO_DOCUMENTO" length="9" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DocumentoCasillaValorDTO" />
+        </set>
+        <set name="documentoSeguimientoDTOs" inverse="true" lazy="true" table="GA_DOCUMENTO_SEGUIMIENTO" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" />
+                <column name="CO_VERSION" length="1" />
+                <column name="CO_DOCUMENTO" length="9" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DocumentoSeguimientoDTO" />
+        </set>
+        <set name="pppDTOs" inverse="true" lazy="true" table="GA_PPP" fetch="select">
+            <key>
+                <column name="CO_MODELO_SOLICITUD" length="3" />
+                <column name="CO_VERSION_SOLICITUD" length="1" />
+                <column name="CO_DOCUMENTO_SOLICITUD" length="9" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.PppDTO" />
+        </set>
+        <set name="fraccionamientoDTOs" inverse="true" lazy="true" table="GA_FRACCIONAMIENTO" fetch="select">
+            <key>
+                <column name="CO_MODELO_SOLICITUD" length="3" />
+                <column name="CO_VERSION_SOLICITUD" length="1" />
+                <column name="CO_DOCUMENTO_SOLICITUD" length="9" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.FraccionamientoDTO" />
+        </set>
+        <set name="documentoNotificacionDTOs" inverse="true" lazy="true" table="GA_DOCUMENTO_NOTIFICACION" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+                <column name="CO_DOCUMENTO" length="9" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DocumentoNotificacionDTO" />
+        </set>
+        <set name="depositoDTOs" inverse="true" lazy="true" table="GA_DEPOSITO" fetch="select">
+            <key>
+                <column name="CO_MODELO_ORIGEN" length="3" not-null="true" />
+                <column name="CO_VERSION_ORIGEN" length="1" not-null="true" />
+                <column name="CO_DOCUMENTO_ORIGEN" length="9" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DepositoDTO" />
+        </set>
+        <many-to-one name="observacionesGrupoDTO" class="es.dipucadiz.etir.comun.dto.ObservacionesGrupoDTO" fetch="select">
+            <column name="CO_OBSERVACIONES_GRUPO" precision="10" scale="0" />
+        </many-to-one>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

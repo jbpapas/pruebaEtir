@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.CodigoTerritorialDTO" table="GA_CODIGO_TERRITORIAL">
+        <id name="coCodigoTerritorial" type="string">
+            <column name="CO_CODIGO_TERRITORIAL" length="6" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="50" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <set name="incidSitCargoPermisoDTOs" inverse="true" lazy="true" table="GA_INCID_SIT_CARGO_PERMISO" fetch="select">
+            <key>
+                <column name="CO_CODIGO_TERRITORIAL" length="6" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.IncidSitCargoPermisoDTO" />
+        </set>
+        <set name="conveniosModeloDTOs" inverse="true" lazy="true" table="GA_CONVENIOS_MODELO" fetch="select">
+            <key>
+                <column name="CO_CODIGO_TERRITORIAL" length="6" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ConveniosModeloDTO" />
+        </set>
+        <set name="incidenciaSituacionPerDTOs" inverse="true" lazy="true" table="GA_INCIDENCIA_SITUACION_PER" fetch="select">
+            <key>
+                <column name="CO_CODIGO_TERRITORIAL" length="6" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.IncidenciaSituacionPerDTO" />
+        </set>
+        <set name="municipioCodterDTOs" inverse="true" lazy="true" table="GA_MUNICIPIO_CODTER" fetch="select">
+            <key>
+                <column name="CO_CODIGO_TERRITORIAL" length="6" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.MunicipioCodterDTO" />
+        </set>
+        <set name="documentoDTOs" inverse="true" lazy="true" table="GA_DOCUMENTO" fetch="select">
+            <key>
+                <column name="CO_CODIGO_TERRITORIAL" length="6" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DocumentoDTO" />
+        </set>
+        <set name="codterrUniadmDTOs" inverse="true" lazy="true" table="GA_CODTERR_UNIADM" fetch="select">
+            <key>
+                <column name="CO_CODIGO_TERRITORIAL" length="6" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CodterrUniadmDTO" />
+        </set>
+        <set name="expedienteDTOs" inverse="true" lazy="true" table="GA_EXPEDIENTE" fetch="select">
+            <key>
+                <column name="CO_CODIGO_TERRITORIAL" length="6" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ExpedienteDTO" />
+        </set>
+        <set name="cruceGrupoDTOs" inverse="true" lazy="true" table="GA_CRUCE_GRUPO" fetch="select">
+            <key>
+                <column name="CO_CODIGO_TERRITORIAL" length="6" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CruceGrupoDTO" />
+        </set>
+        <set name="acmUsuarioDTOs" inverse="true" lazy="true" table="GA_ACM_USUARIO" fetch="select">
+            <key>
+                <column name="CO_CODIGO_TERRITORIAL" length="6" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.AcmUsuarioDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 11-nov-2010 11:56:35 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.FraccionamientoCondsDTO" table="GA_FRACCIONAMIENTO_CONDS">
+        <id name="coFraccionamientoConds" type="java.lang.Long">
+            <column name="CO_FRACCIONAMIENTO_CONDS" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_FRACCIONAMIENTO_CONDS</param>
+            </generator>
+        </id>
+        <many-to-one name="otrDTO" class="es.dipucadiz.etir.comun.dto.OtrDTO" fetch="select">
+            <column name="CO_OTR" length="3" not-null="true" />
+        </many-to-one>
+        <property name="ejercicio" type="java.lang.Short">
+            <column name="EJERCICIO" precision="4" scale="0" />
+        </property>
+        <property name="maxMeses" type="java.lang.Short">
+            <column name="MAX_MESES" precision="3" scale="0" />
+        </property>
+        <property name="maxPlazos" type="java.lang.Short">
+            <column name="MAX_PLAZOS" precision="3" scale="0" />
+        </property>
+        <property name="concesion" type="string">
+            <column name="CONCESION" length="1" />
+        </property>
+        <property name="imMinTotal" type="big_decimal">
+            <column name="IM_MIN_TOTAL" precision="17" />
+        </property>
+        <property name="imMinPlazo" type="big_decimal">
+            <column name="IM_MIN_PLAZO" precision="17" />
+        </property>
+        <property name="imDispensaGarantias" type="big_decimal">
+            <column name="IM_DISPENSA_GARANTIAS" precision="17" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <set name="fraccionamientoGarantiaDTOs" inverse="true" lazy="true" table="GA_FRACCIONAMIENTO_GARANTIA" fetch="select">
+            <key>
+                <column name="CO_FRACCIONAMIENTO_CONDS" precision="10" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.FraccionamientoGarantiaDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+        
+        
+        <property name="maxMesesInicio" type="java.lang.Short">
+            <column name="MAX_MESES_INICIO" precision="3" scale="0" />
+        </property>
+        
+        
+        <property name="diaCobro" type="java.lang.Short">
+            <column name="DIA_COBRO" precision="3" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

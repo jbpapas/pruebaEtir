@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.SigreExpedienteDTO" table="GA_SIGRE_EXPEDIENTE">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.SigreExpedienteDTOId">
+            <key-property name="libreria" type="string">
+                <column name="LIBRERIA" length="10" />
+            </key-property>
+            <key-property name="expediente" type="long">
+                <column name="EXPEDIENTE" precision="7" scale="0" />
+            </key-property>
+        </composite-id>
+        <property name="identificador" type="string">
+            <column name="IDENTIFICADOR" length="15" />
+        </property>        
+        <property name="razonSocial" type="string">
+            <column name="RAZON_SOCIAL" length="200" />
+        </property>        
+        <many-to-one name="clienteDTO" class="es.dipucadiz.etir.comun.dto.ClienteDTO" update="false" insert="false" fetch="select">
+            <column name="CO_CLIENTE" precision="10" scale="0" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

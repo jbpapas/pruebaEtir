@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+	<!-- Generated 04-nov-2010 8:41:23 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+	<class name="es.dipucadiz.etir.comun.dto.PortafirmasDTO" table="GA_PORTAFIRMAS">
+		<id name="coPortafirmas" type="java.lang.Long">
+            <column name="CO_PORTAFIRMAS" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_PORTAFIRMAS</param>
+            </generator>
+        </id>
+		<many-to-one name="expedienteDTO" class="es.dipucadiz.etir.comun.dto.ExpedienteDTO" fetch="select">
+			<column name="CO_EXPEDIENTE" precision="10" scale="0" />
+		</many-to-one>
+		
+		<many-to-one name="expedienteOrigenDTO" class="es.dipucadiz.etir.comun.dto.ExpedienteDTO" fetch="select">
+			<column name="CO_EXPEDIENTE_ORIGEN" precision="10" scale="0" />
+		</many-to-one>
+		
+		<many-to-one name="bdDocumentalDTO" class="es.dipucadiz.etir.comun.dto.BDDocumentalDTO" fetch="select">
+			<column name="CO_BD_DOCUMENTAL" precision="10" scale="0" />
+		</many-to-one>
+
+		<many-to-one name="bdDocumentalFirmadoDTO" class="es.dipucadiz.etir.comun.dto.BDDocumentalDTO" fetch="select">
+			<column name="CO_BD_DOCUMENTAL_FIRMADO" precision="10" scale="0" />
+		</many-to-one>
+		
+		<many-to-one name="clienteSolicitanteDTO" class="es.dipucadiz.etir.comun.dto.ClienteDTO" fetch="select">
+			<column name="CO_CLIENTE_SOLICITANTE" precision="10" scale="0" />
+		</many-to-one>
+
+        <property name="asunto" type="string">
+            <column name="ASUNTO" length="400" />
+        </property>
+        
+        <property name="firmanteJefe" type="string">
+            <column name="FIRMANTE_JEFE" length="200" />
+        </property>
+        
+        <property name="firmanteDirector" type="string">
+            <column name="FIRMANTE_DIRECTOR" length="200" />
+        </property>
+        
+        <property name="firmanteFijo" type="string">
+            <column name="FIRMANTE_FIJO" length="200" />
+        </property>
+
+        <property name="vistoBueno" type="string">
+            <column name="VISTO_BUENO" length="200" />
+        </property>
+
+        <property name="hashpet" type="string">
+            <column name="HASHPET" length="200" />
+        </property>
+        <property name="ehash" type="string">
+            <column name="EHASH" length="200" />
+        </property>
+
+		<property name="coUsuarioActualizacion" type="string">
+			<column name="CO_USUARIO_ACTUALIZACION" length="10" />
+		</property>
+		<property name="fhActualizacion" type="timestamp">
+			<column name="FH_ACTUALIZACION" length="11" />
+		</property>
+	</class>
+</hibernate-mapping>
+                                                                                                                                                                                    
+ 

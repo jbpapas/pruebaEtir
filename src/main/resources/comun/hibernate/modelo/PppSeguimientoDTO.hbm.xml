@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 02-dic-2010 10:42:19 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.PppSeguimientoDTO" table="GA_PPP_SEGUIMIENTO">
+        <id name="coPppSeguimiento" type="java.lang.Long">
+            <column name="CO_PPP_SEGUIMIENTO" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_PPP_SEGUIMIENTO</param>
+            </generator>
+        </id>
+        <many-to-one name="pppDTO" class="es.dipucadiz.etir.comun.dto.PppDTO" fetch="select">
+            <column name="CO_PPP" precision="10" scale="0" />
+        </many-to-one>
+        <many-to-one name="documentoDTO" class="es.dipucadiz.etir.comun.dto.DocumentoDTO" fetch="select">
+            <column name="CO_MODELO_INCIDENCIA" length="3" />
+            <column name="CO_VERSION_INCIDENCIA" length="1" />
+            <column name="CO_DOCUMENTO_INCIDENCIA" length="9" />
+        </many-to-one>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="coIncidenciaCargo" type="string">
+            <column name="CO_INCIDENCIA_CARGO" length="3" />
+        </property>
+        <property name="coSituacionCargoOrigen" type="string">
+            <column name="CO_SITUACION_CARGO_ORIGEN" length="2" />
+        </property>
+        <property name="coSituacionCargoDestino" type="string">
+            <column name="CO_SITUACION_CARGO_DESTINO" length="2" />
+        </property>
+        <property name="observaciones" type="string">
+            <column name="OBSERVACIONES" length="200" />
+        </property>
+        <property name="coProceso" type="string">
+            <column name="CO_PROCESO" length="20" />
+        </property>
+        <property name="coEjecucion" type="java.lang.Long">
+            <column name="CO_EJECUCION" precision="10" scale="0" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

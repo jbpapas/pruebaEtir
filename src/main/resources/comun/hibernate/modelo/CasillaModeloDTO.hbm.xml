@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 28-ene-2010 12:33:16 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.CasillaModeloDTO" table="GA_CASILLA_MODELO">
+        <composite-id name="id" class="es.dipucadiz.etir.comun.dto.CasillaModeloDTOId">
+            <key-property name="coModelo" type="string">
+                <column name="CO_MODELO" length="3" />
+            </key-property>
+            <key-property name="coVersion" type="string">
+                <column name="CO_VERSION" length="1" />
+            </key-property>
+            <key-property name="nuCasilla" type="short">
+                <column name="NU_CASILLA" precision="3" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="modeloVersionDTO" class="es.dipucadiz.etir.comun.dto.ModeloVersionDTO" update="false" insert="false" fetch="select">
+            <column name="CO_MODELO" length="3" not-null="true" />
+            <column name="CO_VERSION" length="1" not-null="true" />
+        </many-to-one>
+        <property name="formato" type="string">
+            <column name="FORMATO" length="1" />
+        </property>
+        <property name="longitud" type="big_decimal">
+            <column name="LONGITUD" precision="4" scale="1" />
+        </property>
+        <property name="nombre" type="string">
+            <column name="NOMBRE" length="50" />
+        </property>
+        <property name="descripcion" type="string">
+            <column name="DESCRIPCION" length="200" />
+        </property>
+        <property name="boRepeticion" type="boolean">
+            <column name="BO_REPETICION" precision="1" scale="0" />
+        </property>
+        <property name="boDobleDigitacion" type="boolean">
+            <column name="BO_DOBLE_DIGITACION" precision="1" scale="0" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <set name="documentoCasillaValorDTOs" inverse="true" lazy="true" table="GA_DOCUMENTO_CASILLA_VALOR" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+                <column name="NU_CASILLA" precision="3" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.DocumentoCasillaValorDTO" />
+        </set>
+        <set name="casillasLigadasDTOsForCasmodCasillasLigadas" inverse="true" lazy="true" table="GA_CASILLAS_LIGADAS" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+                <column name="NU_CASILLA" precision="3" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CasillasLigadasDTO" />
+        </set>
+        <set name="bonificacionArt74DTOs" inverse="true" lazy="true" table="GA_BONIFICACION_ART74" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+                <column name="NU_CASILLA" precision="3" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.BonificacionArt74DTO" />
+        </set>
+        <set name="validacionDTOs" inverse="true" lazy="true" table="GA_VALIDACION" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+                <column name="NU_CASILLA" precision="3" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.ValidacionDTO" />
+        </set>
+        <set name="casillasLigadasDTOsForCasmodCasligCasillasLigadas" inverse="true" lazy="true" table="GA_CASILLAS_LIGADAS" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+                <column name="NU_CASILLA_LIGADA" precision="3" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CasillasLigadasDTO" />
+        </set>
+        <set name="casillaMunicipioDTOs" inverse="true" lazy="true" table="GA_CASILLA_MUNICIPIO" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+                <column name="NU_CASILLA" precision="3" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CasillaMunicipioDTO" />
+        </set>
+        <set name="casillasRelacionadasDTOs" inverse="true" lazy="true" table="GA_CASILLAS_RELACIONADAS" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+                <column name="NU_CASILLA" precision="3" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.CasillasRelacionadasDTO" />
+        </set>
+        <set name="sigreSubconceptoDTOs" inverse="true" lazy="true" table="GA_SIGRE_SUBCONCEPTO" fetch="select">
+            <key>
+                <column name="CO_MODELO" length="3" not-null="true" />
+                <column name="CO_VERSION" length="1" not-null="true" />
+                <column name="NU_CASILLA" precision="3" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="es.dipucadiz.etir.comun.dto.SigreSubconceptoDTO" />
+        </set>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>

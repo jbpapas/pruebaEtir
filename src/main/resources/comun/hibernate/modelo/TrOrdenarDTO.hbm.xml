@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 05-abr-2011 9:42:24 by Hibernate Tools 3.2.4.GA -->
+<hibernate-mapping>
+    <class name="es.dipucadiz.etir.comun.dto.TrOrdenarDTO" table="TR_ORDENAR">
+    	<id name="coOrdenar" type="java.lang.Long">
+            <column name="CO_ORDENAR" precision="10" scale="0" />
+            <generator class="sequence">
+                <param name="sequence">SEQ_TR_ORDENAR</param>
+            </generator>
+        </id>
+       <property name="coEjecucion" type="java.lang.Long">
+            <column name="CO_EJECUCION" precision="10" scale="0" />
+        </property>
+        <property name="nuInforme" type="short">
+            <column name="NU_INFORME" precision="2" scale="0" />
+        </property>
+        <property name="valor" type="string">
+            <column name="VALOR" length="4000" />
+        </property>
+        <property name="fhActualizacion" type="timestamp">
+            <column name="FH_ACTUALIZACION" length="11" />
+        </property>
+        <property name="coUsuarioActualizacion" type="string">
+            <column name="CO_USUARIO_ACTUALIZACION" length="10" />
+        </property>
+        <property name="orden01" type="string">
+            <column name="ORDEN01" length="200" />
+        </property>
+        <property name="orden02" type="string">
+            <column name="ORDEN02" length="200" />
+        </property>
+        <property name="orden03" type="string">
+            <column name="ORDEN03" length="200" />
+        </property>
+        <property name="orden04" type="string">
+            <column name="ORDEN04" length="200" />
+        </property>
+        <property name="orden05" type="string">
+            <column name="ORDEN05" length="200" />
+        </property>
+        <property name="orden06" type="string">
+            <column name="ORDEN06" length="200" />
+        </property>
+        <property name="orden07" type="string">
+            <column name="ORDEN07" length="200" />
+        </property>
+        <property name="orden08" type="string">
+            <column name="ORDEN08" length="200" />
+        </property>
+        <property name="orden09" type="string">
+            <column name="ORDEN09" length="200" />
+        </property>
+        <property name="orden10" type="string">
+            <column name="ORDEN10" length="200" />
+        </property>
+        <property name="orden11" type="string">
+            <column name="ORDEN11" length="200" />
+        </property>
+        <property name="orden12" type="string">
+            <column name="ORDEN12" length="200" />
+        </property>
+        <property name="orden13" type="string">
+            <column name="ORDEN13" length="200" />
+        </property>
+        <property name="orden14" type="string">
+            <column name="ORDEN14" length="200" />
+        </property>
+        <property name="orden15" type="string">
+            <column name="ORDEN15" length="200" />
+        </property>
+        <property name="orden16" type="string">
+            <column name="ORDEN16" length="200" />
+        </property>
+        <property name="orden17" type="string">
+            <column name="ORDEN17" length="200" />
+        </property>
+        <property name="orden18" type="string">
+            <column name="ORDEN18" length="200" />
+        </property>
+        <property name="orden19" type="string">
+            <column name="ORDEN19" length="200" />
+        </property>
+        <property name="orden20" type="string">
+            <column name="ORDEN20" length="200" />
+        </property>
+        <property name="rowid" type="string" update="false" insert="false">
+        	  <column name="ROWID" length="18" />
+        </property>
+    </class>
+</hibernate-mapping>
